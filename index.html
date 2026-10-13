@@ -1,0 +1,2180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#0A1931" />
+  <link rel="icon" href="data:," />
+  <title>Darkhan Mentor — Education Resources</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --navy: #0A1931;
+      --navy-2: #102745;
+      --navy-3: #17385d;
+      --amber: #FFC300;
+      --amber-deep: #d59a00;
+      --paper: #f7f8fa;
+      --surface: #ffffff;
+      --surface-2: #eef2f6;
+      --ink: #0A1931;
+      --muted: #4d5b6d;
+      --line: #dce3eb;
+      --hero-ink: #f8fbff;
+      --hero-muted: #c9d4e1;
+      --shadow: 0 22px 55px rgba(10, 25, 49, .13);
+      --soft-shadow: 0 12px 28px rgba(10, 25, 49, .08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #07111f;
+        --surface: #0d1d31;
+        --surface-2: #12263e;
+        --ink: #f4f7fb;
+        --muted: #b8c4d1;
+        --line: #263c55;
+        --shadow: 0 24px 60px rgba(0, 0, 0, .35);
+        --soft-shadow: 0 12px 30px rgba(0, 0, 0, .25);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Manrope", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    svg { display: block; }
+
+    .site-nav {
+      position: absolute;
+      inset: 0 0 auto;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .nav-inner {
+      width: min(1180px, calc(100% - 40px));
+      min-height: 70px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 26px;
+    }
+    .nav-inner a {
+      color: var(--hero-muted);
+      text-decoration: none;
+      font-size: .87rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      transition: color .2s ease;
+    }
+    .nav-inner a:hover,
+    .nav-inner a:focus-visible { color: var(--amber); }
+    .nav-inner a:focus-visible { outline: 2px solid var(--amber); outline-offset: 5px; }
+
+    .hero {
+      position: relative;
+      min-height: 720px;
+      background: var(--navy);
+      color: var(--hero-ink);
+      isolation: isolate;
+      overflow: hidden;
+      padding: 150px 0 96px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, black 0, transparent 92%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 520px;
+      height: 520px;
+      right: -190px;
+      top: 80px;
+      border: 110px solid rgba(255,195,0,.08);
+      border-radius: 50%;
+    }
+    .hero-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(360px, .9fr);
+      align-items: center;
+      gap: 80px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 24px;
+      color: var(--amber);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 42px; height: 2px; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 720px;
+      margin-bottom: 26px;
+      font-family: "Lora", serif;
+      font-size: clamp(2.85rem, 6vw, 5.6rem);
+      line-height: .99;
+      letter-spacing: -.055em;
+      font-weight: 600;
+      text-wrap: balance;
+    }
+    .hero h1 em { color: var(--amber); font-style: normal; }
+    .hero-copy {
+      max-width: 620px;
+      margin-bottom: 34px;
+      color: var(--hero-muted);
+      font-size: clamp(1rem, 1.6vw, 1.18rem);
+    }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-size: .92rem;
+      font-weight: 800;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .button.primary { background: var(--amber); color: var(--navy); }
+    .button.secondary { border-color: rgba(255,255,255,.28); color: #fff; background: rgba(255,255,255,.03); }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary:hover { background: #ffd23f; }
+    .button.secondary:hover { border-color: var(--amber); }
+    .button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+    .hero-visual {
+      min-height: 410px;
+      position: relative;
+      perspective: 1000px;
+    }
+    .visual-backdrop {
+      position: absolute;
+      width: 320px;
+      height: 380px;
+      right: 10px;
+      top: 14px;
+      background: var(--amber);
+      transform: rotate(7deg);
+      box-shadow: 20px 30px 0 rgba(0,0,0,.12);
+    }
+    .paper-stack {
+      position: absolute;
+      inset: 28px 40px auto auto;
+      width: 350px;
+      min-height: 370px;
+      padding: 30px;
+      background: #fff;
+      color: var(--navy);
+      transform: rotate(-4deg);
+      box-shadow: 0 30px 65px rgba(0,0,0,.32);
+      animation: settle 5s ease-in-out infinite;
+    }
+    .paper-topline { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #dce3eb; padding-bottom: 14px; }
+    .paper-mark { width: 48px; height: 48px; display: grid; place-items: center; background: var(--navy); color: var(--amber); font: 700 1.1rem/1 "Lora", serif; }
+    .paper-code { font-weight: 800; font-size: .7rem; letter-spacing: .12em; }
+    .paper-title { margin: 25px 0 6px; font: 700 1.25rem/1.2 "Lora", serif; }
+    .paper-meta { color: #5a687a; font-size: .75rem; font-weight: 700; }
+    .answer-line { height: 9px; margin-top: 18px; background: #e8edf3; }
+    .answer-line.short { width: 68%; }
+    .paper-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 30px; padding-top: 16px; border-top: 1px solid #dce3eb; font-size: .7rem; font-weight: 800; }
+    .floating-note {
+      position: absolute;
+      left: -12px;
+      bottom: 34px;
+      width: 180px;
+      background: var(--navy-3);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #fff;
+      padding: 18px;
+      box-shadow: 0 20px 45px rgba(0,0,0,.22);
+      transform: rotate(3deg);
+    }
+    .floating-note strong { display: block; color: var(--amber); font: 600 1.05rem/1.2 "Lora", serif; margin-bottom: 4px; }
+    .floating-note span { color: var(--hero-muted); font-size: .72rem; font-weight: 700; }
+
+    .content-wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+    .quick-nav {
+      position: relative;
+      z-index: 3;
+      margin-top: -42px;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 1px;
+      background: var(--line);
+      box-shadow: var(--shadow);
+    }
+    .quick-nav a {
+      min-height: 88px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 16px;
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      transition: background .2s ease, color .2s ease;
+    }
+    .quick-nav a:hover { background: var(--amber); color: var(--navy); }
+    .quick-nav svg { width: 28px; height: 28px; flex: 0 0 auto; color: var(--amber-deep); }
+    .quick-nav a:hover svg { color: var(--navy); }
+
+    .section { padding: 112px 0; }
+    .section.alt { background: var(--surface); }
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(300px, .55fr);
+      justify-content: space-between;
+      align-items: end;
+      gap: 40px;
+      margin-bottom: 46px;
+    }
+    .section-heading .label {
+      margin-bottom: 12px;
+      color: var(--amber-deep);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin-bottom: 0;
+      font-family: "Lora", serif;
+      font-size: clamp(2rem, 4vw, 3.55rem);
+      line-height: 1.08;
+      letter-spacing: -.04em;
+      font-weight: 600;
+    }
+    .section-heading > p { margin: 0; color: var(--muted); }
+
+    .medium-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .medium-card {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      padding: 40px;
+      background: var(--navy);
+      color: #fff;
+      box-shadow: var(--soft-shadow);
+    }
+    .medium-card.urdu { background: var(--amber); color: var(--navy); }
+    .medium-card::after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border: 44px solid currentColor;
+      border-radius: 50%;
+      right: -86px;
+      bottom: -96px;
+      opacity: .06;
+    }
+    .card-icon { width: 54px; height: 54px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.25); margin-bottom: 52px; }
+    .urdu .card-icon { border-color: rgba(10,25,49,.25); }
+    .card-icon svg { width: 27px; height: 27px; }
+    .medium-card h3 { margin-bottom: 10px; font: 600 clamp(1.55rem, 3vw, 2.25rem)/1.15 "Lora", serif; }
+    .medium-card p { max-width: 430px; margin-bottom: 24px; color: #d1dbe7; }
+    .medium-card.urdu p { color: #263b58; }
+    .empty-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .empty-chip::before { content: ""; width: 8px; height: 8px; background: currentColor; border-radius: 50%; opacity: .55; }
+    .urdu-script { font-family: "Noto Nastaliq Urdu", serif; line-height: 1.8; }
+
+    .class-strip {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .class-strip.early-years { grid-template-columns: repeat(3, 1fr); }
+    .class-strip.early-years span { background: var(--surface-2); color: var(--ink); }
+    .class-strip.standard-classes { margin-top: 10px; }
+    .class-strip span { padding: 18px 5px; text-align: center; border-right: 1px solid var(--line); font-size: .78rem; font-weight: 800; color: var(--muted); }
+    .higher-education {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      background: var(--line);
+      box-shadow: var(--soft-shadow);
+    }
+    .degree-group { padding: 30px; background: var(--surface); }
+    .degree-group.master { background: var(--navy); color: #fff; }
+    .degree-head { display: flex; align-items: start; justify-content: space-between; gap: 22px; margin-bottom: 22px; }
+    .degree-head h3 { margin-bottom: 6px; font: 600 1.55rem/1.15 "Lora", serif; }
+    .degree-head p { margin: 0; color: var(--muted); font-size: .8rem; }
+    .degree-group.master .degree-head p { color: var(--hero-muted); }
+    .degree-count { flex: 0 0 auto; padding: 7px 9px; background: var(--amber); color: var(--navy); font-size: .68rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+    .degree-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .degree-list span { padding: 9px 11px; background: var(--surface-2); color: var(--ink); font-size: .73rem; font-weight: 800; line-height: 1.25; }
+    .degree-group.master .degree-list span { background: var(--navy-2); color: #fff; border: 1px solid rgba(255,255,255,.1); }
+    .discipline-note { margin: 20px 0 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .77rem; }
+    .degree-group.master .discipline-note { border-color: rgba(255,255,255,.15); color: var(--hero-muted); }
+    .class-strip span:last-child { border-right: 0; }
+    .test-paper-band {
+      display: grid;
+      grid-template-columns: minmax(210px, .55fr) minmax(0, 1.45fr);
+      gap: 26px;
+      align-items: center;
+      margin-top: 22px;
+      padding: 26px 28px;
+      background: var(--navy);
+      color: #fff;
+      box-shadow: var(--soft-shadow);
+    }
+    .test-paper-band h3 { margin-bottom: 5px; font: 600 1.35rem/1.2 "Lora", serif; }
+    .test-paper-band p { margin: 0; color: var(--hero-muted); font-size: .8rem; }
+    .test-categories { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: rgba(255,255,255,.18); }
+    .test-categories span { min-height: 58px; display: grid; place-items: center; padding: 10px 6px; background: var(--navy-2); color: #fff; text-align: center; font-size: .76rem; font-weight: 800; }
+    .test-categories span:last-child { color: var(--amber); }
+    .term-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin-top: 12px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .term-strip div { background: var(--surface); padding: 18px 22px; }
+    .term-strip strong { display: block; font: 600 1rem/1.3 "Lora", serif; }
+    .term-strip small { color: var(--muted); font-weight: 600; }
+    .medium-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .medium-tags span { padding: 8px 11px; background: var(--navy); color: #fff; font-size: .72rem; font-weight: 800; }
+
+    .empty-panel {
+      min-height: 370px;
+      display: grid;
+      grid-template-columns: 1fr .65fr;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .empty-message { display: flex; flex-direction: column; justify-content: center; padding: 56px; }
+    .empty-message .number { color: var(--amber-deep); font: 600 1rem/1 "Lora", serif; margin-bottom: 24px; }
+    .empty-message h3 { max-width: 570px; margin-bottom: 14px; font: 600 clamp(1.7rem, 3vw, 2.5rem)/1.15 "Lora", serif; }
+    .empty-message p { max-width: 620px; margin-bottom: 0; color: var(--muted); }
+    .empty-art { position: relative; overflow: hidden; background: var(--navy); min-height: 320px; }
+    .empty-art .briefcase { position: absolute; width: 150px; height: 112px; left: 50%; top: 50%; transform: translate(-50%,-40%); border: 8px solid var(--amber); }
+    .empty-art .briefcase::before { content: ""; position: absolute; width: 56px; height: 28px; border: 8px solid var(--amber); border-bottom: 0; left: 50%; top: -36px; transform: translateX(-50%); }
+    .empty-art .briefcase::after { content: ""; position: absolute; left: -8px; right: -8px; top: 45px; height: 8px; background: var(--amber); }
+    .empty-art .dash { position: absolute; width: 120px; height: 2px; background: rgba(255,255,255,.22); transform: rotate(-34deg); }
+    .empty-art .dash.one { left: 5%; top: 20%; }
+    .empty-art .dash.two { right: 2%; bottom: 22%; }
+
+    .lesson-layout { display: grid; grid-template-columns: .78fr 1.22fr; gap: 22px; }
+    .lesson-intro { padding: 42px; background: var(--amber); color: var(--navy); display: flex; flex-direction: column; justify-content: space-between; min-height: 420px; }
+    .lesson-intro h3 { margin-bottom: 15px; font: 600 2rem/1.18 "Lora", serif; }
+    .lesson-intro p { color: #263b58; }
+    .lesson-swatch { width: 96px; height: 10px; background: var(--navy); }
+    .lesson-catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .plan-column { background: var(--surface); padding: 26px; }
+    .plan-column h3 { margin-bottom: 6px; font: 600 1.25rem/1.2 "Lora", serif; }
+    .plan-column > p { margin-bottom: 20px; color: var(--muted); font-size: .8rem; font-weight: 600; }
+    .plan-classes { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .plan-classes div { min-height: 58px; padding: 9px 10px; background: var(--surface-2); display: flex; flex-direction: column; justify-content: center; }
+    .plan-classes strong { font-size: .75rem; }
+    .plan-classes small { color: var(--muted); font-size: .62rem; line-height: 1.25; }
+
+    .lesson-mode-tabs {
+      display: flex;
+      gap: 1px;
+      margin-bottom: 22px;
+      padding: 1px;
+      background: var(--line);
+    }
+    .lesson-mode-tab {
+      flex: 1;
+      min-height: 58px;
+      padding: 10px 18px;
+      border: 0;
+      background: var(--surface-2);
+      color: var(--ink);
+      font: 800 .86rem/1.25 "Manrope", sans-serif;
+      cursor: pointer;
+    }
+    .lesson-mode-tab[aria-selected="true"] { background: var(--navy); color: #fff; }
+    .lesson-mode-tab:focus-visible { outline: 3px solid var(--amber-deep); outline-offset: -3px; }
+    .lesson-mode-pane[hidden] { display: none; }
+
+    .resource-tabs {
+      display: flex;
+      gap: 1px;
+      margin-bottom: 22px;
+      padding: 1px;
+      background: var(--line);
+    }
+    .resource-tab {
+      flex: 1;
+      min-height: 64px;
+      padding: 12px 20px;
+      border: 0;
+      background: var(--surface-2);
+      color: var(--ink);
+      font: 800 .9rem/1.25 "Manrope", sans-serif;
+      cursor: pointer;
+    }
+    .resource-tab[aria-selected="true"] { background: var(--navy); color: #fff; }
+    .resource-tab:focus-visible { outline: 3px solid var(--amber-deep); outline-offset: -3px; }
+    .resource-pane[hidden] { display: none; }
+    .resource-panel {
+      display: grid;
+      grid-template-columns: minmax(230px, .64fr) minmax(0, 1.36fr);
+      min-height: 330px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
+    }
+    .resource-summary {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 38px;
+      background: var(--navy);
+      color: #fff;
+    }
+    .resource-summary.presentation { background: var(--amber); color: var(--navy); }
+    .resource-summary h3 { margin-bottom: 12px; font: 600 1.9rem/1.15 "Lora", serif; }
+    .resource-summary p { margin-bottom: 28px; color: var(--hero-muted); }
+    .resource-summary.presentation p { color: #263b58; }
+    .resource-formats { display: flex; flex-wrap: wrap; gap: 8px; }
+    .resource-formats span { padding: 8px 10px; background: rgba(255,255,255,.12); font-size: .7rem; font-weight: 800; }
+    .resource-summary.presentation .resource-formats span { background: rgba(10,25,49,.1); }
+    .resource-classes { padding: 34px; }
+    .resource-classes-head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .resource-classes-head strong { font: 600 1.25rem/1.2 "Lora", serif; }
+    .resource-classes-head span { color: var(--muted); font-size: .74rem; font-weight: 800; }
+    .resource-class-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .resource-class-grid div { min-height: 66px; display: flex; flex-direction: column; justify-content: center; padding: 11px 12px; background: var(--surface-2); }
+    .resource-class-grid strong { font-size: .78rem; }
+    .resource-class-grid small { color: var(--muted); font-size: .65rem; }
+
+    .period-selector {
+      display: grid;
+      grid-template-columns: minmax(220px, .7fr) minmax(0, 1.3fr);
+      gap: 0;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--soft-shadow);
+    }
+    .selection-controls { padding: 32px; background: var(--navy); color: #fff; }
+    .selection-controls h3 { margin-bottom: 8px; font: 600 1.65rem/1.2 "Lora", serif; }
+    .selection-controls > p { margin-bottom: 24px; color: var(--hero-muted); font-size: .84rem; }
+    .selection-controls .field label { color: var(--hero-muted); }
+    .selection-controls .field select { background: var(--navy-2); color: #fff; border-color: rgba(255,255,255,.2); }
+    .selection-controls .field + .field { margin-top: 14px; }
+    .selection-controls [hidden] { display: none !important; }
+    .subject-panel { padding: 32px; min-width: 0; }
+    .subject-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .subject-toolbar h3 { margin: 0; font: 600 1.4rem/1.2 "Lora", serif; }
+    .subject-toolbar span { color: var(--muted); font-size: .75rem; font-weight: 800; }
+    .class-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 8px; }
+    .class-option {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 40px;
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: var(--navy-2);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .class-option input { width: 16px; height: 16px; margin: 0; accent-color: var(--amber); }
+    .subject-options { display: grid; gap: 14px; }
+    .subject-class-group { border: 1px solid var(--line); background: var(--paper); }
+    .subject-class-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 15px; background: var(--navy); color: #fff; }
+    .subject-class-heading strong { font: 600 1rem/1.2 "Lora", serif; }
+    .subject-class-heading span { color: var(--hero-muted); font-size: .7rem; font-weight: 800; }
+    .subject-class-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 12px; }
+    .subject-option {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-height: 50px;
+      padding: 10px 12px;
+      background: var(--surface-2);
+      color: var(--ink);
+      font-size: .82rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .subject-option input { width: 18px; height: 18px; margin: 0; accent-color: var(--amber-deep); flex: 0 0 auto; }
+    .subject-empty { min-height: 138px; display: grid; place-items: center; color: var(--muted); text-align: center; }
+    .selection-status { min-height: 24px; margin: 12px 0 0; color: var(--muted); font-size: .78rem; font-weight: 700; }
+    .selected-preview { margin-top: 24px; border-top: 4px solid var(--amber); background: var(--paper); }
+    .selected-preview[hidden] { display: none; }
+    .selected-preview-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+    .selected-preview-head strong { font: 600 1.15rem/1.2 "Lora", serif; }
+    .selected-preview-head span { color: var(--muted); font-size: .75rem; font-weight: 800; }
+    .selected-plan-list { display: grid; gap: 14px; margin: 0; padding: 16px; list-style: none; }
+    .selected-class-block { border: 1px solid var(--line); background: var(--surface); break-inside: avoid; }
+    .selected-class-title { margin: 0; padding: 14px 18px; background: var(--navy); color: #fff; font: 600 1.05rem/1.2 "Lora", serif; }
+    .selected-plan-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; padding: 1px; list-style: none; background: var(--line); }
+    .selected-plan-card { display: flex; flex-direction: column; gap: 8px; padding: 20px; background: var(--surface); break-inside: avoid; }
+    .selected-plan-card strong { font: 600 1.05rem/1.25 "Lora", serif; }
+    .selected-plan-card span { color: var(--muted); font-size: .76rem; }
+    .selected-plan-card a { width: fit-content; color: var(--navy-3); font-size: .76rem; font-weight: 800; text-underline-offset: 3px; }
+    @media (prefers-color-scheme: dark) { .selected-plan-card a { color: var(--amber); } }
+    .download-progress { margin-top: 10px; color: var(--muted); font-size: .76rem; font-weight: 700; }
+
+    .planner-shell {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 620px;
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+    .planner-menu {
+      padding: 34px 24px;
+      color: #fff;
+      background: var(--navy);
+    }
+    .planner-menu h3 { margin-bottom: 10px; font: 600 1.55rem/1.2 "Lora", serif; }
+    .planner-menu p { margin-bottom: 28px; color: var(--hero-muted); font-size: .86rem; }
+    .planner-tab {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      margin-top: 8px;
+      padding: 0 16px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: transparent;
+      color: #fff;
+      font: 800 .86rem/1 "Manrope", sans-serif;
+      text-align: left;
+      cursor: pointer;
+    }
+    .planner-tab svg { width: 21px; height: 21px; color: var(--amber); }
+    .planner-tab[aria-selected="true"] { border-color: var(--amber); background: var(--amber); color: var(--navy); }
+    .planner-tab[aria-selected="true"] svg { color: var(--navy); }
+    .planner-tab:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    .session-note { margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.15); color: var(--hero-muted); font-size: .72rem; line-height: 1.55; }
+    .planner-workspace { padding: 38px; background: var(--surface); }
+    .planner-pane[hidden] { display: none; }
+    .builder-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 26px; }
+    .builder-head h3 { margin-bottom: 6px; font: 600 1.7rem/1.2 "Lora", serif; }
+    .builder-head p { margin: 0; color: var(--muted); font-size: .88rem; }
+    .field-grid { display: grid; grid-template-columns: 1.35fr .9fr .8fr .9fr; gap: 12px; align-items: end; }
+    .field-grid.timetable-fields { grid-template-columns: .85fr .8fr 1.2fr 1fr; }
+    .field { display: grid; gap: 7px; }
+    .field label { color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+    .field input, .field select {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 600 .85rem/1 "Manrope", sans-serif;
+    }
+    .field input:focus, .field select:focus { outline: 2px solid var(--amber-deep); outline-offset: 1px; }
+    .builder-actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+    .builder-button {
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--navy);
+      background: var(--navy);
+      color: #fff;
+      font: 800 .78rem/1 "Manrope", sans-serif;
+      cursor: pointer;
+    }
+    .builder-button.accent { border-color: var(--amber); background: var(--amber); color: var(--navy); }
+    .builder-button.ghost { border-color: var(--line); background: transparent; color: var(--ink); }
+    .builder-button:disabled { opacity: .45; cursor: not-allowed; }
+    .builder-button:focus-visible, .remove-row:focus-visible { outline: 3px solid var(--amber-deep); outline-offset: 2px; }
+    .schedule-preview { margin-top: 30px; border-top: 4px solid var(--amber); background: var(--paper); }
+    .preview-title { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+    .preview-title strong { font: 600 1.08rem/1.2 "Lora", serif; }
+    .preview-title span { color: var(--muted); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+    .schedule-empty { min-height: 160px; display: grid; place-items: center; padding: 28px; color: var(--muted); text-align: center; }
+    .schedule-empty[hidden] { display: none; }
+    .schedule-list { list-style: none; margin: 0; padding: 0; }
+    .schedule-row { display: grid; grid-template-columns: 1.25fr .85fr .85fr .8fr 34px; gap: 12px; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--line); }
+    .schedule-row:last-child { border-bottom: 0; }
+    .schedule-row strong { font-size: .86rem; }
+    .schedule-row span { color: var(--muted); font-size: .78rem; }
+    .remove-row { width: 32px; height: 32px; border: 0; background: var(--surface-2); color: var(--ink); font-size: 1.2rem; cursor: pointer; }
+    .status-line { min-height: 24px; margin: 12px 0 0; color: var(--muted); font-size: .76rem; font-weight: 700; }
+
+    .packages-section { background: var(--navy); color: #fff; }
+    .packages-section .section-heading .label { color: var(--amber); }
+    .packages-section .section-heading > p { color: var(--hero-muted); }
+    .package-category { margin-top: 54px; }
+    .package-category:first-of-type { margin-top: 0; }
+    .package-category-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+    }
+    .package-category-head h3 { margin: 0; font: 600 1.65rem/1.2 "Lora", serif; }
+    .package-category-head p { margin: 0; color: var(--hero-muted); font-size: .82rem; }
+    .package-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .package-grid.single-plan { grid-template-columns: minmax(260px, 360px); }
+    .package-access-message {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      background: var(--amber);
+      color: var(--navy);
+      font-size: .84rem;
+      font-weight: 800;
+    }
+    .package-card {
+      display: flex;
+      min-height: 330px;
+      flex-direction: column;
+      padding: 26px 22px 22px;
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: 0 16px 32px rgba(0,0,0,.16);
+    }
+    .package-duration { margin-bottom: 16px; color: var(--muted); font-size: .78rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+    .package-price { display: flex; align-items: baseline; gap: 7px; margin-bottom: 18px; color: var(--ink); }
+    .package-price strong { font: 600 2.35rem/1 "Lora", serif; letter-spacing: -.04em; }
+    .package-price span { color: var(--muted); font-size: .72rem; font-weight: 800; }
+    .package-features { flex: 1; margin: 0 0 24px; padding: 0; list-style: none; }
+    .package-features li { position: relative; margin-top: 10px; padding-left: 18px; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+    .package-features li::before { content: ""; position: absolute; left: 0; top: .55em; width: 7px; height: 7px; background: var(--amber-deep); }
+    .package-order {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 14px;
+      background: var(--amber);
+      color: var(--navy);
+      text-decoration: none;
+      text-align: center;
+      font-size: .76rem;
+      font-weight: 800;
+    }
+    .package-order:hover { background: #ffd23f; }
+    .package-order:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+    .package-order svg { width: 17px; height: 17px; flex: 0 0 auto; }
+    .package-note {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin: 42px 0 0;
+      padding: 24px 26px;
+      border: 1px solid rgba(255,195,0,.45);
+      background: rgba(255,195,0,.08);
+      color: var(--hero-muted);
+      font-size: .83rem;
+    }
+    .package-note strong { color: var(--amber); }
+    .package-note p { margin: 0; }
+
+    .gallery-frame {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--navy);
+      color: #fff;
+      padding: 34px 0;
+    }
+    .gallery-frame::before, .gallery-frame::after { content: ""; position: absolute; inset: 24px; border: 1px solid rgba(255,255,255,.16); pointer-events: none; z-index: 2; }
+    .gallery-frame::after { inset: 42px; border-color: rgba(255,195,0,.28); }
+    .gallery-marquee { display: block; width: 100%; overflow: hidden; }
+    .gallery-item { display: inline-block; width: min(760px, calc(100vw - 88px)); margin: 0 30px; vertical-align: middle; background: #061326; box-shadow: 0 24px 55px rgba(0,0,0,.34); }
+    .gallery-item img { display: block; width: 100%; height: auto; aspect-ratio: 15 / 8; object-fit: cover; }
+
+    .contact-strip {
+      background: var(--amber);
+      color: var(--navy);
+      padding: 24px 0;
+    }
+    .contact-strip-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .contact-copy { display: flex; align-items: center; gap: 16px; }
+    .contact-copy svg { width: 30px; height: 30px; flex: 0 0 auto; }
+    .contact-copy p { margin: 0; color: #263b58; font-size: .78rem; font-weight: 700; }
+    .contact-copy strong { display: block; color: var(--navy); font: 600 1.35rem/1.2 "Lora", serif; }
+    .contact-actions { display: flex; align-items: center; gap: 14px; }
+    .social-links { display: flex; align-items: center; gap: 8px; }
+    .social-link {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      background: var(--navy);
+      color: var(--amber);
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .social-link:hover { background: var(--navy-3); color: #fff; transform: translateY(-2px); }
+    .social-link:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+    .social-link svg { width: 22px; height: 22px; }
+    .social-link.is-placeholder { opacity: .72; }
+    .contact-button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      font-size: .8rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .contact-button:hover { background: var(--navy-3); }
+    .contact-button:focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+    .floating-socials {
+      position: fixed;
+      z-index: 30;
+      right: max(20px, env(safe-area-inset-right));
+      bottom: max(20px, env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .floating-social-button,
+    .whatsapp-float {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      text-decoration: none;
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .floating-social-button:hover,
+    .whatsapp-float:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .floating-social-button:focus-visible,
+    .whatsapp-float:focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; }
+    .floating-social-button svg { width: 25px; height: 25px; }
+    .floating-social-button.facebook { background: #1877F2; }
+    .floating-social-button.youtube { background: #FF0033; }
+    .floating-social-button.tiktok { background: #050505; border: 1px solid rgba(255,255,255,.35); }
+    .floating-social-button.is-placeholder { cursor: default; }
+    .whatsapp-float { width: 66px; height: 66px; background: #25D366; color: #062814; }
+    .whatsapp-float svg { width: 36px; height: 36px; }
+    .whatsapp-float span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    .footer {
+      background: #061326;
+      color: #fff;
+      padding: 48px 0 max(48px, env(safe-area-inset-bottom));
+    }
+    .footer-inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+    .footer p { margin: 0; color: #aebccc; font-size: .85rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+    .footer a { color: #fff; text-decoration: none; font-size: .8rem; font-weight: 700; }
+    .footer a:hover { color: var(--amber); }
+
+    .reveal { opacity: 1; transform: none; transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes settle { 0%,100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-3deg) translateY(-9px); } }
+
+    @media (max-width: 900px) {
+      .hero { padding-top: 130px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-copy { max-width: 700px; }
+      .hero-visual { width: min(440px, 100%); justify-self: center; }
+      .quick-nav { grid-template-columns: repeat(4, 1fr); }
+      .section-heading { grid-template-columns: 1fr; align-items: start; gap: 18px; }
+      .package-grid { grid-template-columns: 1fr 1fr; }
+      .lesson-layout { grid-template-columns: 1fr; }
+      .lesson-intro { min-height: 300px; }
+      .resource-panel { grid-template-columns: 1fr; }
+      .resource-summary { min-height: 250px; }
+      .planner-shell { grid-template-columns: 1fr; }
+      .planner-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+      .planner-menu h3, .planner-menu p, .session-note { grid-column: 1 / -1; }
+      .planner-tab { margin-top: 0; }
+      .field-grid, .field-grid.timetable-fields { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 660px) {
+      .nav-inner { justify-content: flex-start; gap: 18px; overflow: hidden; }
+      .nav-inner a { font-size: .76rem; }
+      .nav-inner a:nth-child(n+4) { display: none; }
+      .hero { padding: 118px 0 82px; }
+      .hero-inner, .content-wrap, .nav-inner, .footer-inner { width: min(100% - 28px, 1180px); }
+      h1 { font-size: clamp(2.65rem, 14vw, 4.4rem); }
+      .hero-links { flex-direction: column; align-items: stretch; }
+      .button { justify-content: center; }
+      .hero-visual { min-height: 370px; }
+      .visual-backdrop { width: 77%; height: 320px; right: 0; }
+      .paper-stack { width: 82%; min-height: 325px; inset: 28px 8% auto auto; padding: 22px; }
+      .floating-note { width: 150px; left: 0; bottom: 6px; }
+      .quick-nav { margin-top: -30px; grid-template-columns: 1fr 1fr; }
+      .quick-nav a { min-height: 76px; padding: 14px; flex-direction: column; align-items: flex-start; gap: 8px; font-size: .8rem; }
+      .quick-nav svg { width: 24px; height: 24px; }
+      .planner-menu { grid-template-columns: 1fr; padding: 28px 20px; }
+      .planner-menu h3, .planner-menu p, .session-note { grid-column: auto; }
+      .planner-workspace { padding: 28px 20px; }
+      .builder-head { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .field-grid, .field-grid.timetable-fields { grid-template-columns: 1fr; }
+      .builder-actions .builder-button { flex: 1 1 100%; }
+      .schedule-row { grid-template-columns: 1fr auto; gap: 4px 10px; padding: 15px; }
+      .schedule-row strong, .schedule-row span { grid-column: 1; }
+      .schedule-row .remove-row { grid-column: 2; grid-row: 1 / span 4; align-self: center; }
+      .section { padding: 80px 0; }
+      .medium-grid { grid-template-columns: 1fr; }
+      .medium-card { min-height: 300px; padding: 30px; }
+      .card-icon { margin-bottom: 36px; }
+      .class-strip { grid-template-columns: repeat(5, 1fr); }
+      .class-strip span:nth-child(5) { border-right: 0; }
+      .class-strip span:nth-child(-n+5) { border-bottom: 1px solid var(--line); }
+      .higher-education { grid-template-columns: 1fr; }
+      .degree-group { padding: 25px 20px; }
+      .degree-head { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .degree-list span { flex: 1 1 calc(50% - 8px); }
+      .test-paper-band { grid-template-columns: 1fr; padding: 24px 20px; }
+      .test-categories { grid-template-columns: repeat(3, 1fr); }
+      .term-strip { grid-template-columns: 1fr; }
+      .empty-panel { grid-template-columns: 1fr; }
+      .empty-message { padding: 36px 26px; }
+      .empty-art { min-height: 260px; }
+      .lesson-intro { padding: 30px; }
+      .lesson-catalog { grid-template-columns: 1fr; }
+      .plan-column { padding: 22px; }
+      .lesson-mode-tabs, .resource-tabs { flex-direction: column; }
+      .resource-summary, .resource-classes { padding: 28px 20px; }
+      .resource-class-grid { grid-template-columns: repeat(3, 1fr); }
+      .period-selector { grid-template-columns: 1fr; }
+      .selection-controls, .subject-panel { padding: 24px 20px; }
+      .subject-toolbar { align-items: flex-start; flex-direction: column; gap: 5px; }
+      .class-options { grid-template-columns: repeat(2, 1fr); }
+      .subject-class-options, .selected-plan-items { grid-template-columns: 1fr; }
+      .selected-preview-head { align-items: flex-start; flex-direction: column; gap: 5px; }
+      .package-category-head { align-items: flex-start; flex-direction: column; gap: 7px; }
+      .package-grid { grid-template-columns: 1fr; }
+      .package-card { min-height: 0; }
+      .package-note { grid-template-columns: 1fr; gap: 14px; padding: 22px 20px; }
+      .contact-strip-inner { width: min(100% - 28px, 1180px); align-items: stretch; flex-direction: column; }
+      .contact-actions { align-items: stretch; flex-direction: column; }
+      .social-links { justify-content: center; }
+      .social-link { width: 50px; height: 50px; }
+      .contact-button { width: 100%; }
+      .floating-socials { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); gap: 8px; }
+      .floating-social-button { width: 46px; height: 46px; }
+      .floating-social-button svg { width: 22px; height: 22px; }
+      .whatsapp-float { width: 58px; height: 58px; }
+      .whatsapp-float svg { width: 31px; height: 31px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media print {
+      .site-nav, .hero-visual, .quick-nav, .floating-socials, .contact-strip, .package-order { display: none !important; }
+      .hero { min-height: auto; padding: 30px 0; background: #fff; color: #000; }
+      .hero-copy { color: #333; }
+      .section { padding: 30px 0; break-inside: avoid; }
+      body, .section.alt, .empty-panel { background: #fff; color: #000; }
+      body.lesson-selection-ready > * { display: none !important; }
+      body.lesson-selection-ready > main { display: block !important; }
+      body.lesson-selection-ready main > * { display: none !important; }
+      body.lesson-selection-ready #lesson-plans { display: block !important; padding: 0; }
+      body.lesson-selection-ready #lesson-plans .section-heading,
+      body.lesson-selection-ready #lesson-plans .lesson-mode-tabs,
+      body.lesson-selection-ready #lesson-plans #lesson-pane-classwise,
+      body.lesson-selection-ready #lesson-plans .period-selector,
+      body.lesson-selection-ready #lesson-plans .builder-actions,
+      body.lesson-selection-ready #lesson-plans .download-progress { display: none !important; }
+      body.lesson-selection-ready #lesson-pane-periodwise,
+      body.lesson-selection-ready #lesson-selected-preview { display: block !important; }
+      body.lesson-selection-ready .selected-preview { margin: 0; border-top: 0; }
+      body.lesson-selection-ready .selected-plan-items { grid-template-columns: 1fr; }
+      body.lesson-selection-ready .selected-class-title { background: #fff; color: #000; border-bottom: 2px solid #000; }
+      body.lesson-selection-ready .selected-plan-card { color: #000; background: #fff; border-bottom: 1px solid #bbb; }
+      body.lesson-selection-ready .selected-plan-card a { display: none; }
+    }
+  
+    /* Download links (worksheets, presentations, degree packs) */
+    .resource-class-grid .dl-link { display: inline-block; margin-top: 5px; padding: 5px 9px; background: var(--amber); color: #0A1931; font-size: .66rem; font-weight: 800; text-decoration: none; border-radius: 5px; }
+    .resource-class-grid .dl-link + .dl-link { margin-left: 4px; }
+    .degree-downloads { margin-top: 22px; }
+    .degree-downloads h4 { font: 600 1.05rem/1.3 "Lora", serif; margin: 0 0 12px; }
+    .degree-pack { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+    .degree-pack summary { cursor: pointer; padding: 11px 14px; font-weight: 800; font-size: .82rem; background: var(--surface-2); list-style: none; }
+    .degree-pack summary::-webkit-details-marker { display: none; }
+    .degree-pack summary::after { content: " +"; float: right; }
+    .degree-pack[open] summary::after { content: " \2212"; }
+    .degree-pack-links { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 14px; }
+    .degree-pack-links a { padding: 7px 11px; background: var(--amber); color: #0A1931; font-size: .72rem; font-weight: 800; text-decoration: none; border-radius: 5px; }
+    .degree-group.master .degree-pack { border-color: rgba(255,255,255,.15); }
+    .degree-group.master .degree-pack summary { background: var(--navy-2); color: #fff; }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a href="#papers">Papers</a>
+      <a href="#lesson-plans">Lesson Plans</a>
+      <a href="#worksheets" data-open-resource="worksheets">Worksheets</a>
+      <a href="#presentations" data-open-resource="presentations">Presentations</a>
+      <a href="#packages">Packages / پیکیجز</a>
+      <a href="#planners">Schedule Makers</a>
+      <a href="#jobs">Jobs</a>
+      <a href="#gallery">Gallery</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <p class="eyebrow">Education resources for every classroom</p>
+          <h1 id="hero-title">Teach better. Learn <em>brighter.</em></h1>
+          <p class="hero-copy">A growing home for academic and competitive test papers, class-wise lesson plans, worksheets, presentations, education jobs and useful school updates — in English and Urdu medium.</p>
+          <div class="hero-links">
+            <a class="button primary" href="#papers">Explore categories
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="button secondary" href="#lesson-plans">View class levels</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="visual-backdrop"></div>
+          <div class="paper-stack">
+            <div class="paper-topline"><span class="paper-mark">DM</span><span class="paper-code">TERM • PAPER</span></div>
+            <div class="paper-title">A better start for every lesson</div>
+            <div class="paper-meta">CLASS-WISE • MEDIUM-WISE • TERM-WISE</div>
+            <div class="answer-line"></div><div class="answer-line"></div><div class="answer-line short"></div>
+            <div class="answer-line"></div><div class="answer-line short"></div>
+            <div class="paper-footer"><span>PRINT READY</span><span>01 / 10</span></div>
+          </div>
+          <div class="floating-note"><strong>English + Urdu</strong><span>Two mediums, one resource hub</span></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-wrap">
+      <nav class="quick-nav" aria-label="Resource categories">
+        <a href="#papers"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h8l4 4v14H7V3Z M15 3v5h4 M10 12h6M10 16h6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Term Papers</span></a>
+        <a href="#lesson-plans"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Lesson Plans</span></a>
+        <a href="#worksheets" data-open-resource="worksheets"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3h12v18H6V3Zm3 5h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m15.5 16 1.2 1.2 2.3-2.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Worksheets</span></a>
+        <a href="#presentations" data-open-resource="presentations"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v12H4V4Zm8 12v5m-4 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m8 12 3-3 2 2 3-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Presentations</span></a>
+        <a href="#planners" data-open-planner="datesheet"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14v16H5V5Zm3-2v4m8-4v4M5 10h14M8 14h3m2 0h3m-8 3h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Date Sheet Maker</span></a>
+        <a href="#planners" data-open-planner="timetable"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Time Table Maker</span></a>
+        <a href="#jobs"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 7V4h6v3M3 9h18v11H3V9Zm0 3 9 4 9-4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Education Jobs</span></a>
+        <a href="#gallery"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="m3 16 5-5 4 4 2-2 7 7M16 9h.01" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Info Gallery</span></a>
+      </nav>
+    </div>
+
+    <section class="section" id="papers" aria-labelledby="papers-title">
+      <div class="content-wrap">
+        <header class="section-heading reveal">
+          <div><p class="label">Academic & test papers</p><h2 id="papers-title">Choose your paper category</h2></div>
+          <p>Browse by medium and level — from play class to master’s — or find papers for competitive and recruitment tests.</p>
+        </header>
+        <div class="medium-grid">
+          <article class="medium-card reveal">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h14v16H5V4Zm4 5h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <h3>English Medium</h3>
+            <p>Level-wise term and test papers in English will appear here after publication.</p>
+            <span class="empty-chip">Category ready</span>
+          </article>
+          <article class="medium-card urdu reveal" lang="ur" dir="rtl">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 15c3 3 7 3 10 0 2-2 3-4 5-4M9 7h.01M13 6h.01M6 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+            <h3 class="urdu-script">اردو میڈیم</h3>
+            <p class="urdu-script">جماعت اور ٹرم کے حساب سے اردو میڈیم کے پیپرز یہاں شائع ہوں گے۔</p>
+            <span class="empty-chip">کیٹیگری تیار ہے</span>
+          </article>
+        </div>
+        <div class="class-strip early-years reveal" aria-label="Play class paper categories">
+          <span>Play Class</span><span>Junior Play</span><span>Senior Play</span>
+        </div>
+        <div class="class-strip standard-classes reveal" aria-label="Classes 1 to 10">
+          <span>Class 1</span><span>Class 2</span><span>Class 3</span><span>Class 4</span><span>Class 5</span><span>Class 6</span><span>Class 7</span><span>Class 8</span><span>Class 9</span><span>Class 10</span>
+        </div>
+        <div class="class-strip reveal" aria-label="College paper categories">
+          <span>FA</span><span>FSc (Pre-Medical / Pre-Engineering)</span><span>ICS</span><span>I.Com</span><span>11th</span><span>12th</span><span>HSSC</span><span>D.Com</span><span>DAE</span><span>Other Diploma</span>
+        </div>
+        <div class="higher-education reveal" aria-label="Bachelor and master level paper categories">
+          <section class="degree-group" aria-labelledby="bachelor-categories">
+            <div class="degree-head"><div><h3 id="bachelor-categories">Bachelor Level</h3><p>Undergraduate and professional degree papers</p></div><span class="degree-count">All categories</span></div>
+            <div class="degree-list" aria-label="Bachelor degree categories">
+              <span>ADP / Associate Degree</span><span>BA</span><span>BSc</span><span>B.Com</span><span>BBA</span><span>BS — All Disciplines</span><span>B.Ed</span><span>LLB</span><span>BE / BSc Engineering</span><span>MBBS / BDS</span><span>Pharm-D</span><span>DPT</span><span>BS Nursing</span><span>Agriculture / Veterinary</span><span>Fine Arts / Design</span><span>Other Bachelor Degrees</span>
+            </div>
+            <p class="discipline-note">Arts, humanities, social sciences, natural sciences, computer science &amp; IT, business, education, law, engineering, health, agriculture, media and design.</p>
+<div class="degree-downloads"><h4>Download Bachelor degree packs</h4>
+<details class="degree-pack"><summary>ADP / Associate Degree</summary><div class="degree-pack-links"><a href="assets/degrees/adp/adp-notes.zip" download>Notes</a><a href="assets/degrees/adp/adp-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/adp/adp-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/adp/adp-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/adp/adp-presentations.zip" download>Presentations</a><a href="assets/degrees/adp/adp-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>BA</summary><div class="degree-pack-links"><a href="assets/degrees/ba/ba-notes.zip" download>Notes</a><a href="assets/degrees/ba/ba-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/ba/ba-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/ba/ba-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/ba/ba-presentations.zip" download>Presentations</a><a href="assets/degrees/ba/ba-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>BSc</summary><div class="degree-pack-links"><a href="assets/degrees/bsc/bsc-notes.zip" download>Notes</a><a href="assets/degrees/bsc/bsc-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/bsc/bsc-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/bsc/bsc-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/bsc/bsc-presentations.zip" download>Presentations</a><a href="assets/degrees/bsc/bsc-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>B.Com</summary><div class="degree-pack-links"><a href="assets/degrees/bcom/bcom-notes.zip" download>Notes</a><a href="assets/degrees/bcom/bcom-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/bcom/bcom-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/bcom/bcom-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/bcom/bcom-presentations.zip" download>Presentations</a><a href="assets/degrees/bcom/bcom-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>BBA</summary><div class="degree-pack-links"><a href="assets/degrees/bba/bba-notes.zip" download>Notes</a><a href="assets/degrees/bba/bba-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/bba/bba-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/bba/bba-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/bba/bba-presentations.zip" download>Presentations</a><a href="assets/degrees/bba/bba-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>BS — All Disciplines</summary><div class="degree-pack-links"><a href="assets/degrees/bs/bs-notes.zip" download>Notes</a><a href="assets/degrees/bs/bs-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/bs/bs-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/bs/bs-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/bs/bs-presentations.zip" download>Presentations</a><a href="assets/degrees/bs/bs-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>B.Ed</summary><div class="degree-pack-links"><a href="assets/degrees/bed/bed-notes.zip" download>Notes</a><a href="assets/degrees/bed/bed-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/bed/bed-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/bed/bed-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/bed/bed-presentations.zip" download>Presentations</a><a href="assets/degrees/bed/bed-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>LLB</summary><div class="degree-pack-links"><a href="assets/degrees/llb/llb-notes.zip" download>Notes</a><a href="assets/degrees/llb/llb-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/llb/llb-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/llb/llb-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/llb/llb-presentations.zip" download>Presentations</a><a href="assets/degrees/llb/llb-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>BE / BSc Engineering</summary><div class="degree-pack-links"><a href="assets/degrees/be/be-notes.zip" download>Notes</a><a href="assets/degrees/be/be-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/be/be-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/be/be-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/be/be-presentations.zip" download>Presentations</a><a href="assets/degrees/be/be-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>MBBS / BDS</summary><div class="degree-pack-links"><a href="assets/degrees/mbbs/mbbs-notes.zip" download>Notes</a><a href="assets/degrees/mbbs/mbbs-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/mbbs/mbbs-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/mbbs/mbbs-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/mbbs/mbbs-presentations.zip" download>Presentations</a><a href="assets/degrees/mbbs/mbbs-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Pharm-D</summary><div class="degree-pack-links"><a href="assets/degrees/pharmd/pharmd-notes.zip" download>Notes</a><a href="assets/degrees/pharmd/pharmd-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/pharmd/pharmd-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/pharmd/pharmd-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/pharmd/pharmd-presentations.zip" download>Presentations</a><a href="assets/degrees/pharmd/pharmd-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>DPT</summary><div class="degree-pack-links"><a href="assets/degrees/dpt/dpt-notes.zip" download>Notes</a><a href="assets/degrees/dpt/dpt-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/dpt/dpt-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/dpt/dpt-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/dpt/dpt-presentations.zip" download>Presentations</a><a href="assets/degrees/dpt/dpt-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>BS Nursing</summary><div class="degree-pack-links"><a href="assets/degrees/bsnursing/bsnursing-notes.zip" download>Notes</a><a href="assets/degrees/bsnursing/bsnursing-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/bsnursing/bsnursing-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/bsnursing/bsnursing-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/bsnursing/bsnursing-presentations.zip" download>Presentations</a><a href="assets/degrees/bsnursing/bsnursing-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Agriculture / Veterinary</summary><div class="degree-pack-links"><a href="assets/degrees/agri/agri-notes.zip" download>Notes</a><a href="assets/degrees/agri/agri-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/agri/agri-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/agri/agri-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/agri/agri-presentations.zip" download>Presentations</a><a href="assets/degrees/agri/agri-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Fine Arts / Design</summary><div class="degree-pack-links"><a href="assets/degrees/finearts/finearts-notes.zip" download>Notes</a><a href="assets/degrees/finearts/finearts-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/finearts/finearts-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/finearts/finearts-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/finearts/finearts-presentations.zip" download>Presentations</a><a href="assets/degrees/finearts/finearts-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Other Bachelor Degrees</summary><div class="degree-pack-links"><a href="assets/degrees/otherb/otherb-notes.zip" download>Notes</a><a href="assets/degrees/otherb/otherb-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/otherb/otherb-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/otherb/otherb-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/otherb/otherb-presentations.zip" download>Presentations</a><a href="assets/degrees/otherb/otherb-worksheets.zip" download>Worksheets</a></div></details>
+</div>
+          </section>
+          <section class="degree-group master" aria-labelledby="master-categories">
+            <div class="degree-head"><div><h3 id="master-categories">Master Level</h3><p>Postgraduate and advanced professional degree papers</p></div><span class="degree-count">All categories</span></div>
+            <div class="degree-list" aria-label="Master degree categories">
+              <span>MA — All Subjects</span><span>MSc — All Subjects</span><span>M.Com</span><span>MBA</span><span>MS — All Disciplines</span><span>MPhil</span><span>M.Ed</span><span>LLM</span><span>ME / MSc Engineering</span><span>MPH / MSPH</span><span>MS Nursing</span><span>M.Pharm</span><span>Agriculture / Veterinary</span><span>Fine Arts / Design</span><span>Research Methods</span><span>Other Master Degrees</span>
+            </div>
+            <p class="discipline-note">Every subject is covered through broad degree categories, with an “Other” category for specialised bachelor’s and master’s programmes.</p>
+<div class="degree-downloads"><h4>Download Master degree packs</h4>
+<details class="degree-pack"><summary>MA — All Subjects</summary><div class="degree-pack-links"><a href="assets/degrees/ma/ma-notes.zip" download>Notes</a><a href="assets/degrees/ma/ma-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/ma/ma-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/ma/ma-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/ma/ma-presentations.zip" download>Presentations</a><a href="assets/degrees/ma/ma-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>MSc — All Subjects</summary><div class="degree-pack-links"><a href="assets/degrees/msc/msc-notes.zip" download>Notes</a><a href="assets/degrees/msc/msc-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/msc/msc-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/msc/msc-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/msc/msc-presentations.zip" download>Presentations</a><a href="assets/degrees/msc/msc-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>M.Com</summary><div class="degree-pack-links"><a href="assets/degrees/mcom/mcom-notes.zip" download>Notes</a><a href="assets/degrees/mcom/mcom-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/mcom/mcom-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/mcom/mcom-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/mcom/mcom-presentations.zip" download>Presentations</a><a href="assets/degrees/mcom/mcom-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>MBA</summary><div class="degree-pack-links"><a href="assets/degrees/mba/mba-notes.zip" download>Notes</a><a href="assets/degrees/mba/mba-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/mba/mba-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/mba/mba-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/mba/mba-presentations.zip" download>Presentations</a><a href="assets/degrees/mba/mba-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>MS — All Disciplines</summary><div class="degree-pack-links"><a href="assets/degrees/ms/ms-notes.zip" download>Notes</a><a href="assets/degrees/ms/ms-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/ms/ms-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/ms/ms-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/ms/ms-presentations.zip" download>Presentations</a><a href="assets/degrees/ms/ms-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>MPhil</summary><div class="degree-pack-links"><a href="assets/degrees/mphil/mphil-notes.zip" download>Notes</a><a href="assets/degrees/mphil/mphil-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/mphil/mphil-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/mphil/mphil-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/mphil/mphil-presentations.zip" download>Presentations</a><a href="assets/degrees/mphil/mphil-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>M.Ed</summary><div class="degree-pack-links"><a href="assets/degrees/med/med-notes.zip" download>Notes</a><a href="assets/degrees/med/med-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/med/med-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/med/med-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/med/med-presentations.zip" download>Presentations</a><a href="assets/degrees/med/med-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>LLM</summary><div class="degree-pack-links"><a href="assets/degrees/llm/llm-notes.zip" download>Notes</a><a href="assets/degrees/llm/llm-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/llm/llm-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/llm/llm-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/llm/llm-presentations.zip" download>Presentations</a><a href="assets/degrees/llm/llm-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>ME / MSc Engineering</summary><div class="degree-pack-links"><a href="assets/degrees/me/me-notes.zip" download>Notes</a><a href="assets/degrees/me/me-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/me/me-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/me/me-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/me/me-presentations.zip" download>Presentations</a><a href="assets/degrees/me/me-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>MPH / MSPH</summary><div class="degree-pack-links"><a href="assets/degrees/mph/mph-notes.zip" download>Notes</a><a href="assets/degrees/mph/mph-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/mph/mph-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/mph/mph-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/mph/mph-presentations.zip" download>Presentations</a><a href="assets/degrees/mph/mph-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>MS Nursing</summary><div class="degree-pack-links"><a href="assets/degrees/msnursing/msnursing-notes.zip" download>Notes</a><a href="assets/degrees/msnursing/msnursing-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/msnursing/msnursing-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/msnursing/msnursing-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/msnursing/msnursing-presentations.zip" download>Presentations</a><a href="assets/degrees/msnursing/msnursing-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>M.Pharm</summary><div class="degree-pack-links"><a href="assets/degrees/mpharm/mpharm-notes.zip" download>Notes</a><a href="assets/degrees/mpharm/mpharm-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/mpharm/mpharm-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/mpharm/mpharm-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/mpharm/mpharm-presentations.zip" download>Presentations</a><a href="assets/degrees/mpharm/mpharm-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Agriculture / Veterinary</summary><div class="degree-pack-links"><a href="assets/degrees/agrim/agrim-notes.zip" download>Notes</a><a href="assets/degrees/agrim/agrim-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/agrim/agrim-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/agrim/agrim-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/agrim/agrim-presentations.zip" download>Presentations</a><a href="assets/degrees/agrim/agrim-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Fine Arts / Design</summary><div class="degree-pack-links"><a href="assets/degrees/fineartsm/fineartsm-notes.zip" download>Notes</a><a href="assets/degrees/fineartsm/fineartsm-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/fineartsm/fineartsm-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/fineartsm/fineartsm-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/fineartsm/fineartsm-presentations.zip" download>Presentations</a><a href="assets/degrees/fineartsm/fineartsm-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Research Methods</summary><div class="degree-pack-links"><a href="assets/degrees/research/research-notes.zip" download>Notes</a><a href="assets/degrees/research/research-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/research/research-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/research/research-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/research/research-presentations.zip" download>Presentations</a><a href="assets/degrees/research/research-worksheets.zip" download>Worksheets</a></div></details>
+<details class="degree-pack"><summary>Other Master Degrees</summary><div class="degree-pack-links"><a href="assets/degrees/otherm/otherm-notes.zip" download>Notes</a><a href="assets/degrees/otherm/otherm-papers-midterm.zip" download>Mid-Term Papers</a><a href="assets/degrees/otherm/otherm-papers-finalterm.zip" download>Final-Term Papers</a><a href="assets/degrees/otherm/otherm-papers-annual.zip" download>Annual Papers</a><a href="assets/degrees/otherm/otherm-presentations.zip" download>Presentations</a><a href="assets/degrees/otherm/otherm-worksheets.zip" download>Worksheets</a></div></details>
+</div>
+          </section>
+        </div>
+        <div class="test-paper-band reveal" aria-labelledby="test-papers-title">
+          <div><h3 id="test-papers-title">Competitive Test Papers</h3><p>Dedicated categories for preparation and past papers.</p></div>
+          <div class="test-categories" aria-label="Competitive and recruitment test categories">
+            <span>NTS</span><span>PPSC</span><span>FPSC</span><span>CSS</span><span>PMS</span><span>Other Tests</span>
+          </div>
+        </div>
+        <div class="term-strip reveal" aria-label="Paper terms">
+          <div><strong>First Term</strong><small>School papers coming soon</small></div>
+          <div><strong>Mid Term</strong><small>Bachelor &amp; Master packs available below</small></div>
+          <div><strong>Final Term</strong><small>Bachelor &amp; Master packs available below</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="lesson-plans" aria-labelledby="lesson-title">
+      <div class="content-wrap">
+        <header class="section-heading reveal">
+          <div><p class="label">Class-wise planning</p><h2 id="lesson-title">Lesson plan library</h2></div>
+          <p>A clear class structure for downloadable and printable lesson plans in both English and Urdu medium.</p>
+        </header>
+        <div class="lesson-mode-tabs reveal" role="tablist" aria-label="Lesson plan types">
+          <button class="lesson-mode-tab" type="button" role="tab" id="lesson-tab-classwise" aria-selected="true" aria-controls="lesson-pane-classwise" data-lesson-tab="classwise">Class-wise Lesson Plans</button>
+          <button class="lesson-mode-tab" type="button" role="tab" id="lesson-tab-periodwise" aria-selected="false" aria-controls="lesson-pane-periodwise" data-lesson-tab="periodwise">Subject-wise Lesson Plans</button>
+        </div>
+
+        <div class="lesson-mode-pane" id="lesson-pane-classwise" role="tabpanel" aria-labelledby="lesson-tab-classwise">
+          <div class="lesson-layout">
+            <div class="lesson-intro reveal">
+              <div><h3>Ready for the first lesson plan.</h3><p>The library is organised and waiting for original teaching resources.</p><div class="medium-tags" aria-label="Lesson plan mediums"><span>English Medium</span><span lang="ur" dir="rtl">اردو میڈیم</span></div></div>
+              <div class="lesson-swatch" aria-hidden="true"></div>
+            </div>
+            <div class="lesson-catalog reveal">
+              <section class="plan-column" aria-labelledby="english-plans"><h3 id="english-plans">English Medium</h3><p>Class-wise categories</p><div class="plan-classes"><div><strong>Class 1</strong><small>No plans yet</small></div><div><strong>Class 2</strong><small>No plans yet</small></div><div><strong>Class 3</strong><small>No plans yet</small></div><div><strong>Class 4</strong><small>No plans yet</small></div><div><strong>Class 5</strong><small>No plans yet</small></div><div><strong>Class 6</strong><small>No plans yet</small></div><div><strong>Class 7</strong><small>No plans yet</small></div><div><strong>Class 8</strong><small>No plans yet</small></div><div><strong>Class 9</strong><small>No plans yet</small></div><div><strong>Class 10</strong><small>No plans yet</small></div></div></section>
+              <section class="plan-column" lang="ur" dir="rtl" aria-labelledby="urdu-plans"><h3 id="urdu-plans" class="urdu-script">اردو میڈیم</h3><p class="urdu-script">جماعت کے لحاظ سے کیٹیگریز</p><div class="plan-classes"><div><strong>جماعت ۱</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۲</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۳</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۴</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۵</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۶</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۷</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۸</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۹</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۱۰</strong><small>کوئی پلان شائع نہیں ہوا</small></div></div></section>
+            </div>
+          </div>
+        </div>
+
+        <div class="lesson-mode-pane" id="lesson-pane-periodwise" role="tabpanel" aria-labelledby="lesson-tab-periodwise" hidden>
+          <div class="period-selector">
+            <aside class="selection-controls">
+              <h3>Choose classes &amp; medium</h3>
+              <p>Select one or more classes. Each selected class will show its own subject list.</p>
+              <div class="field"><label>Classes</label><div class="class-options" id="lesson-class-options" aria-label="Classes 1 to 12"></div></div>
+              <div class="field" id="lesson-program-field" hidden><label for="lesson-program-select">Class 11–12 programme</label><select id="lesson-program-select"><option value="fa">FA</option><option value="fsc-premedical">FSc Pre-Medical</option><option value="fsc-preengineering">FSc Pre-Engineering</option><option value="ics">ICS</option><option value="icom">I.Com</option></select></div>
+              <div class="field"><label for="lesson-medium-select">Medium</label><select id="lesson-medium-select"><option value="english-medium">English Medium</option><option value="urdu-medium">Urdu Medium</option></select></div>
+            </aside>
+            <div class="subject-panel">
+              <div class="subject-toolbar"><h3>Select subjects by class</h3><span id="lesson-subject-count">Choose classes to begin</span></div>
+              <div class="subject-empty" id="lesson-subject-empty">Choose one or more classes to see their subjects.</div>
+              <div class="subject-options" id="lesson-subject-options" aria-label="Subjects grouped by class" hidden></div>
+              <div class="builder-actions">
+                <button class="builder-button ghost" type="button" id="lesson-select-all" disabled>Select All</button>
+                <button class="builder-button ghost" type="button" id="lesson-clear-all" disabled>Clear Selection</button>
+                <button class="builder-button accent" type="button" id="lesson-show-selected" disabled>Show Selected Lesson Plans</button>
+              </div>
+              <p class="selection-status" id="lesson-selection-status" aria-live="polite"></p>
+            </div>
+          </div>
+          <section class="selected-preview" id="lesson-selected-preview" aria-live="polite" hidden>
+            <div class="selected-preview-head"><strong id="lesson-preview-title">Selected lesson plans</strong><span id="lesson-preview-meta"></span></div>
+            <ul class="selected-plan-list" id="lesson-selected-list"></ul>
+            <div class="builder-actions" style="padding: 0 20px 20px;">
+              <button class="builder-button accent" type="button" id="lesson-download-selected">Prepare Selected Lesson Plans PDF</button>
+            </div>
+            <p class="download-progress" id="lesson-download-status" aria-live="polite" style="padding: 0 20px 20px;"></p>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="teaching-resources" aria-labelledby="resources-title">
+      <div class="content-wrap">
+        <header class="section-heading reveal">
+          <div><p class="label">Practice &amp; classroom slides</p><h2 id="resources-title">Worksheets and presentations</h2></div>
+          <p>Class 1 to 12 resources in English and Urdu medium, organised for practice, teaching and revision.</p>
+        </header>
+        <div class="resource-tabs reveal" role="tablist" aria-label="Worksheet and presentation libraries">
+          <button class="resource-tab" type="button" role="tab" id="resource-tab-worksheets" aria-selected="true" aria-controls="worksheets" data-resource-tab="worksheets">Worksheets</button>
+          <button class="resource-tab" type="button" role="tab" id="resource-tab-presentations" aria-selected="false" aria-controls="presentations" data-resource-tab="presentations">Presentations</button>
+        </div>
+
+        <section class="resource-pane reveal" id="worksheets" role="tabpanel" aria-labelledby="resource-tab-worksheets">
+          <div class="resource-panel">
+            <div class="resource-summary">
+              <div><h3>Practice worksheets</h3><p>Class-wise and subject-wise practice material is now available in both English and Urdu medium — download the full class ZIP.</p></div>
+              <div class="resource-formats" aria-label="Worksheet formats"><span>PDF</span><span>English Medium</span><span lang="ur" dir="rtl">اردو میڈیم</span></div>
+            </div>
+            <div class="resource-classes">
+              <div class="resource-classes-head"><strong>Class library</strong><span>Class 1–12</span></div>
+              <div class="resource-class-grid" aria-label="Worksheet classes">
+                <div><strong>Class 1</strong><a class="dl-link" href="assets/worksheets/class-1-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 2</strong><a class="dl-link" href="assets/worksheets/class-2-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 3</strong><a class="dl-link" href="assets/worksheets/class-3-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 4</strong><a class="dl-link" href="assets/worksheets/class-4-worksheets.zip" download>Download ZIP</a></div>
+                <div><strong>Class 5</strong><a class="dl-link" href="assets/worksheets/class-5-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 6</strong><a class="dl-link" href="assets/worksheets/class-6-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 7</strong><a class="dl-link" href="assets/worksheets/class-7-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 8</strong><a class="dl-link" href="assets/worksheets/class-8-worksheets.zip" download>Download ZIP</a></div>
+                <div><strong>Class 9</strong><a class="dl-link" href="assets/worksheets/class-9-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 10</strong><a class="dl-link" href="assets/worksheets/class-10-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 11</strong><a class="dl-link" href="assets/worksheets/class-11-worksheets.zip" download>Download ZIP</a></div><div><strong>Class 12</strong><a class="dl-link" href="assets/worksheets/class-12-worksheets.zip" download>Download ZIP</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="resource-pane reveal" id="presentations" role="tabpanel" aria-labelledby="resource-tab-presentations" hidden>
+          <div class="resource-panel">
+            <div class="resource-summary presentation">
+              <div><h3>Classroom presentations</h3><p>Ready-to-teach slides are now available class-wise and subject-wise in PowerPoint and PDF formats — download the full class ZIPs.</p></div>
+              <div class="resource-formats" aria-label="Presentation formats"><span>PPTX</span><span>PDF</span><span>English + Urdu</span></div>
+            </div>
+            <div class="resource-classes">
+              <div class="resource-classes-head"><strong>Class library</strong><span>Class 1–12</span></div>
+              <div class="resource-class-grid" aria-label="Presentation classes">
+                <div><strong>Class 1</strong><a class="dl-link" href="assets/presentations/class-1-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-1-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 2</strong><a class="dl-link" href="assets/presentations/class-2-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-2-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 3</strong><a class="dl-link" href="assets/presentations/class-3-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-3-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 4</strong><a class="dl-link" href="assets/presentations/class-4-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-4-presentations-pptx.zip" download>PPTX ZIP</a></div>
+                <div><strong>Class 5</strong><a class="dl-link" href="assets/presentations/class-5-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-5-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 6</strong><a class="dl-link" href="assets/presentations/class-6-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-6-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 7</strong><a class="dl-link" href="assets/presentations/class-7-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-7-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 8</strong><a class="dl-link" href="assets/presentations/class-8-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-8-presentations-pptx.zip" download>PPTX ZIP</a></div>
+                <div><strong>Class 9</strong><a class="dl-link" href="assets/presentations/class-9-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-9-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 10</strong><a class="dl-link" href="assets/presentations/class-10-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-10-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 11</strong><a class="dl-link" href="assets/presentations/class-11-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-11-presentations-pptx.zip" download>PPTX ZIP</a></div><div><strong>Class 12</strong><a class="dl-link" href="assets/presentations/class-12-presentations-pdf.zip" download>PDF ZIP</a><a class="dl-link" href="assets/presentations/class-12-presentations-pptx.zip" download>PPTX ZIP</a></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section alt" id="planners" aria-labelledby="planners-title">
+      <div class="content-wrap">
+        <header class="section-heading reveal">
+          <div><p class="label">School schedule tools</p><h2 id="planners-title">Build it here</h2></div>
+          <p>Create a date sheet or weekly time table, preview it instantly and download a CSV file for editing or printing.</p>
+        </header>
+
+        <div class="planner-shell reveal">
+          <aside class="planner-menu" aria-label="Schedule maker options">
+            <h3>Choose a maker</h3>
+            <p>Add entries one by one. Your work stays in this open page until you download it.</p>
+            <button class="planner-tab" type="button" id="tab-datesheet" role="tab" aria-selected="true" aria-controls="datesheet-pane" data-planner-tab="datesheet">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14v16H5V5Zm3-2v4m8-4v4M5 10h14M8 14h3m2 0h3m-8 3h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Date Sheet
+            </button>
+            <button class="planner-tab" type="button" id="tab-timetable" role="tab" aria-selected="false" aria-controls="timetable-pane" data-planner-tab="timetable">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Time Table
+            </button>
+            <div class="session-note">Download your finished schedule before closing the page. Entries are not saved automatically.</div>
+          </aside>
+
+          <div class="planner-workspace">
+            <section class="planner-pane" id="datesheet-pane" role="tabpanel" aria-labelledby="tab-datesheet">
+              <div class="builder-head"><div><h3>Date Sheet Maker</h3><p>Add each exam, then download the complete schedule.</p></div></div>
+              <form id="datesheet-form">
+                <div class="field-grid">
+                  <div class="field"><label for="exam-subject">Subject</label><input id="exam-subject" name="subject" type="text" placeholder="e.g. Mathematics" aria-label="Exam subject" required maxlength="60"></div>
+                  <div class="field"><label for="exam-class">Class</label><input id="exam-class" name="className" type="text" placeholder="e.g. Class 7" aria-label="Exam class" required maxlength="30"></div>
+                  <div class="field"><label for="exam-date">Exam date</label><input id="exam-date" name="date" type="date" aria-label="Exam date" required></div>
+                  <div class="field"><label for="exam-time">Start time</label><input id="exam-time" name="time" type="time" aria-label="Exam start time" required></div>
+                </div>
+                <div class="builder-actions">
+                  <button class="builder-button accent" type="submit">Add exam</button>
+                  <button class="builder-button ghost" type="button" data-download="datesheet" disabled>Download date sheet CSV</button>
+                  <button class="builder-button ghost" type="button" data-clear="datesheet" disabled>Clear all</button>
+                </div>
+              </form>
+              <p class="status-line" id="datesheet-status" aria-live="polite"></p>
+              <div class="schedule-preview" aria-live="polite">
+                <div class="preview-title"><strong>Exam Schedule</strong><span id="datesheet-count">0 exams</span></div>
+                <div class="schedule-empty" id="datesheet-empty">Your date sheet preview will appear here.</div>
+                <ol class="schedule-list" id="datesheet-list"></ol>
+              </div>
+            </section>
+
+            <section class="planner-pane" id="timetable-pane" role="tabpanel" aria-labelledby="tab-timetable" hidden>
+              <div class="builder-head"><div><h3>Time Table Maker</h3><p>Build a weekly class routine, one period at a time.</p></div></div>
+              <form id="timetable-form">
+                <div class="field-grid timetable-fields">
+                  <div class="field"><label for="period-day">Day</label><select id="period-day" name="day" required><option value="">Choose day</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select></div>
+                  <div class="field"><label for="period-time">Start time</label><input id="period-time" name="time" type="time" aria-label="Period start time" required></div>
+                  <div class="field"><label for="period-subject">Subject</label><input id="period-subject" name="subject" type="text" placeholder="e.g. English" aria-label="Period subject" required maxlength="60"></div>
+                  <div class="field"><label for="period-class">Class / Group</label><input id="period-class" name="className" type="text" placeholder="e.g. Class 5" aria-label="Period class or group" required maxlength="30"></div>
+                </div>
+                <div class="builder-actions">
+                  <button class="builder-button accent" type="submit">Add period</button>
+                  <button class="builder-button ghost" type="button" data-download="timetable" disabled>Download time table CSV</button>
+                  <button class="builder-button ghost" type="button" data-clear="timetable" disabled>Clear all</button>
+                </div>
+              </form>
+              <p class="status-line" id="timetable-status" aria-live="polite"></p>
+              <div class="schedule-preview" aria-live="polite">
+                <div class="preview-title"><strong>Weekly Time Table</strong><span id="timetable-count">0 periods</span></div>
+                <div class="schedule-empty" id="timetable-empty">Your weekly time table preview will appear here.</div>
+                <ol class="schedule-list" id="timetable-list"></ol>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section packages-section" id="packages" aria-labelledby="packages-title">
+      <div class="content-wrap">
+        <header class="section-heading reveal">
+          <div><p class="label">Packages • پیکیجز</p><h2 id="packages-title">Choose the access that fits</h2></div>
+          <p>Lesson plans and paper resources for schools and teachers, with clear durations and direct WhatsApp ordering.</p>
+        </header>
+        <div id="packages-catalog" aria-live="polite"></div>
+        <aside class="package-note reveal" aria-label="Payment information">
+          <p><strong>Payment update:</strong> Online payment via JazzCash, Easypaisa and bank transfer is coming soon. For now, place your order on WhatsApp.</p>
+          <p class="urdu-script" lang="ur" dir="rtl"><strong>ادائیگی کی اطلاع:</strong> جاز کیش، ایزی پیسہ اور بینک کے ذریعے آن لائن ادائیگی جلد دستیاب ہوگی۔ فی الحال واٹس ایپ پر آرڈر کریں۔</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="jobs" aria-labelledby="jobs-title">
+      <div class="content-wrap">
+        <header class="section-heading reveal">
+          <div><p class="label">Education opportunities</p><h2 id="jobs-title">Jobs portal</h2></div>
+          <p>Original job summaries and verified application details will be published here as opportunities become available.</p>
+        </header>
+        <div class="empty-panel reveal">
+          <div class="empty-message"><span class="number">03</span><h3>No job advertisements have been published yet.</h3><p>The category is ready for future teaching, school administration and education-sector opportunities.</p></div>
+          <div class="empty-art" aria-hidden="true"><i class="dash one"></i><i class="dash two"></i><div class="briefcase"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="gallery" aria-labelledby="gallery-title">
+      <div class="content-wrap">
+        <header class="section-heading reveal">
+          <div><p class="label">School updates</p><h2 id="gallery-title">Information gallery</h2></div>
+          <p>Paper notices and useful school information will be presented in an easy-to-browse visual gallery.</p>
+        </header>
+        <div class="gallery-frame reveal">
+          <marquee class="gallery-marquee" direction="left" scrollamount="6" aria-label="Scrolling information gallery">
+            <figure class="gallery-item">
+              <img src="assets/gallery-exam-papers-class1-12.png" alt="Exam Papers for Class 1 to 12, free educational resources from Darkhan Mentor, shown with a stack of papers and graduation cap">
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/gallery-latest-jobs.png" alt="Latest Jobs promotional banner with Apply Online and New labels beside a golden briefcase">
+            </figure>
+            <figure class="gallery-item">
+              <img src="assets/gallery-lesson-plans.png" alt="Lesson Plans promotional banner for class-wise complete free resources, shown with lesson plan documents and an open book">
+            </figure>
+          </marquee>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="contact-strip" aria-label="WhatsApp contact">
+    <div class="contact-strip-inner">
+      <div class="contact-copy">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.45L3.5 20.5l1.4-4.25A8.5 8.5 0 1 1 20.5 11.7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.1 7.4c.22-.5.46-.51.7-.52h.6c.18 0 .38.05.49.34l.82 1.98c.09.23.04.4-.08.59l-.56.72c-.13.16-.16.32-.04.52.5.86 1.22 1.57 2.08 2.07.2.12.36.09.51-.05l.86-.99c.16-.18.35-.22.57-.13l1.9.9c.23.11.38.18.41.29.04.11.04.63-.15 1.22-.19.59-1.11 1.13-1.55 1.2-.39.07-.88.1-1.42-.07-.33-.1-.75-.25-1.29-.48-.57-.25-2.53-.92-4.33-3.46-.5-.71-.85-1.5-.95-1.75-.1-.25-1.05-2.51.43-4.37Z" fill="currentColor"/></svg>
+        <p>WhatsApp contact / <span class="urdu-script" lang="ur" dir="rtl">واٹس ایپ رابطہ</span><strong>03411686858</strong></p>
+      </div>
+      <div class="contact-actions">
+        <nav class="social-links" aria-label="Social media profiles">
+          <!-- Replace # with the real Facebook profile URL when it is ready. -->
+          <a class="social-link is-placeholder" href="#" aria-label="Facebook profile — link coming soon" aria-disabled="true" title="Facebook link coming soon">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.2 8.2V6.6c0-.7.5-.9.9-.9h2.3V2.2L14.2 2c-3.2 0-4.8 1.9-4.8 5v1.2H6.2v4h3.2V22h4.8v-9.8h3.2l.5-4h-3.7Z"/></svg>
+          </a>
+          <a class="social-link" href="https://www.youtube.com/@darkhanmentor1" target="_blank" rel="noopener noreferrer" aria-label="Darkhan Mentor on YouTube" title="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.2 7.1a3 3 0 0 0-2.1-2.2C18.2 4.4 12 4.4 12 4.4s-6.2 0-8.1.5A3 3 0 0 0 1.8 7.1 31 31 0 0 0 1.3 12a31 31 0 0 0 .5 4.9 3 3 0 0 0 2.1 2.2c1.9.5 8.1.5 8.1.5s6.2 0 8.1-.5a3 3 0 0 0 2.1-2.2 31 31 0 0 0 .5-4.9 31 31 0 0 0-.5-4.9ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg>
+          </a>
+          <!-- Replace # with the real TikTok profile URL when it is ready. -->
+          <a class="social-link is-placeholder" href="#" aria-label="TikTok profile — link coming soon" aria-disabled="true" title="TikTok link coming soon">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.8 2c.3 2.1 1.5 3.4 3.7 3.6v3.1a7.5 7.5 0 0 1-3.6-.9v6.6a6 6 0 1 1-5.2-5.9v3.2a2.9 2.9 0 1 0 2 2.7V2h3.1Z"/></svg>
+          </a>
+        </nav>
+        <a class="contact-button" href="https://wa.me/923411686858?text=Assalam-o-Alaikum%21%20Mujhe%20Darkhan%20Mentor%20packages%20ke%20baare%20mein%20maloomat%20chahiye." target="_blank" rel="noopener noreferrer">WhatsApp par rabta karein</a>
+      </div>
+    </div>
+  </section>
+
+  <nav class="floating-socials" aria-label="Floating social media links">
+    <button class="floating-social-button facebook is-placeholder" type="button" aria-label="Facebook link coming soon" title="Facebook link coming soon">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.2 8.2V6.6c0-.7.5-.9.9-.9h2.3V2.2L14.2 2c-3.2 0-4.8 1.9-4.8 5v1.2H6.2v4h3.2V22h4.8v-9.8h3.2l.5-4h-3.7Z"/></svg>
+    </button>
+    <a class="floating-social-button youtube" href="https://www.youtube.com/@darkhanmentor1" target="_blank" rel="noopener noreferrer" aria-label="Darkhan Mentor on YouTube" title="YouTube">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.2 7.1a3 3 0 0 0-2.1-2.2C18.2 4.4 12 4.4 12 4.4s-6.2 0-8.1.5A3 3 0 0 0 1.8 7.1 31 31 0 0 0 1.3 12a31 31 0 0 0 .5 4.9 3 3 0 0 0 2.1 2.2c1.9.5 8.1.5 8.1.5s6.2 0 8.1-.5a3 3 0 0 0 2.1-2.2 31 31 0 0 0 .5-4.9 31 31 0 0 0-.5-4.9ZM9.8 15.3V8.7l5.7 3.3-5.7 3.3Z"/></svg>
+    </a>
+    <button class="floating-social-button tiktok is-placeholder" type="button" aria-label="TikTok link coming soon" title="TikTok link coming soon">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.8 2c.3 2.1 1.5 3.4 3.7 3.6v3.1a7.5 7.5 0 0 1-3.6-.9v6.6a6 6 0 1 1-5.2-5.9v3.2a2.9 2.9 0 1 0 2 2.7V2h3.1Z"/></svg>
+    </button>
+    <a class="whatsapp-float" href="https://wa.me/923411686858?text=Assalam-o-Alaikum%21%20Mujhe%20Darkhan%20Mentor%20packages%20ke%20baare%20mein%20maloomat%20chahiye." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp par packages ke baare mein rabta karein" title="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.45L3.5 20.5l1.4-4.25A8.5 8.5 0 1 1 20.5 11.7Z" fill="currentColor"/><path d="M8.2 7.7c.2-.44.4-.45.63-.46h.5c.16 0 .34.05.44.3l.73 1.76c.08.2.04.36-.08.52l-.49.64c-.11.14-.14.29-.03.46.44.77 1.08 1.4 1.85 1.84.18.1.32.08.45-.05l.77-.88c.14-.16.31-.19.5-.11l1.7.8c.2.1.33.16.36.26.03.1.03.56-.14 1.09-.17.52-.98 1-1.37 1.07-.35.06-.78.09-1.26-.07-.3-.09-.67-.22-1.15-.43-.5-.22-2.25-.82-3.84-3.08-.45-.63-.76-1.33-.85-1.55-.09-.22-.93-2.23.38-3.88Z" fill="#25D366"/></svg>
+      <span>WhatsApp</span>
+    </a>
+  </nav>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>Original education resources for schools, teachers and learners.</p>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="#papers">Papers</a><a href="#lesson-plans">Lesson Plans</a><a href="#worksheets" data-open-resource="worksheets">Worksheets</a><a href="#presentations" data-open-resource="presentations">Presentations</a><a href="#packages">Packages</a><a href="#planners">Schedule Makers</a><a href="#jobs">Jobs</a><a href="#gallery">Gallery</a></nav>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script>
+    /* ===== EDIT PACKAGE PRICES HERE ===== */
+    var PACKAGE_PRICES = {
+      classWise: { singleClass: 1000, classes1To5: 2500, classes6To8: 2500, classes9To10: 2000 },
+      periodWise: { fullAccess: 800 },
+      papers: { monthly: 299, threeMonths: 600, sixMonths: 800, oneYear: 1500 }
+    };
+
+    (function () {
+      var whatsappBase = 'https://wa.me/923411686858?text=';
+      var durations = [
+        { key: 'monthly', label: 'Monthly', urdu: 'ماہانہ' },
+        { key: 'threeMonths', label: '3 Months', urdu: '3 ماہ' },
+        { key: 'sixMonths', label: '6 Months', urdu: '6 ماہ' },
+        { key: 'oneYear', label: '1 Year', urdu: '1 سال' }
+      ];
+      var categories = [
+        {
+          key: 'classWise',
+          name: 'Lesson Plans — Class-wise',
+          urdu: 'جماعت وار سبق کے منصوبے',
+          description: 'Choose one class or save with a multi-class bundle.',
+          notice: 'Payment karne ke baad aap apne selected class package ke lesson plans ka print le sakte hain.',
+          plans: [
+            { key: 'singleClass', label: 'Single Class Package', urdu: 'ایک جماعت کا پیکیج' },
+            { key: 'classes1To5', label: 'Classes 1–5 Bundle', urdu: 'جماعت 1 تا 5 پیکیج' },
+            { key: 'classes6To8', label: 'Classes 6–8 Bundle', urdu: 'جماعت 6 تا 8 پیکیج' },
+            { key: 'classes9To10', label: 'Classes 9–10 Bundle', urdu: 'جماعت 9 تا 10 پیکیج' }
+          ],
+          features: ['Class-wise lesson plan access', 'English + Urdu medium', 'Print-ready teaching resources']
+        },
+        {
+          key: 'periodWise',
+          name: 'Lesson Plans — Subject-wise',
+          urdu: 'مضمون وار سبق کے منصوبے',
+          description: 'One subject-wise package at a single price.',
+          plans: [{ key: 'fullAccess', label: 'Subject-wise Package', urdu: 'مضمون وار پیکیج' }],
+          features: ['Subject-wise lesson plan access', 'English + Urdu medium', 'Print-ready teaching resources']
+        },
+        {
+          key: 'papers',
+          name: 'Papers Pack',
+          urdu: 'پیپرز پیک',
+          description: 'A focused package for printable paper resources.',
+          features: ['Paper resource access', 'Class and subject categories', 'Print-ready paper formats']
+        }
+      ];
+      var catalog = document.getElementById('packages-catalog');
+
+      function addTextElement(parent, tag, className, text) {
+        var element = document.createElement(tag);
+        if (className) element.className = className;
+        element.textContent = text;
+        parent.appendChild(element);
+        return element;
+      }
+
+      categories.forEach(function (category) {
+        var section = document.createElement('section');
+        section.className = 'package-category reveal';
+        var heading = document.createElement('div');
+        heading.className = 'package-category-head';
+        var titleWrap = document.createElement('div');
+        addTextElement(titleWrap, 'h3', '', category.name);
+        addTextElement(titleWrap, 'p', 'urdu-script', category.urdu).setAttribute('dir', 'rtl');
+        heading.appendChild(titleWrap);
+        addTextElement(heading, 'p', '', category.description);
+        section.appendChild(heading);
+        if (category.notice) {
+          var notice = addTextElement(section, 'p', 'package-access-message', category.notice);
+          notice.setAttribute('role', 'note');
+        }
+
+        var categoryPlans = category.plans || durations;
+        var grid = document.createElement('div');
+        grid.className = 'package-grid' + (categoryPlans.length === 1 ? ' single-plan' : '');
+        categoryPlans.forEach(function (duration) {
+          var price = PACKAGE_PRICES[category.key][duration.key];
+          var card = document.createElement('article');
+          card.className = 'package-card';
+          addTextElement(card, 'div', 'package-duration', duration.label + ' / ' + duration.urdu);
+          var priceLine = document.createElement('div');
+          priceLine.className = 'package-price';
+          addTextElement(priceLine, 'strong', '', 'Rs ' + price);
+          addTextElement(priceLine, 'span', '', 'PKR');
+          card.appendChild(priceLine);
+          var featureList = document.createElement('ul');
+          featureList.className = 'package-features';
+          category.features.forEach(function (feature) { addTextElement(featureList, 'li', '', feature); });
+          card.appendChild(featureList);
+
+          var order = document.createElement('a');
+          order.className = 'package-order';
+          order.target = '_blank';
+          order.rel = 'noopener noreferrer';
+          var message = "Assalam-o-Alaikum! Main '" + category.name + ' — ' + duration.label + ' (Rs ' + price + ")' ka package order karna chahta hoon.";
+          order.href = whatsappBase + encodeURIComponent(message);
+          order.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.45L3.5 20.5l1.4-4.25A8.5 8.5 0 1 1 20.5 11.7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.2 7.7c.2-.44.4-.45.63-.46h.5c.16 0 .34.05.44.3l.73 1.76c.08.2.04.36-.08.52l-.49.64c-.11.14-.14.29-.03.46.44.77 1.08 1.4 1.85 1.84.18.1.32.08.45-.05l.77-.88c.14-.16.31-.19.5-.11l1.7.8c.2.1.33.16.36.26.03.1.03.56-.14 1.09-.17.52-.98 1-1.37 1.07-.35.06-.78.09-1.26-.07-.3-.09-.67-.22-1.15-.43-.5-.22-2.25-.82-3.84-3.08-.45-.63-.76-1.33-.85-1.55-.09-.22-.93-2.23.38-3.88Z" fill="currentColor"/></svg><span>Order via WhatsApp / واٹس ایپ پر آرڈر کریں</span>';
+          card.appendChild(order);
+          grid.appendChild(card);
+        });
+        section.appendChild(grid);
+        catalog.appendChild(section);
+      });
+    }());
+
+    (function () {
+      var lessonTabs = document.querySelectorAll('[data-lesson-tab]');
+      var classSelect = document.getElementById('lesson-class-select');
+      if (!classSelect) return;
+      var programField = document.getElementById('lesson-program-field');
+      var programSelect = document.getElementById('lesson-program-select');
+      var mediumSelect = document.getElementById('lesson-medium-select');
+      var options = document.getElementById('lesson-subject-options');
+      var empty = document.getElementById('lesson-subject-empty');
+      var count = document.getElementById('lesson-subject-count');
+      var selectAll = document.getElementById('lesson-select-all');
+      var clearAll = document.getElementById('lesson-clear-all');
+      var showSelected = document.getElementById('lesson-show-selected');
+      var status = document.getElementById('lesson-selection-status');
+      var preview = document.getElementById('lesson-selected-preview');
+      var previewTitle = document.getElementById('lesson-preview-title');
+      var previewMeta = document.getElementById('lesson-preview-meta');
+      var selectedList = document.getElementById('lesson-selected-list');
+      var downloadButton = document.getElementById('lesson-download-selected');
+      var downloadStatus = document.getElementById('lesson-download-status');
+      var currentSelection = [];
+
+      var primarySubjects = [
+        { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' },
+        { label: 'Mathematics', slug: 'mathematics' }, { label: 'Islamiat', slug: 'islamiat' },
+        { label: 'Nazra', slug: 'nazra' }, { label: 'Science', slug: 'science' },
+        { label: 'Social Studies', slug: 'social-studies' }, { label: 'Computer', slug: 'computer' },
+        { label: 'General Knowledge', slug: 'general-knowledge' }
+      ];
+      var middleSubjects = [
+        { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' },
+        { label: 'Mathematics', slug: 'mathematics' }, { label: 'Islamiat', slug: 'islamiat' },
+        { label: 'Nazra', slug: 'nazra' }, { label: 'Science', slug: 'science' },
+        { label: 'Social Studies', slug: 'social-studies' }, { label: 'Computer Science', slug: 'computer-science' },
+        { label: 'General Knowledge', slug: 'gk' }
+      ];
+      var secondarySubjects = [
+        { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' },
+        { label: 'Mathematics', slug: 'mathematics' }, { label: 'Islamiat', slug: 'islamiat' },
+        { label: 'Tarjuma-tul-Quran', slug: 'tarjuma-tul-quran' }, { label: 'Pakistan Studies', slug: 'pak-studies' },
+        { label: 'Physics', slug: 'physics' }, { label: 'Chemistry', slug: 'chemistry' },
+        { label: 'Biology', slug: 'biology' }, { label: 'Computer Science', slug: 'computer-science' }
+      ];
+      var programmeSubjects = {
+        fa: [
+          { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' },
+          { label: 'Education', slug: 'education' }, { label: 'Civics', slug: 'civics' }, { label: 'Punjabi', slug: 'punjabi' }
+        ],
+        'fsc-premedical': [
+          { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' },
+          { label: 'Physics', slug: 'physics' }, { label: 'Chemistry', slug: 'chemistry' }, { label: 'Biology', slug: 'biology' }
+        ],
+        'fsc-preengineering': [
+          { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' },
+          { label: 'Mathematics', slug: 'mathematics' }, { label: 'Physics', slug: 'physics' }, { label: 'Chemistry', slug: 'chemistry' }
+        ],
+        ics: [
+          { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' },
+          { label: 'Mathematics', slug: 'mathematics' }, { label: 'Physics', slug: 'physics' }, { label: 'Computer Science', slug: 'computer-science' }
+        ],
+        icom: [
+          { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' },
+          { label: 'Accounting', slug: 'accounting' }, { label: 'Economics', slug: 'economics' }, { label: 'Business Mathematics', slug: 'business-mathematics' }
+        ]
+      };
+      var programmeNames = { fa: 'FA', 'fsc-premedical': 'FSc Pre-Medical', 'fsc-preengineering': 'FSc Pre-Engineering', ics: 'ICS', icom: 'I.Com' };
+
+      function switchLessonTab(name) {
+        lessonTabs.forEach(function (button) {
+          button.setAttribute('aria-selected', button.getAttribute('data-lesson-tab') === name ? 'true' : 'false');
+        });
+        document.querySelectorAll('.lesson-mode-pane').forEach(function (pane) {
+          pane.hidden = pane.id !== 'lesson-pane-' + name;
+        });
+      }
+
+      lessonTabs.forEach(function (button) {
+        button.addEventListener('click', function () { switchLessonTab(button.getAttribute('data-lesson-tab')); });
+      });
+
+      function subjectsForSelection() {
+        var classNumber = Number(classSelect.value);
+        if (!classNumber) return [];
+        if (classNumber <= 4) return primarySubjects;
+        if (classNumber <= 8) return middleSubjects;
+        if (classNumber <= 10) return secondarySubjects;
+        return programmeSubjects[programSelect.value] || [];
+      }
+
+      function planPath(subject) {
+        var classNumber = Number(classSelect.value);
+        var prefix = classNumber >= 11 ? programSelect.value + '-' + classNumber : 'class' + classNumber;
+        return 'assets/lesson-plans/' + prefix + '-' + subject.slug + '-lesson-plan-' + mediumSelect.value + '.pdf';
+      }
+
+      function resetPreview() {
+        currentSelection = [];
+        preview.hidden = true;
+        selectedList.textContent = '';
+        downloadStatus.textContent = '';
+        document.body.classList.remove('lesson-selection-ready');
+      }
+
+      function updateSelectionState() {
+        var boxes = options.querySelectorAll('input[type="checkbox"]');
+        var selected = options.querySelectorAll('input[type="checkbox"]:checked').length;
+        count.textContent = boxes.length ? selected + ' of ' + boxes.length + ' selected' : 'Choose a class to begin';
+        showSelected.disabled = selected === 0;
+        clearAll.disabled = selected === 0;
+        selectAll.disabled = boxes.length === 0 || selected === boxes.length;
+        status.textContent = selected ? selected + (selected === 1 ? ' subject selected.' : ' subjects selected.') : '';
+        resetPreview();
+      }
+
+      function renderSubjects() {
+        var classNumber = Number(classSelect.value);
+        var subjects = subjectsForSelection();
+        options.textContent = '';
+        programField.hidden = classNumber < 11;
+        empty.hidden = subjects.length > 0;
+        options.hidden = subjects.length === 0;
+        subjects.forEach(function (subject, index) {
+          var label = document.createElement('label');
+          label.className = 'subject-option';
+          var checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.value = subject.slug;
+          checkbox.setAttribute('data-subject-index', String(index));
+          checkbox.addEventListener('change', updateSelectionState);
+          var name = document.createElement('span');
+          name.textContent = subject.label;
+          label.appendChild(checkbox);
+          label.appendChild(name);
+          options.appendChild(label);
+        });
+        selectAll.disabled = !subjects.length;
+        clearAll.disabled = true;
+        showSelected.disabled = true;
+        count.textContent = subjects.length ? '0 of ' + subjects.length + ' selected' : 'Choose a class to begin';
+        status.textContent = subjects.length ? 'Select one or more subjects.' : '';
+        resetPreview();
+      }
+
+      classSelect.addEventListener('change', renderSubjects);
+      programSelect.addEventListener('change', renderSubjects);
+      mediumSelect.addEventListener('change', resetPreview);
+
+      selectAll.addEventListener('click', function () {
+        options.querySelectorAll('input[type="checkbox"]').forEach(function (box) { box.checked = true; });
+        updateSelectionState();
+      });
+      clearAll.addEventListener('click', function () {
+        options.querySelectorAll('input[type="checkbox"]').forEach(function (box) { box.checked = false; });
+        updateSelectionState();
+      });
+
+      showSelected.addEventListener('click', function () {
+        var subjects = subjectsForSelection();
+        currentSelection = [];
+        options.querySelectorAll('input[type="checkbox"]:checked').forEach(function (box) {
+          var subject = subjects[Number(box.getAttribute('data-subject-index'))];
+          currentSelection.push({ label: subject.label, path: planPath(subject) });
+        });
+        selectedList.textContent = '';
+        currentSelection.forEach(function (item) {
+          var card = document.createElement('li');
+          card.className = 'selected-plan-card';
+          var title = document.createElement('strong');
+          title.textContent = item.label;
+          var details = document.createElement('span');
+          details.textContent = 'Class ' + classSelect.value + ' · ' + (mediumSelect.value === 'english-medium' ? 'English Medium' : 'Urdu Medium');
+          var link = document.createElement('a');
+          link.href = item.path;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          link.textContent = 'Open print-ready PDF';
+          card.appendChild(title);
+          card.appendChild(details);
+          card.appendChild(link);
+          selectedList.appendChild(card);
+        });
+        previewTitle.textContent = 'Class ' + classSelect.value + ' — Selected Lesson Plans';
+        previewMeta.textContent = currentSelection.length + (currentSelection.length === 1 ? ' subject' : ' subjects') + (Number(classSelect.value) >= 11 ? ' · ' + programmeNames[programSelect.value] : '');
+        preview.hidden = false;
+        document.body.classList.add('lesson-selection-ready');
+        status.textContent = 'Only the selected subjects are shown below.';
+        downloadStatus.textContent = 'Prepare one combined PDF, then open it to print all selected subjects in order.';
+        preview.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+
+      downloadButton.addEventListener('click', function () {
+        if (!currentSelection.length) return;
+        if (!window.PDFLib || !window.PDFLib.PDFDocument) {
+          downloadStatus.textContent = 'The combined PDF tool could not load. Open the individual print-ready PDFs above.';
+          return;
+        }
+        downloadButton.disabled = true;
+        downloadStatus.textContent = 'Preparing 0 of ' + currentSelection.length + ' lesson plans…';
+        (async function () {
+          try {
+            var combined = await window.PDFLib.PDFDocument.create();
+            for (var i = 0; i < currentSelection.length; i += 1) {
+              downloadStatus.textContent = 'Preparing ' + (i + 1) + ' of ' + currentSelection.length + ' lesson plans…';
+              var response = await fetch(currentSelection[i].path);
+              if (!response.ok) throw new Error('A selected lesson plan file is unavailable.');
+              var source = await window.PDFLib.PDFDocument.load(await response.arrayBuffer());
+              var pages = await combined.copyPages(source, source.getPageIndices());
+              pages.forEach(function (page) { combined.addPage(page); });
+            }
+            var bytes = await combined.save();
+            var blob = new Blob([bytes], { type: 'application/pdf' });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = 'class-' + classSelect.value + '-selected-lesson-plans-' + mediumSelect.value + '.pdf';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+            downloadStatus.textContent = 'Combined PDF ready. Open the downloaded file to print the selected lesson plans.';
+          } catch (error) {
+            downloadStatus.textContent = error && error.message ? error.message : 'The combined PDF could not be prepared.';
+          } finally {
+            downloadButton.disabled = false;
+          }
+        }());
+      });
+    }());
+
+    (function () {
+      var lessonTabs = document.querySelectorAll('[data-lesson-tab]');
+      var classOptions = document.getElementById('lesson-class-options');
+      if (!classOptions) return;
+      var programField = document.getElementById('lesson-program-field');
+      var programSelect = document.getElementById('lesson-program-select');
+      var mediumSelect = document.getElementById('lesson-medium-select');
+      var options = document.getElementById('lesson-subject-options');
+      var empty = document.getElementById('lesson-subject-empty');
+      var count = document.getElementById('lesson-subject-count');
+      var selectAll = document.getElementById('lesson-select-all');
+      var clearAll = document.getElementById('lesson-clear-all');
+      var showSelected = document.getElementById('lesson-show-selected');
+      var status = document.getElementById('lesson-selection-status');
+      var preview = document.getElementById('lesson-selected-preview');
+      var previewTitle = document.getElementById('lesson-preview-title');
+      var previewMeta = document.getElementById('lesson-preview-meta');
+      var selectedList = document.getElementById('lesson-selected-list');
+      var downloadButton = document.getElementById('lesson-download-selected');
+      var downloadStatus = document.getElementById('lesson-download-status');
+      var currentSelection = [];
+
+      var primarySubjects = [
+        { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Mathematics', slug: 'mathematics' },
+        { label: 'Islamiat', slug: 'islamiat' }, { label: 'Nazra', slug: 'nazra' }, { label: 'Science', slug: 'science' },
+        { label: 'Social Studies', slug: 'social-studies' }, { label: 'Computer', slug: 'computer' }, { label: 'General Knowledge', slug: 'general-knowledge' }
+      ];
+      var middleSubjects = [
+        { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Mathematics', slug: 'mathematics' },
+        { label: 'Islamiat', slug: 'islamiat' }, { label: 'Nazra', slug: 'nazra' }, { label: 'Science', slug: 'science' },
+        { label: 'Social Studies', slug: 'social-studies' }, { label: 'Computer Science', slug: 'computer-science' }, { label: 'General Knowledge', slug: 'gk' }
+      ];
+      var secondarySubjects = [
+        { label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Mathematics', slug: 'mathematics' },
+        { label: 'Islamiat', slug: 'islamiat' }, { label: 'Tarjuma-tul-Quran', slug: 'tarjuma-tul-quran' }, { label: 'Pakistan Studies', slug: 'pak-studies' },
+        { label: 'Physics', slug: 'physics' }, { label: 'Chemistry', slug: 'chemistry' }, { label: 'Biology', slug: 'biology' }, { label: 'Computer Science', slug: 'computer-science' }
+      ];
+      var programmeSubjects = {
+        fa: [{ label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' }, { label: 'Education', slug: 'education' }, { label: 'Civics', slug: 'civics' }, { label: 'Punjabi', slug: 'punjabi' }],
+        'fsc-premedical': [{ label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' }, { label: 'Physics', slug: 'physics' }, { label: 'Chemistry', slug: 'chemistry' }, { label: 'Biology', slug: 'biology' }],
+        'fsc-preengineering': [{ label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' }, { label: 'Mathematics', slug: 'mathematics' }, { label: 'Physics', slug: 'physics' }, { label: 'Chemistry', slug: 'chemistry' }],
+        ics: [{ label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' }, { label: 'Mathematics', slug: 'mathematics' }, { label: 'Physics', slug: 'physics' }, { label: 'Computer Science', slug: 'computer-science' }],
+        icom: [{ label: 'English', slug: 'english' }, { label: 'Urdu', slug: 'urdu' }, { label: 'Islamiat', slug: 'islamiat' }, { label: 'Accounting', slug: 'accounting' }, { label: 'Economics', slug: 'economics' }, { label: 'Business Mathematics', slug: 'business-mathematics' }]
+      };
+      var programmeNames = { fa: 'FA', 'fsc-premedical': 'FSc Pre-Medical', 'fsc-preengineering': 'FSc Pre-Engineering', ics: 'ICS', icom: 'I.Com' };
+
+      function selectedClasses() {
+        return Array.prototype.map.call(classOptions.querySelectorAll('input:checked'), function (box) { return Number(box.value); }).sort(function (a, b) { return a - b; });
+      }
+      function subjectsForClass(classNumber) {
+        if (classNumber <= 4) return primarySubjects;
+        if (classNumber <= 8) return middleSubjects;
+        if (classNumber <= 10) return secondarySubjects;
+        return programmeSubjects[programSelect.value] || [];
+      }
+      function planPath(classNumber, subject) {
+        var prefix = classNumber >= 11 ? programSelect.value + '-' + classNumber : 'class' + classNumber;
+        return 'assets/lesson-plans/' + prefix + '-' + subject.slug + '-lesson-plan-' + mediumSelect.value + '.pdf';
+      }
+      function resetPreview() {
+        currentSelection = [];
+        preview.hidden = true;
+        selectedList.textContent = '';
+        downloadStatus.textContent = '';
+        document.body.classList.remove('lesson-selection-ready');
+      }
+      function switchLessonTab(name) {
+        lessonTabs.forEach(function (button) { button.setAttribute('aria-selected', button.getAttribute('data-lesson-tab') === name ? 'true' : 'false'); });
+        document.querySelectorAll('.lesson-mode-pane').forEach(function (pane) { pane.hidden = pane.id !== 'lesson-pane-' + name; });
+      }
+      lessonTabs.forEach(function (button) { button.addEventListener('click', function () { switchLessonTab(button.getAttribute('data-lesson-tab')); }); });
+
+      for (var classNumber = 1; classNumber <= 12; classNumber += 1) {
+        var classLabel = document.createElement('label');
+        classLabel.className = 'class-option';
+        var classBox = document.createElement('input');
+        classBox.type = 'checkbox';
+        classBox.value = String(classNumber);
+        classBox.setAttribute('aria-label', 'Class ' + classNumber);
+        var classText = document.createElement('span');
+        classText.textContent = 'Class ' + classNumber;
+        classLabel.appendChild(classBox);
+        classLabel.appendChild(classText);
+        classOptions.appendChild(classLabel);
+      }
+
+      function updateSelectionState() {
+        var boxes = options.querySelectorAll('input[type="checkbox"]');
+        var selected = options.querySelectorAll('input[type="checkbox"]:checked').length;
+        count.textContent = boxes.length ? selected + ' of ' + boxes.length + ' subjects selected' : 'Choose classes to begin';
+        showSelected.disabled = selected === 0;
+        clearAll.disabled = selected === 0;
+        selectAll.disabled = boxes.length === 0 || selected === boxes.length;
+        status.textContent = selected ? selected + (selected === 1 ? ' subject selected across the chosen classes.' : ' subjects selected across the chosen classes.') : '';
+        resetPreview();
+      }
+
+      function renderSubjects() {
+        var classes = selectedClasses();
+        options.textContent = '';
+        programField.hidden = !classes.some(function (number) { return number >= 11; });
+        empty.hidden = classes.length > 0;
+        options.hidden = classes.length === 0;
+        classes.forEach(function (number) {
+          var subjects = subjectsForClass(number);
+          var group = document.createElement('section');
+          group.className = 'subject-class-group';
+          var heading = document.createElement('div');
+          heading.className = 'subject-class-heading';
+          var title = document.createElement('strong');
+          title.textContent = 'Class ' + number;
+          var meta = document.createElement('span');
+          meta.textContent = subjects.length + ' subjects' + (number >= 11 ? ' · ' + programmeNames[programSelect.value] : '');
+          heading.appendChild(title);
+          heading.appendChild(meta);
+          var grid = document.createElement('div');
+          grid.className = 'subject-class-options';
+          subjects.forEach(function (subject) {
+            var label = document.createElement('label');
+            label.className = 'subject-option';
+            var checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = subject.slug;
+            checkbox.setAttribute('data-class', String(number));
+            checkbox.setAttribute('data-label', subject.label);
+            checkbox.setAttribute('aria-label', 'Class ' + number + ' — ' + subject.label);
+            checkbox.addEventListener('change', updateSelectionState);
+            var name = document.createElement('span');
+            name.textContent = subject.label;
+            label.appendChild(checkbox);
+            label.appendChild(name);
+            grid.appendChild(label);
+          });
+          group.appendChild(heading);
+          group.appendChild(grid);
+          options.appendChild(group);
+        });
+        selectAll.disabled = classes.length === 0;
+        clearAll.disabled = true;
+        showSelected.disabled = true;
+        var total = options.querySelectorAll('input[type="checkbox"]').length;
+        count.textContent = total ? '0 of ' + total + ' subjects selected' : 'Choose classes to begin';
+        status.textContent = total ? 'Select subjects from one or more class sections.' : '';
+        resetPreview();
+      }
+
+      classOptions.addEventListener('change', renderSubjects);
+      programSelect.addEventListener('change', renderSubjects);
+      mediumSelect.addEventListener('change', resetPreview);
+      selectAll.addEventListener('click', function () {
+        options.querySelectorAll('input[type="checkbox"]').forEach(function (box) { box.checked = true; });
+        updateSelectionState();
+      });
+      clearAll.addEventListener('click', function () {
+        options.querySelectorAll('input[type="checkbox"]').forEach(function (box) { box.checked = false; });
+        updateSelectionState();
+      });
+
+      showSelected.addEventListener('click', function () {
+        currentSelection = [];
+        options.querySelectorAll('input[type="checkbox"]:checked').forEach(function (box) {
+          var number = Number(box.getAttribute('data-class'));
+          var subject = { label: box.getAttribute('data-label'), slug: box.value };
+          currentSelection.push({ classNumber: number, label: subject.label, path: planPath(number, subject) });
+        });
+        currentSelection.sort(function (a, b) { return a.classNumber - b.classNumber || a.label.localeCompare(b.label); });
+        selectedList.textContent = '';
+        var grouped = {};
+        currentSelection.forEach(function (item) {
+          if (!grouped[item.classNumber]) grouped[item.classNumber] = [];
+          grouped[item.classNumber].push(item);
+        });
+        Object.keys(grouped).sort(function (a, b) { return Number(a) - Number(b); }).forEach(function (number) {
+          var classBlock = document.createElement('li');
+          classBlock.className = 'selected-class-block';
+          var classTitle = document.createElement('h3');
+          classTitle.className = 'selected-class-title';
+          classTitle.textContent = 'Class ' + number + (Number(number) >= 11 ? ' · ' + programmeNames[programSelect.value] : '');
+          var itemList = document.createElement('ul');
+          itemList.className = 'selected-plan-items';
+          grouped[number].forEach(function (item) {
+            var card = document.createElement('li');
+            card.className = 'selected-plan-card';
+            var title = document.createElement('strong');
+            title.textContent = item.label;
+            var details = document.createElement('span');
+            details.textContent = 'Class ' + item.classNumber + ' · ' + (mediumSelect.value === 'english-medium' ? 'English Medium' : 'Urdu Medium');
+            var link = document.createElement('a');
+            link.href = item.path;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.textContent = 'Open print-ready PDF';
+            card.appendChild(title);
+            card.appendChild(details);
+            card.appendChild(link);
+            itemList.appendChild(card);
+          });
+          classBlock.appendChild(classTitle);
+          classBlock.appendChild(itemList);
+          selectedList.appendChild(classBlock);
+        });
+        var classCount = Object.keys(grouped).length;
+        previewTitle.textContent = 'Selected Lesson Plans by Class';
+        previewMeta.textContent = classCount + (classCount === 1 ? ' class' : ' classes') + ' · ' + currentSelection.length + (currentSelection.length === 1 ? ' subject' : ' subjects');
+        preview.hidden = false;
+        document.body.classList.add('lesson-selection-ready');
+        status.textContent = 'Only the selected class and subject combinations are shown below.';
+        downloadStatus.textContent = 'Prepare one combined PDF, then open it to print all selected lesson plans in class order.';
+        preview.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+
+      downloadButton.addEventListener('click', function () {
+        if (!currentSelection.length) return;
+        if (!window.PDFLib || !window.PDFLib.PDFDocument) {
+          downloadStatus.textContent = 'The combined PDF tool could not load. Open the individual print-ready PDFs above.';
+          return;
+        }
+        downloadButton.disabled = true;
+        downloadStatus.textContent = 'Preparing 0 of ' + currentSelection.length + ' lesson plans…';
+        (async function () {
+          try {
+            var combined = await window.PDFLib.PDFDocument.create();
+            for (var i = 0; i < currentSelection.length; i += 1) {
+              downloadStatus.textContent = 'Preparing ' + (i + 1) + ' of ' + currentSelection.length + ' lesson plans…';
+              var response = await fetch(currentSelection[i].path);
+              if (!response.ok) throw new Error('A selected lesson plan file is unavailable.');
+              var source = await window.PDFLib.PDFDocument.load(await response.arrayBuffer());
+              var pages = await combined.copyPages(source, source.getPageIndices());
+              pages.forEach(function (page) { combined.addPage(page); });
+            }
+            var bytes = await combined.save();
+            var blob = new Blob([bytes], { type: 'application/pdf' });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = 'selected-subject-wise-lesson-plans-' + mediumSelect.value + '.pdf';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+            downloadStatus.textContent = 'Combined PDF ready. Open the downloaded file to print only the selected classes and subjects.';
+          } catch (error) {
+            downloadStatus.textContent = error && error.message ? error.message : 'The combined PDF could not be prepared.';
+          } finally {
+            downloadButton.disabled = false;
+          }
+        }());
+      });
+    }());
+
+    (function () {
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('[data-resource-tab]'));
+      if (!tabs.length) return;
+
+      function selectResource(name, focusTab) {
+        tabs.forEach(function (button) {
+          var active = button.getAttribute('data-resource-tab') === name;
+          button.setAttribute('aria-selected', active ? 'true' : 'false');
+          button.tabIndex = active ? 0 : -1;
+          if (active && focusTab) button.focus();
+        });
+        document.querySelectorAll('.resource-pane').forEach(function (pane) {
+          pane.hidden = pane.id !== name;
+        });
+      }
+
+      tabs.forEach(function (button, index) {
+        button.addEventListener('click', function () { selectResource(button.getAttribute('data-resource-tab'), false); });
+        button.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          var direction = event.key === 'ArrowRight' ? 1 : -1;
+          var next = tabs[(index + direction + tabs.length) % tabs.length];
+          selectResource(next.getAttribute('data-resource-tab'), true);
+        });
+      });
+      document.querySelectorAll('[data-open-resource]').forEach(function (link) {
+        link.addEventListener('click', function () { selectResource(link.getAttribute('data-open-resource'), false); });
+      });
+      if (window.location.hash === '#presentations') selectResource('presentations', false);
+      else selectResource('worksheets', false);
+    }());
+
+    (function () {
+      var items = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        items.forEach(function (item) { item.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(function (item) { observer.observe(item); });
+    }());
+
+    (function () {
+      var data = { datesheet: [], timetable: [] };
+      var dayOrder = { Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6, Sunday: 7 };
+
+      function selectPlanner(name) {
+        document.querySelectorAll('[data-planner-tab]').forEach(function (button) {
+          var active = button.getAttribute('data-planner-tab') === name;
+          button.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        document.querySelectorAll('.planner-pane').forEach(function (pane) {
+          pane.hidden = pane.id !== name + '-pane';
+        });
+      }
+
+      document.querySelectorAll('[data-planner-tab]').forEach(function (button) {
+        button.addEventListener('click', function () { selectPlanner(button.getAttribute('data-planner-tab')); });
+      });
+      document.querySelectorAll('[data-open-planner]').forEach(function (link) {
+        link.addEventListener('click', function () { selectPlanner(link.getAttribute('data-open-planner')); });
+      });
+
+      function readableDate(value) {
+        var parts = value.split('-');
+        if (parts.length !== 3) return value;
+        return new Intl.DateTimeFormat('en', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])));
+      }
+
+      function readableTime(value) {
+        var parts = value.split(':');
+        var hour = Number(parts[0]);
+        var suffix = hour >= 12 ? 'PM' : 'AM';
+        hour = hour % 12 || 12;
+        return hour + ':' + parts[1] + ' ' + suffix;
+      }
+
+      function setText(parent, tag, text) {
+        var node = document.createElement(tag);
+        node.textContent = text;
+        parent.appendChild(node);
+      }
+
+      function render(name) {
+        var list = document.getElementById(name + '-list');
+        var empty = document.getElementById(name + '-empty');
+        var count = document.getElementById(name + '-count');
+        var rows = data[name];
+        list.textContent = '';
+        empty.hidden = rows.length > 0;
+        count.textContent = rows.length + (name === 'datesheet' ? (rows.length === 1 ? ' exam' : ' exams') : (rows.length === 1 ? ' period' : ' periods'));
+        document.querySelectorAll('[data-download="' + name + '"], [data-clear="' + name + '"]').forEach(function (button) { button.disabled = rows.length === 0; });
+
+        rows.forEach(function (item, index) {
+          var row = document.createElement('li');
+          row.className = 'schedule-row';
+          if (name === 'datesheet') {
+            setText(row, 'strong', item.subject);
+            setText(row, 'span', item.className);
+            setText(row, 'span', readableDate(item.date));
+            setText(row, 'span', readableTime(item.time));
+          } else {
+            setText(row, 'strong', item.subject);
+            setText(row, 'span', item.day);
+            setText(row, 'span', readableTime(item.time));
+            setText(row, 'span', item.className);
+          }
+          var remove = document.createElement('button');
+          remove.type = 'button';
+          remove.className = 'remove-row';
+          remove.setAttribute('aria-label', 'Remove ' + item.subject);
+          remove.textContent = '×';
+          remove.addEventListener('click', function () {
+            data[name].splice(index, 1);
+            render(name);
+            document.getElementById(name + '-status').textContent = 'Entry removed.';
+          });
+          row.appendChild(remove);
+          list.appendChild(row);
+        });
+      }
+
+      function addFromForm(name, form) {
+        var values = new FormData(form);
+        var item = {
+          subject: String(values.get('subject') || '').trim(),
+          className: String(values.get('className') || '').trim(),
+          time: String(values.get('time') || '')
+        };
+        if (name === 'datesheet') item.date = String(values.get('date') || '');
+        else item.day = String(values.get('day') || '');
+        data[name].push(item);
+        if (name === 'datesheet') {
+          data[name].sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); });
+        } else {
+          data[name].sort(function (a, b) { return dayOrder[a.day] - dayOrder[b.day] || a.time.localeCompare(b.time); });
+        }
+        render(name);
+        form.reset();
+        document.getElementById(name + '-status').textContent = name === 'datesheet' ? 'Exam added to the date sheet.' : 'Period added to the time table.';
+      }
+
+      ['datesheet', 'timetable'].forEach(function (name) {
+        var form = document.getElementById(name + '-form');
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          if (!form.reportValidity()) return;
+          addFromForm(name, form);
+        });
+      });
+
+      function csvCell(value) {
+        return '"' + String(value).replace(/"/g, '""') + '"';
+      }
+
+      document.querySelectorAll('[data-download]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var name = button.getAttribute('data-download');
+          var headings = name === 'datesheet' ? ['Subject', 'Class', 'Date', 'Start Time'] : ['Day', 'Start Time', 'Subject', 'Class / Group'];
+          var lines = [headings.map(csvCell).join(',')];
+          data[name].forEach(function (item) {
+            var values = name === 'datesheet' ? [item.subject, item.className, item.date, item.time] : [item.day, item.time, item.subject, item.className];
+            lines.push(values.map(csvCell).join(','));
+          });
+          var blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement('a');
+          link.href = url;
+          link.download = name === 'datesheet' ? 'date-sheet.csv' : 'time-table.csv';
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          URL.revokeObjectURL(url);
+          document.getElementById(name + '-status').textContent = 'CSV downloaded.';
+        });
+      });
+
+      document.querySelectorAll('[data-clear]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var name = button.getAttribute('data-clear');
+          data[name] = [];
+          render(name);
+          document.getElementById(name + '-status').textContent = 'All entries cleared.';
+        });
+      });
+    }());
+  </script>
+</body>
+</html>
