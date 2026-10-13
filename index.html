@@ -593,47 +593,10 @@
     @media (prefers-color-scheme: dark) { .selected-plan-card a { color: var(--amber); } }
     .download-progress { margin-top: 10px; color: var(--muted); font-size: .76rem; font-weight: 700; }
 
-    .planner-shell {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      min-height: 620px;
-      background: var(--navy);
-      box-shadow: var(--shadow);
-    }
-    .planner-menu {
-      padding: 34px 24px;
-      color: #fff;
-      background: var(--navy);
-    }
-    .planner-menu h3 { margin-bottom: 10px; font: 600 1.55rem/1.2 "Lora", serif; }
-    .planner-menu p { margin-bottom: 28px; color: var(--hero-muted); font-size: .86rem; }
-    .planner-tab {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 54px;
-      margin-top: 8px;
-      padding: 0 16px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: transparent;
-      color: #fff;
-      font: 800 .86rem/1 "Manrope", sans-serif;
-      text-align: left;
-      cursor: pointer;
-    }
-    .planner-tab svg { width: 21px; height: 21px; color: var(--amber); }
-    .planner-tab[aria-selected="true"] { border-color: var(--amber); background: var(--amber); color: var(--navy); }
-    .planner-tab[aria-selected="true"] svg { color: var(--navy); }
-    .planner-tab:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-    .session-note { margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.15); color: var(--hero-muted); font-size: .72rem; line-height: 1.55; }
-    .planner-workspace { padding: 38px; background: var(--surface); }
-    .planner-pane[hidden] { display: none; }
     .builder-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 26px; }
     .builder-head h3 { margin-bottom: 6px; font: 600 1.7rem/1.2 "Lora", serif; }
     .builder-head p { margin: 0; color: var(--muted); font-size: .88rem; }
     .field-grid { display: grid; grid-template-columns: 1.35fr .9fr .8fr .9fr; gap: 12px; align-items: end; }
-    .field-grid.timetable-fields { grid-template-columns: .85fr .8fr 1.2fr 1fr; }
     .field { display: grid; gap: 7px; }
     .field label { color: var(--muted); font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
     .field input, .field select {
@@ -660,19 +623,31 @@
     .builder-button.accent { border-color: var(--amber); background: var(--amber); color: var(--navy); }
     .builder-button.ghost { border-color: var(--line); background: transparent; color: var(--ink); }
     .builder-button:disabled { opacity: .45; cursor: not-allowed; }
-    .builder-button:focus-visible, .remove-row:focus-visible { outline: 3px solid var(--amber-deep); outline-offset: 2px; }
-    .schedule-preview { margin-top: 30px; border-top: 4px solid var(--amber); background: var(--paper); }
-    .preview-title { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
-    .preview-title strong { font: 600 1.08rem/1.2 "Lora", serif; }
-    .preview-title span { color: var(--muted); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
-    .schedule-empty { min-height: 160px; display: grid; place-items: center; padding: 28px; color: var(--muted); text-align: center; }
-    .schedule-empty[hidden] { display: none; }
-    .schedule-list { list-style: none; margin: 0; padding: 0; }
-    .schedule-row { display: grid; grid-template-columns: 1.25fr .85fr .85fr .8fr 34px; gap: 12px; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--line); }
-    .schedule-row:last-child { border-bottom: 0; }
-    .schedule-row strong { font-size: .86rem; }
-    .schedule-row span { color: var(--muted); font-size: .78rem; }
-    .remove-row { width: 32px; height: 32px; border: 0; background: var(--surface-2); color: var(--ink); font-size: 1.2rem; cursor: pointer; }
+    .builder-button:focus-visible { outline: 3px solid var(--amber-deep); outline-offset: 2px; }
+
+    /* ===== Purchase gating: access modal, locked downloads, unlock banner ===== */
+    .dm-lock-btn { width: fit-content; border: 1px solid var(--amber-deep); background: transparent; color: var(--ink); padding: 10px 18px; font-weight: 800; font-size: .82rem; cursor: pointer; }
+    .dm-lock-btn:hover { background: var(--amber); color: var(--navy); }
+    .dm-unlock-banner { margin: 0 0 18px; padding: 14px 18px; background: #e8f7ee; color: #14532d; border: 1px solid #7ecb9b; font-weight: 700; font-size: .9rem; }
+    .dm-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 32px 16px; background: rgba(4, 18, 38, .72); }
+    .dm-modal[hidden] { display: none; }
+    .dm-modal-card { position: relative; width: 100%; max-width: 560px; background: var(--surface); color: var(--ink); padding: 28px; border-top: 6px solid var(--amber); box-shadow: 0 24px 60px rgba(0, 0, 0, .35); }
+    .dm-modal-card h3 { font: 600 1.4rem/1.2 "Lora", serif; margin: 0 0 6px; }
+    .dm-modal-card h4 { font: 600 1.05rem/1.25 "Lora", serif; margin: 22px 0 6px; }
+    .dm-modal-card p { font-size: .88rem; }
+    .dm-modal-close { position: absolute; top: 10px; right: 14px; border: 0; background: transparent; font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--ink); }
+    .dm-modal-desc { color: var(--muted); margin: 0 0 14px; }
+    .dm-plan-list { display: grid; gap: 10px; margin-bottom: 14px; }
+    .dm-plan-option { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: 12px 14px; cursor: pointer; font-weight: 700; text-align: left; }
+    .dm-plan-option.selected { border-color: var(--amber-deep); background: var(--amber); color: var(--navy); }
+    .dm-plan-option .dm-plan-price { font: 600 1.15rem/1 "Lora", serif; }
+    .dm-note { color: var(--muted); font-size: .82rem; margin: 12px 0 0; }
+    .dm-divider { border: 0; border-top: 1px solid var(--line); margin: 20px 0; }
+    .dm-field { display: block; margin: 10px 0; font-size: .85rem; font-weight: 700; }
+    .dm-field input { display: block; width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: .95rem; }
+    .dm-field input[readonly] { background: var(--paper); color: var(--muted); }
+    .dm-error { color: #b3261e; font-weight: 700; min-height: 1.2em; margin: 8px 0; }
+    .dm-hint { color: #b3261e; font-size: .82rem; font-weight: 700; min-height: 1.2em; margin: 8px 0; }
     .status-line { min-height: 24px; margin: 12px 0 0; color: var(--muted); font-size: .76rem; font-weight: 700; }
 
     .packages-section { background: var(--navy); color: #fff; }
@@ -876,11 +851,7 @@
       .lesson-intro { min-height: 300px; }
       .resource-panel { grid-template-columns: 1fr; }
       .resource-summary { min-height: 250px; }
-      .planner-shell { grid-template-columns: 1fr; }
-      .planner-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
-      .planner-menu h3, .planner-menu p, .session-note { grid-column: 1 / -1; }
-      .planner-tab { margin-top: 0; }
-      .field-grid, .field-grid.timetable-fields { grid-template-columns: 1fr 1fr; }
+      .field-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 660px) {
@@ -899,15 +870,9 @@
       .quick-nav { margin-top: -30px; grid-template-columns: 1fr 1fr; }
       .quick-nav a { min-height: 76px; padding: 14px; flex-direction: column; align-items: flex-start; gap: 8px; font-size: .8rem; }
       .quick-nav svg { width: 24px; height: 24px; }
-      .planner-menu { grid-template-columns: 1fr; padding: 28px 20px; }
-      .planner-menu h3, .planner-menu p, .session-note { grid-column: auto; }
-      .planner-workspace { padding: 28px 20px; }
       .builder-head { align-items: flex-start; flex-direction: column; gap: 8px; }
-      .field-grid, .field-grid.timetable-fields { grid-template-columns: 1fr; }
+      .field-grid { grid-template-columns: 1fr; }
       .builder-actions .builder-button { flex: 1 1 100%; }
-      .schedule-row { grid-template-columns: 1fr auto; gap: 4px 10px; padding: 15px; }
-      .schedule-row strong, .schedule-row span { grid-column: 1; }
-      .schedule-row .remove-row { grid-column: 2; grid-row: 1 / span 4; align-self: center; }
       .section { padding: 80px 0; }
       .medium-grid { grid-template-columns: 1fr; }
       .medium-card { min-height: 300px; padding: 30px; }
@@ -999,6 +964,43 @@
     .degree-pack-links a { padding: 7px 11px; background: var(--amber); color: #0A1931; font-size: .72rem; font-weight: 800; text-decoration: none; border-radius: 5px; }
     .degree-group.master .degree-pack { border-color: rgba(255,255,255,.15); }
     .degree-group.master .degree-pack summary { background: var(--navy-2); color: #fff; }
+
+    /* Papers browser: class -> 18 sections */
+    .papers-browser { margin-top: 26px; }
+    .papers-browser-hint { margin: 0 0 14px; color: var(--muted); font-size: .88rem; }
+    .papers-class-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .paper-class-btn { min-height: 42px; padding: 0 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font: 800 .8rem/1 "Manrope", sans-serif; cursor: pointer; }
+    .paper-class-btn:hover { border-color: var(--navy); }
+    .paper-class-btn[aria-selected="true"] { border-color: var(--navy); background: var(--navy); color: #fff; }
+    .paper-class-btn:focus-visible { outline: 3px solid var(--amber-deep); outline-offset: 2px; }
+    .papers-viewer { margin-top: 20px; padding: 24px; border: 1px solid var(--line); background: var(--paper); }
+    .papers-viewer-empty { margin: 0; color: var(--muted); font-size: .88rem; }
+    .papers-view-head { margin: 0 0 18px; }
+    .papers-view-head h3 { margin: 0 0 4px; font: 600 1.5rem/1.2 "Lora", serif; }
+    .papers-view-head p { margin: 0; color: var(--muted); font-size: .82rem; }
+    .paper-group { margin-bottom: 14px; border: 1px solid var(--line); }
+    .paper-group > summary, .paper-section > summary { padding: 14px 16px; font-weight: 800; font-size: .88rem; cursor: pointer; }
+    .paper-group > summary span, .paper-section > summary span { color: var(--muted); font-weight: 700; }
+    .paper-group-links { padding: 0 16px 14px; display: grid; gap: 6px; }
+    .paper-group-links a, .paper-links a { color: var(--navy-3); font-size: .82rem; font-weight: 700; }
+    @media (prefers-color-scheme: dark) { .paper-group-links a, .paper-links a { color: var(--amber); } }
+    .paper-section { margin-bottom: 10px; border: 1px solid var(--line); }
+    .paper-subject { margin: 0 16px 8px; border-top: 1px solid var(--line); }
+    .paper-subject > summary { padding: 10px 0; font-size: .84rem; font-weight: 800; cursor: pointer; }
+    .paper-links { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 5px; }
+    .paper-links li { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; font-size: .82rem; }
+    .paper-links li > span { min-width: 150px; color: var(--muted); font-weight: 700; }
+    /* Lesson plans: class-wise catalog */
+    .lesson-catalog.lesson-classwise { display: block; }
+    .lp-class { border-bottom: 1px solid var(--line); }
+    .lp-class:last-child { border-bottom: 0; }
+    .lp-class > summary { display: flex; justify-content: space-between; gap: 12px; padding: 15px 20px; font-weight: 800; font-size: .9rem; cursor: pointer; }
+    .lp-class > summary span { color: var(--muted); font-size: .76rem; font-weight: 700; }
+    .lp-subjects { list-style: none; margin: 0; padding: 0 20px 14px; display: grid; gap: 7px; }
+    .lp-subjects li { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; font-size: .84rem; }
+    .lp-subjects li > strong { min-width: 170px; }
+    .lp-subjects a { color: var(--navy-3); font-size: .8rem; font-weight: 800; }
+    @media (prefers-color-scheme: dark) { .lp-subjects a { color: var(--amber); } }
   </style>
 </head>
 <body>
@@ -1009,7 +1011,6 @@
       <a href="#worksheets" data-open-resource="worksheets">Worksheets</a>
       <a href="#presentations" data-open-resource="presentations">Presentations</a>
       <a href="#packages">Packages / پیکیجز</a>
-      <a href="#planners">Schedule Makers</a>
       <a href="#jobs">Jobs</a>
       <a href="#gallery">Gallery</a>
     </div>
@@ -1051,8 +1052,6 @@
         <a href="#lesson-plans"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Lesson Plans</span></a>
         <a href="#worksheets" data-open-resource="worksheets"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3h12v18H6V3Zm3 5h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m15.5 16 1.2 1.2 2.3-2.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Worksheets</span></a>
         <a href="#presentations" data-open-resource="presentations"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 4h16v12H4V4Zm8 12v5m-4 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m8 12 3-3 2 2 3-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Presentations</span></a>
-        <a href="#planners" data-open-planner="datesheet"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14v16H5V5Zm3-2v4m8-4v4M5 10h14M8 14h3m2 0h3m-8 3h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Date Sheet Maker</span></a>
-        <a href="#planners" data-open-planner="timetable"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Time Table Maker</span></a>
         <a href="#jobs"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 7V4h6v3M3 9h18v11H3V9Zm0 3 9 4 9-4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Education Jobs</span></a>
         <a href="#gallery"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="m3 16 5-5 4 4 2-2 7 7M16 9h.01" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Info Gallery</span></a>
       </nav>
@@ -1068,24 +1067,23 @@
           <article class="medium-card reveal">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h14v16H5V4Zm4 5h6M9 13h6M9 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
             <h3>English Medium</h3>
-            <p>Level-wise term and test papers in English will appear here after publication.</p>
+            <p>Browse class-wise papers below — 18 sections per class, English and Urdu medium.</p>
             <span class="empty-chip">Category ready</span>
           </article>
           <article class="medium-card urdu reveal" lang="ur" dir="rtl">
             <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 15c3 3 7 3 10 0 2-2 3-4 5-4M9 7h.01M13 6h.01M6 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
             <h3 class="urdu-script">اردو میڈیم</h3>
-            <p class="urdu-script">جماعت اور ٹرم کے حساب سے اردو میڈیم کے پیپرز یہاں شائع ہوں گے۔</p>
+            <p class="urdu-script">جماعت کے حساب سے اردو میڈیم کے پیپرز نیچے دستیاب ہیں۔</p>
             <span class="empty-chip">کیٹیگری تیار ہے</span>
           </article>
         </div>
         <div class="class-strip early-years reveal" aria-label="Play class paper categories">
           <span>Play Class</span><span>Junior Play</span><span>Senior Play</span>
         </div>
-        <div class="class-strip standard-classes reveal" aria-label="Classes 1 to 10">
-          <span>Class 1</span><span>Class 2</span><span>Class 3</span><span>Class 4</span><span>Class 5</span><span>Class 6</span><span>Class 7</span><span>Class 8</span><span>Class 9</span><span>Class 10</span>
-        </div>
-        <div class="class-strip reveal" aria-label="College paper categories">
-          <span>FA</span><span>FSc (Pre-Medical / Pre-Engineering)</span><span>ICS</span><span>I.Com</span><span>11th</span><span>12th</span><span>HSSC</span><span>D.Com</span><span>DAE</span><span>Other Diploma</span>
+        <div class="papers-browser reveal" id="papers-browser">
+          <p class="papers-browser-hint">Select a class to browse its 18 paper sections — every subject, English + Urdu medium.</p>
+          <div class="papers-class-grid" role="tablist" aria-label="Classes with papers"><button class="paper-class-btn" type="button" data-paper-class="class1" role="tab" aria-selected="false">Class 1</button><button class="paper-class-btn" type="button" data-paper-class="class2" role="tab" aria-selected="false">Class 2</button><button class="paper-class-btn" type="button" data-paper-class="class3" role="tab" aria-selected="false">Class 3</button><button class="paper-class-btn" type="button" data-paper-class="class4" role="tab" aria-selected="false">Class 4</button><button class="paper-class-btn" type="button" data-paper-class="class5" role="tab" aria-selected="false">Class 5</button><button class="paper-class-btn" type="button" data-paper-class="class6" role="tab" aria-selected="false">Class 6</button><button class="paper-class-btn" type="button" data-paper-class="class7" role="tab" aria-selected="false">Class 7</button><button class="paper-class-btn" type="button" data-paper-class="class8" role="tab" aria-selected="false">Class 8</button><button class="paper-class-btn" type="button" data-paper-class="class9" role="tab" aria-selected="false">Class 9</button><button class="paper-class-btn" type="button" data-paper-class="class10" role="tab" aria-selected="false">Class 10</button><button class="paper-class-btn" type="button" data-paper-class="fa-11" role="tab" aria-selected="false">FA · Class 11</button><button class="paper-class-btn" type="button" data-paper-class="fa-12" role="tab" aria-selected="false">FA · Class 12</button><button class="paper-class-btn" type="button" data-paper-class="fsc-premedical-11" role="tab" aria-selected="false">FSc Pre-Medical · Class 11</button><button class="paper-class-btn" type="button" data-paper-class="fsc-premedical-12" role="tab" aria-selected="false">FSc Pre-Medical · Class 12</button><button class="paper-class-btn" type="button" data-paper-class="fsc-preengineering-11" role="tab" aria-selected="false">FSc Pre-Engineering · Class 11</button><button class="paper-class-btn" type="button" data-paper-class="fsc-preengineering-12" role="tab" aria-selected="false">FSc Pre-Engineering · Class 12</button><button class="paper-class-btn" type="button" data-paper-class="ics-11" role="tab" aria-selected="false">ICS · Class 11</button><button class="paper-class-btn" type="button" data-paper-class="ics-12" role="tab" aria-selected="false">ICS · Class 12</button><button class="paper-class-btn" type="button" data-paper-class="icom-11" role="tab" aria-selected="false">I.Com · Class 11</button><button class="paper-class-btn" type="button" data-paper-class="icom-12" role="tab" aria-selected="false">I.Com · Class 12</button></div>
+          <div class="papers-viewer" id="papers-viewer" aria-live="polite"><p class="papers-viewer-empty">Choose a class above to see its papers.</p></div>
         </div>
         <div class="higher-education reveal" aria-label="Bachelor and master level paper categories">
           <section class="degree-group" aria-labelledby="bachelor-categories">
@@ -1146,7 +1144,7 @@
           </div>
         </div>
         <div class="term-strip reveal" aria-label="Paper terms">
-          <div><strong>First Term</strong><small>School papers coming soon</small></div>
+          <div><strong>First Term</strong><small>Browse class papers above — 18 sections per class</small></div>
           <div><strong>Mid Term</strong><small>Bachelor &amp; Master packs available below</small></div>
           <div><strong>Final Term</strong><small>Bachelor &amp; Master packs available below</small></div>
         </div>
@@ -1167,13 +1165,10 @@
         <div class="lesson-mode-pane" id="lesson-pane-classwise" role="tabpanel" aria-labelledby="lesson-tab-classwise">
           <div class="lesson-layout">
             <div class="lesson-intro reveal">
-              <div><h3>Ready for the first lesson plan.</h3><p>The library is organised and waiting for original teaching resources.</p><div class="medium-tags" aria-label="Lesson plan mediums"><span>English Medium</span><span lang="ur" dir="rtl">اردو میڈیم</span></div></div>
+              <div><h3>304 lesson plans ready to download.</h3><p>Every class, subject and medium is covered — open a class to download its plans.</p><div class="medium-tags" aria-label="Lesson plan mediums"><span>English Medium</span><span lang="ur" dir="rtl">اردو میڈیم</span></div></div>
               <div class="lesson-swatch" aria-hidden="true"></div>
             </div>
-            <div class="lesson-catalog reveal">
-              <section class="plan-column" aria-labelledby="english-plans"><h3 id="english-plans">English Medium</h3><p>Class-wise categories</p><div class="plan-classes"><div><strong>Class 1</strong><small>No plans yet</small></div><div><strong>Class 2</strong><small>No plans yet</small></div><div><strong>Class 3</strong><small>No plans yet</small></div><div><strong>Class 4</strong><small>No plans yet</small></div><div><strong>Class 5</strong><small>No plans yet</small></div><div><strong>Class 6</strong><small>No plans yet</small></div><div><strong>Class 7</strong><small>No plans yet</small></div><div><strong>Class 8</strong><small>No plans yet</small></div><div><strong>Class 9</strong><small>No plans yet</small></div><div><strong>Class 10</strong><small>No plans yet</small></div></div></section>
-              <section class="plan-column" lang="ur" dir="rtl" aria-labelledby="urdu-plans"><h3 id="urdu-plans" class="urdu-script">اردو میڈیم</h3><p class="urdu-script">جماعت کے لحاظ سے کیٹیگریز</p><div class="plan-classes"><div><strong>جماعت ۱</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۲</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۳</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۴</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۵</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۶</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۷</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۸</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۹</strong><small>کوئی پلان شائع نہیں ہوا</small></div><div><strong>جماعت ۱۰</strong><small>کوئی پلان شائع نہیں ہوا</small></div></div></section>
-            </div>
+            <div class="lesson-catalog lesson-classwise reveal" aria-label="Class-wise lesson plans"><details class="lp-class"><summary>Class 1<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer</strong> <a href="assets/lesson-plans/class1-computer-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-computer-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class1-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class1-general-knowledge-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-general-knowledge-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class1-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class1-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class1-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class1-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class1-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class1-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class1-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 2<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer</strong> <a href="assets/lesson-plans/class2-computer-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-computer-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class2-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class2-general-knowledge-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-general-knowledge-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class2-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class2-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class2-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class2-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class2-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class2-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class2-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 3<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer</strong> <a href="assets/lesson-plans/class3-computer-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-computer-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class3-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class3-general-knowledge-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-general-knowledge-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class3-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class3-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class3-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class3-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class3-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class3-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class3-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 4<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer</strong> <a href="assets/lesson-plans/class4-computer-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-computer-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class4-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class4-general-knowledge-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-general-knowledge-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class4-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class4-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class4-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class4-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class4-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class4-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class4-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 5<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer Science</strong> <a href="assets/lesson-plans/class5-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class5-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class5-gk-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-gk-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class5-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class5-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class5-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class5-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class5-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class5-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class5-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 6<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer Science</strong> <a href="assets/lesson-plans/class6-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class6-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class6-gk-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-gk-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class6-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class6-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class6-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class6-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class6-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class6-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class6-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 7<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer Science</strong> <a href="assets/lesson-plans/class7-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class7-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class7-gk-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-gk-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class7-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class7-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class7-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class7-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class7-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class7-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class7-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 8<span>9 subjects · 18 plans</span></summary><ul class="lp-subjects"><li><strong>Computer Science</strong> <a href="assets/lesson-plans/class8-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class8-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>General Knowledge</strong> <a href="assets/lesson-plans/class8-gk-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-gk-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class8-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class8-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Nazra</strong> <a href="assets/lesson-plans/class8-nazra-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-nazra-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Science</strong> <a href="assets/lesson-plans/class8-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Social Studies</strong> <a href="assets/lesson-plans/class8-social-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-social-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class8-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class8-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 9<span>10 subjects · 20 plans</span></summary><ul class="lp-subjects"><li><strong>Biology</strong> <a href="assets/lesson-plans/class9-biology-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-biology-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Chemistry</strong> <a href="assets/lesson-plans/class9-chemistry-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-chemistry-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Computer Science</strong> <a href="assets/lesson-plans/class9-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class9-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class9-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class9-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Pakistan Studies</strong> <a href="assets/lesson-plans/class9-pak-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-pak-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/class9-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Tarjuma-tul-Quran</strong> <a href="assets/lesson-plans/class9-tarjuma-tul-quran-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-tarjuma-tul-quran-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class9-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class9-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>Class 10<span>10 subjects · 20 plans</span></summary><ul class="lp-subjects"><li><strong>Biology</strong> <a href="assets/lesson-plans/class10-biology-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-biology-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Chemistry</strong> <a href="assets/lesson-plans/class10-chemistry-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-chemistry-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Computer Science</strong> <a href="assets/lesson-plans/class10-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/class10-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/class10-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/class10-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Pakistan Studies</strong> <a href="assets/lesson-plans/class10-pak-studies-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-pak-studies-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/class10-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Tarjuma-tul-Quran</strong> <a href="assets/lesson-plans/class10-tarjuma-tul-quran-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-tarjuma-tul-quran-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/class10-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/class10-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>FA · Class 11<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Civics</strong> <a href="assets/lesson-plans/fa-11-civics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-11-civics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Education</strong> <a href="assets/lesson-plans/fa-11-education-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-11-education-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/fa-11-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-11-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/fa-11-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-11-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Punjabi</strong> <a href="assets/lesson-plans/fa-11-punjabi-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-11-punjabi-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/fa-11-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-11-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>FA · Class 12<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Civics</strong> <a href="assets/lesson-plans/fa-12-civics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-12-civics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Education</strong> <a href="assets/lesson-plans/fa-12-education-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-12-education-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/fa-12-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-12-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/fa-12-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-12-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Punjabi</strong> <a href="assets/lesson-plans/fa-12-punjabi-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-12-punjabi-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/fa-12-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fa-12-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>FSc Pre-Medical · Class 11<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Biology</strong> <a href="assets/lesson-plans/fsc-premedical-11-biology-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-11-biology-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Chemistry</strong> <a href="assets/lesson-plans/fsc-premedical-11-chemistry-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-11-chemistry-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/fsc-premedical-11-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-11-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/fsc-premedical-11-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-11-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/fsc-premedical-11-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-11-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/fsc-premedical-11-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-11-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>FSc Pre-Medical · Class 12<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Biology</strong> <a href="assets/lesson-plans/fsc-premedical-12-biology-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-12-biology-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Chemistry</strong> <a href="assets/lesson-plans/fsc-premedical-12-chemistry-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-12-chemistry-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/fsc-premedical-12-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-12-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/fsc-premedical-12-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-12-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/fsc-premedical-12-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-12-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/fsc-premedical-12-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-premedical-12-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>FSc Pre-Engineering · Class 11<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Chemistry</strong> <a href="assets/lesson-plans/fsc-preengineering-11-chemistry-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-11-chemistry-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/fsc-preengineering-11-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-11-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/fsc-preengineering-11-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-11-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/fsc-preengineering-11-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-11-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/fsc-preengineering-11-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-11-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/fsc-preengineering-11-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-11-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>FSc Pre-Engineering · Class 12<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Chemistry</strong> <a href="assets/lesson-plans/fsc-preengineering-12-chemistry-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-12-chemistry-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/fsc-preengineering-12-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-12-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/fsc-preengineering-12-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-12-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/fsc-preengineering-12-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-12-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/fsc-preengineering-12-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-12-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/fsc-preengineering-12-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/fsc-preengineering-12-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>ICS · Class 11<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Computer Science</strong> <a href="assets/lesson-plans/ics-11-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-11-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/ics-11-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-11-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/ics-11-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-11-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/ics-11-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-11-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/ics-11-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-11-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/ics-11-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-11-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>ICS · Class 12<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Computer Science</strong> <a href="assets/lesson-plans/ics-12-computer-science-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-12-computer-science-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/ics-12-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-12-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/ics-12-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-12-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Mathematics</strong> <a href="assets/lesson-plans/ics-12-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-12-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Physics</strong> <a href="assets/lesson-plans/ics-12-physics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-12-physics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/ics-12-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/ics-12-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>I.Com · Class 11<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Accounting</strong> <a href="assets/lesson-plans/icom-11-accounting-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-11-accounting-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Business Mathematics</strong> <a href="assets/lesson-plans/icom-11-business-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-11-business-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Economics</strong> <a href="assets/lesson-plans/icom-11-economics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-11-economics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/icom-11-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-11-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/icom-11-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-11-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/icom-11-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-11-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details><details class="lp-class"><summary>I.Com · Class 12<span>6 subjects · 12 plans</span></summary><ul class="lp-subjects"><li><strong>Accounting</strong> <a href="assets/lesson-plans/icom-12-accounting-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-12-accounting-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Business Mathematics</strong> <a href="assets/lesson-plans/icom-12-business-mathematics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-12-business-mathematics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Economics</strong> <a href="assets/lesson-plans/icom-12-economics-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-12-economics-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>English</strong> <a href="assets/lesson-plans/icom-12-english-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-12-english-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Islamiat</strong> <a href="assets/lesson-plans/icom-12-islamiat-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-12-islamiat-lesson-plan-urdu-medium.pdf" download>Urdu</a></li><li><strong>Urdu</strong> <a href="assets/lesson-plans/icom-12-urdu-lesson-plan-english-medium.pdf" download>English</a> <a href="assets/lesson-plans/icom-12-urdu-lesson-plan-urdu-medium.pdf" download>Urdu</a></li></ul></details></div>
           </div>
         </div>
 
@@ -1193,7 +1188,7 @@
               <div class="builder-actions">
                 <button class="builder-button ghost" type="button" id="lesson-select-all" disabled>Select All</button>
                 <button class="builder-button ghost" type="button" id="lesson-clear-all" disabled>Clear Selection</button>
-                <button class="builder-button accent" type="button" id="lesson-show-selected" disabled>Show Selected Lesson Plans</button>
+                <button class="builder-button accent" type="button" id="lesson-show-selected" disabled>Download / Print Lesson Plans</button>
               </div>
               <p class="selection-status" id="lesson-selection-status" aria-live="polite"></p>
             </div>
@@ -1254,79 +1249,6 @@
             </div>
           </div>
         </section>
-      </div>
-    </section>
-
-    <section class="section alt" id="planners" aria-labelledby="planners-title">
-      <div class="content-wrap">
-        <header class="section-heading reveal">
-          <div><p class="label">School schedule tools</p><h2 id="planners-title">Build it here</h2></div>
-          <p>Create a date sheet or weekly time table, preview it instantly and download a CSV file for editing or printing.</p>
-        </header>
-
-        <div class="planner-shell reveal">
-          <aside class="planner-menu" aria-label="Schedule maker options">
-            <h3>Choose a maker</h3>
-            <p>Add entries one by one. Your work stays in this open page until you download it.</p>
-            <button class="planner-tab" type="button" id="tab-datesheet" role="tab" aria-selected="true" aria-controls="datesheet-pane" data-planner-tab="datesheet">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 5h14v16H5V5Zm3-2v4m8-4v4M5 10h14M8 14h3m2 0h3m-8 3h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Date Sheet
-            </button>
-            <button class="planner-tab" type="button" id="tab-timetable" role="tab" aria-selected="false" aria-controls="timetable-pane" data-planner-tab="timetable">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              Time Table
-            </button>
-            <div class="session-note">Download your finished schedule before closing the page. Entries are not saved automatically.</div>
-          </aside>
-
-          <div class="planner-workspace">
-            <section class="planner-pane" id="datesheet-pane" role="tabpanel" aria-labelledby="tab-datesheet">
-              <div class="builder-head"><div><h3>Date Sheet Maker</h3><p>Add each exam, then download the complete schedule.</p></div></div>
-              <form id="datesheet-form">
-                <div class="field-grid">
-                  <div class="field"><label for="exam-subject">Subject</label><input id="exam-subject" name="subject" type="text" placeholder="e.g. Mathematics" aria-label="Exam subject" required maxlength="60"></div>
-                  <div class="field"><label for="exam-class">Class</label><input id="exam-class" name="className" type="text" placeholder="e.g. Class 7" aria-label="Exam class" required maxlength="30"></div>
-                  <div class="field"><label for="exam-date">Exam date</label><input id="exam-date" name="date" type="date" aria-label="Exam date" required></div>
-                  <div class="field"><label for="exam-time">Start time</label><input id="exam-time" name="time" type="time" aria-label="Exam start time" required></div>
-                </div>
-                <div class="builder-actions">
-                  <button class="builder-button accent" type="submit">Add exam</button>
-                  <button class="builder-button ghost" type="button" data-download="datesheet" disabled>Download date sheet CSV</button>
-                  <button class="builder-button ghost" type="button" data-clear="datesheet" disabled>Clear all</button>
-                </div>
-              </form>
-              <p class="status-line" id="datesheet-status" aria-live="polite"></p>
-              <div class="schedule-preview" aria-live="polite">
-                <div class="preview-title"><strong>Exam Schedule</strong><span id="datesheet-count">0 exams</span></div>
-                <div class="schedule-empty" id="datesheet-empty">Your date sheet preview will appear here.</div>
-                <ol class="schedule-list" id="datesheet-list"></ol>
-              </div>
-            </section>
-
-            <section class="planner-pane" id="timetable-pane" role="tabpanel" aria-labelledby="tab-timetable" hidden>
-              <div class="builder-head"><div><h3>Time Table Maker</h3><p>Build a weekly class routine, one period at a time.</p></div></div>
-              <form id="timetable-form">
-                <div class="field-grid timetable-fields">
-                  <div class="field"><label for="period-day">Day</label><select id="period-day" name="day" required><option value="">Choose day</option><option>Monday</option><option>Tuesday</option><option>Wednesday</option><option>Thursday</option><option>Friday</option><option>Saturday</option><option>Sunday</option></select></div>
-                  <div class="field"><label for="period-time">Start time</label><input id="period-time" name="time" type="time" aria-label="Period start time" required></div>
-                  <div class="field"><label for="period-subject">Subject</label><input id="period-subject" name="subject" type="text" placeholder="e.g. English" aria-label="Period subject" required maxlength="60"></div>
-                  <div class="field"><label for="period-class">Class / Group</label><input id="period-class" name="className" type="text" placeholder="e.g. Class 5" aria-label="Period class or group" required maxlength="30"></div>
-                </div>
-                <div class="builder-actions">
-                  <button class="builder-button accent" type="submit">Add period</button>
-                  <button class="builder-button ghost" type="button" data-download="timetable" disabled>Download time table CSV</button>
-                  <button class="builder-button ghost" type="button" data-clear="timetable" disabled>Clear all</button>
-                </div>
-              </form>
-              <p class="status-line" id="timetable-status" aria-live="polite"></p>
-              <div class="schedule-preview" aria-live="polite">
-                <div class="preview-title"><strong>Weekly Time Table</strong><span id="timetable-count">0 periods</span></div>
-                <div class="schedule-empty" id="timetable-empty">Your weekly time table preview will appear here.</div>
-                <ol class="schedule-list" id="timetable-list"></ol>
-              </div>
-            </section>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1424,11 +1346,271 @@
   <footer class="footer">
     <div class="footer-inner">
       <p>Original education resources for schools, teachers and learners.</p>
-      <nav class="footer-links" aria-label="Footer navigation"><a href="#papers">Papers</a><a href="#lesson-plans">Lesson Plans</a><a href="#worksheets" data-open-resource="worksheets">Worksheets</a><a href="#presentations" data-open-resource="presentations">Presentations</a><a href="#packages">Packages</a><a href="#planners">Schedule Makers</a><a href="#jobs">Jobs</a><a href="#gallery">Gallery</a></nav>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="#papers">Papers</a><a href="#lesson-plans">Lesson Plans</a><a href="#worksheets" data-open-resource="worksheets">Worksheets</a><a href="#presentations" data-open-resource="presentations">Presentations</a><a href="#packages">Packages</a><a href="#jobs">Jobs</a><a href="#gallery">Gallery</a></nav>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script>
+    /* ===== Purchase gating: ACCESS_CODES (1 code per plan; see admin reference file) ===== */
+    var ACCESS_CODES = {"DM-SUBJ-XPY9": {"plan": "subject-wise", "days": 365}, "DM-PAPER-M-7HWU": {"plan": "papers-monthly", "days": 30}, "DM-PAPER-3M-2XYV": {"plan": "papers-3months", "days": 90}, "DM-PAPER-6M-W8EE": {"plan": "papers-6months", "days": 180}, "DM-PAPER-1Y-ZRTM": {"plan": "papers-1year", "days": 365}};
+    var DMAccess = (function () {
+      var WHATSAPP_BASE = 'https://wa.me/923411686858?text=';
+      var PLANS = {
+        'subject-wise': { area: 'subjectwise', name: 'Lesson Plans — Subject-wise', label: 'Subject-wise Package', price: 800, days: 365 },
+        'papers-monthly': { area: 'papers', name: 'Papers Pack', label: 'Monthly', price: 299, days: 30 },
+        'papers-3months': { area: 'papers', name: 'Papers Pack', label: '3 Months', price: 600, days: 90 },
+        'papers-6months': { area: 'papers', name: 'Papers Pack', label: '6 Months', price: 800, days: 180 },
+        'papers-1year': { area: 'papers', name: 'Papers Pack', label: '1 Year', price: 1500, days: 365 }
+      };
+      function keyFor(area) { return area === 'papers' ? 'dm_access_papers' : 'dm_access_subjectwise'; }
+      function read(area) {
+        try {
+          var raw = localStorage.getItem(keyFor(area));
+          if (!raw) return null;
+          var entry = JSON.parse(raw);
+          if (!entry || !entry.expiresAt || Date.now() > entry.expiresAt) { localStorage.removeItem(keyFor(area)); return null; }
+          return entry;
+        } catch (err) { return null; }
+      }
+      function isUnlocked(area) { return !!read(area); }
+      function unlock(code, area) {
+        var norm = String(code || '').trim().toUpperCase();
+        var found = (typeof ACCESS_CODES !== 'undefined') ? ACCESS_CODES[norm] : null;
+        if (!found || !PLANS[found.plan]) return null;
+        var plan = PLANS[found.plan];
+        if (plan.area !== area) return null;
+        var stored = { code: norm, plan: found.plan, expiresAt: Date.now() + found.days * 86400000 };
+        try { localStorage.setItem(keyFor(plan.area), JSON.stringify(stored)); } catch (err) { /* storage unavailable: session-only */ }
+        return stored;
+      }
+      function planDisplay(planKey) {
+        var p = PLANS[planKey];
+        return p.name + ' — ' + p.label + ' (Rs ' + p.price + ')';
+      }
+      function whatsappOrder(planKey) {
+        return WHATSAPP_BASE + encodeURIComponent("Assalam-o-Alaikum! Main '" + planDisplay(planKey) + "' ka package order karna chahta hoon.");
+      }
+      function whatsappScreenshot(planKey, payId, name) {
+        var msg = "Assalam-o-Alaikum! Maine '" + planDisplay(planKey) + "' ka package order kiya hai. Payment / Transaction ID: " + payId + (name ? ' | Naam: ' + name : '') + '. Payment ka screenshot attach kar raha hoon, barah-e-karam verify karke Access Code bhej dein.';
+        return WHATSAPP_BASE + encodeURIComponent(msg);
+      }
+      /* Modal elements are looked up lazily: this script runs BEFORE the modal
+         markup is parsed, so top-level getElementById calls would return null. */
+      function els() {
+        return {
+          modal: document.getElementById('dm-access-modal'),
+          title: document.getElementById('dm-modal-title'),
+          desc: document.getElementById('dm-modal-desc'),
+          planList: document.getElementById('dm-plan-list'),
+          order: document.getElementById('dm-whatsapp-order'),
+          payPlan: document.getElementById('dm-pay-plan'),
+          payId: document.getElementById('dm-pay-id'),
+          payName: document.getElementById('dm-pay-name'),
+          payHint: document.getElementById('dm-pay-hint'),
+          screenshot: document.getElementById('dm-whatsapp-screenshot'),
+          code: document.getElementById('dm-access-code'),
+          error: document.getElementById('dm-access-error'),
+          submit: document.getElementById('dm-access-submit'),
+          close: document.getElementById('dm-modal-close')
+        };
+      }
+      var currentArea = 'subjectwise';
+      var currentPlanKey = 'subject-wise';
+      var currentOnUnlock = null;
+      var wired = false;
+      function selectPlan(planKey) {
+        var E = els();
+        currentPlanKey = planKey;
+        E.planList.querySelectorAll('.dm-plan-option').forEach(function (btn) {
+          var active = btn.getAttribute('data-plan-key') === planKey;
+          btn.classList.toggle('selected', active);
+          btn.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+        E.order.href = whatsappOrder(planKey);
+        E.payPlan.value = planDisplay(planKey);
+      }
+      function submitCode() {
+        var E = els();
+        var stored = unlock(E.code.value, currentArea);
+        if (!stored) {
+          E.error.textContent = 'Ghalat Access Code hai. Dobara check karein ya WhatsApp par rabta karein.';
+          return;
+        }
+        E.error.textContent = '';
+        var cb = currentOnUnlock;
+        currentOnUnlock = null;
+        closeModal();
+        if (cb) cb(stored);
+      }
+      function wireModal() {
+        if (wired) return;
+        wired = true;
+        var E = els();
+        E.screenshot.addEventListener('click', function (event) {
+          var payId = E.payId.value.trim();
+          if (!payId) {
+            event.preventDefault();
+            E.payHint.textContent = 'Payment / Transaction ID darj karein.';
+            E.payId.focus();
+            return;
+          }
+          E.payHint.textContent = '';
+          E.screenshot.href = whatsappScreenshot(currentPlanKey, payId, E.payName.value.trim());
+        });
+        E.submit.addEventListener('click', submitCode);
+        E.code.addEventListener('keydown', function (event) { if (event.key === 'Enter') submitCode(); });
+        E.close.addEventListener('click', closeModal);
+        E.modal.addEventListener('click', function (event) { if (event.target === E.modal) closeModal(); });
+        document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && !E.modal.hidden) closeModal(); });
+      }
+      function openModal(area, onUnlock) {
+        wireModal();
+        var E = els();
+        currentArea = area;
+        currentOnUnlock = onUnlock || null;
+        var keys = area === 'papers'
+          ? ['papers-monthly', 'papers-3months', 'papers-6months', 'papers-1year']
+          : ['subject-wise'];
+        E.title.textContent = area === 'papers' ? 'Papers Pack — Package' : 'Lesson Plans — Subject-wise — Package';
+        E.desc.textContent = area === 'papers'
+          ? 'Papers download karne ke liye apna plan select karein, WhatsApp par order karein, phir payment verify karke Access Code hasil karein.'
+          : 'Subject-wise lesson plans download/print karne ke liye package order karein, phir payment verify karke Access Code hasil karein.';
+        E.planList.textContent = '';
+        keys.forEach(function (key) {
+          var p = PLANS[key];
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'dm-plan-option';
+          btn.setAttribute('data-plan-key', key);
+          btn.setAttribute('role', 'radio');
+          var lbl = document.createElement('span');
+          lbl.textContent = p.label;
+          var prc = document.createElement('span');
+          prc.className = 'dm-plan-price';
+          prc.textContent = 'Rs ' + p.price;
+          btn.appendChild(lbl);
+          btn.appendChild(prc);
+          btn.addEventListener('click', function () { selectPlan(key); });
+          E.planList.appendChild(btn);
+        });
+        E.payId.value = '';
+        E.payName.value = '';
+        E.payHint.textContent = '';
+        E.code.value = '';
+        E.error.textContent = '';
+        selectPlan(keys[0]);
+        E.modal.hidden = false;
+      }
+      function closeModal() { var E = els(); if (E.modal) E.modal.hidden = true; }
+      /* ---- Subject-wise lesson-plans button gate ----
+         Registered BEFORE the lesson builder's own click handler, so when locked it
+         stops that handler (stopImmediatePropagation) and opens this modal instead.
+         After a valid code, the button is re-clicked and the original handler runs. */
+      var lessonBtn = document.getElementById('lesson-show-selected');
+      if (lessonBtn) {
+        lessonBtn.addEventListener('click', function (event) {
+          if (isUnlocked('subjectwise')) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          openModal('subjectwise', function () {
+            lessonBtn.click();
+            var st = document.getElementById('lesson-selection-status');
+            if (st) st.textContent = 'Aap ne payment kar di hai, ab aap lesson plans print/download kar sakte ho';
+          });
+        });
+      }
+      return { PLANS: PLANS, isUnlocked: isUnlocked, read: read, unlock: unlock, whatsappOrder: whatsappOrder, whatsappScreenshot: whatsappScreenshot, openModal: openModal, closeModal: closeModal, planDisplay: planDisplay };
+    }());
+  </script>
+
+  <script>
+    /* Papers catalog: one ZIP per class-program x section (rebuilt for browser upload). */
+    var PAPERS_DATA = {"class1":{"repo":"papers-class1-4","term":["class1-additional-subjects-24-papers.zip","class1-core-subjects-30-papers.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/class1-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class1-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class1-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class1-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class1-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class1-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class1-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class1-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class1-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class1-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class1-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/class1-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/class1-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class1-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class1-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/class1-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/class1-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class1-section18-20min-test.zip","pdfs":18}},"total":972},"class2":{"repo":"papers-class1-4","term":["class2-additional-subjects-24-papers.zip","class2-core-subjects-30-papers.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/class2-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class2-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class2-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class2-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class2-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class2-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class2-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class2-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class2-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class2-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class2-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/class2-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/class2-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class2-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class2-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/class2-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/class2-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class2-section18-20min-test.zip","pdfs":18}},"total":972},"class3":{"repo":"papers-class1-4","term":["class3-additional-subjects-24-papers.zip","class3-core-subjects-30-papers.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/class3-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class3-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class3-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class3-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class3-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class3-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class3-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class3-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class3-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class3-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class3-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/class3-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/class3-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class3-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class3-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/class3-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/class3-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class3-section18-20min-test.zip","pdfs":18}},"total":972},"class4":{"repo":"papers-class1-4","term":["class4-additional-subjects-24-papers.zip","class4-core-subjects-30-papers.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/class4-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class4-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class4-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class4-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class4-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class4-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class4-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class4-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class4-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class4-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class4-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/class4-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/class4-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class4-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class4-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/class4-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/class4-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class4-section18-20min-test.zip","pdfs":18}},"total":972},"class5":{"repo":"papers-class5-8","term":["class5-term-papers-54.zip"],"chap":["class5-computer-science-chapterwise.zip","class5-english-chapterwise.zip","class5-general-knowledge-chapterwise.zip","class5-general-science-chapterwise.zip","class5-islamiat-chapterwise.zip","class5-mathematics-chapterwise.zip","class5-nazra-quran-chapterwise.zip","class5-social-studies-chapterwise.zip","class5-urdu-chapterwise.zip"],"sections":{"section01-full-paper":{"zip":"sections/class5-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class5-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class5-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class5-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class5-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class5-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class5-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class5-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class5-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class5-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class5-section11-topic-wise.zip","pdfs":180},"section12-chapter-wise":{"zip":"sections/class5-section12-chapter-wise.zip","pdfs":180},"section13-half-book":{"zip":"sections/class5-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class5-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class5-section15-half-chapter.zip","pdfs":360},"section16-full-chapter":{"zip":"sections/class5-section16-full-chapter.zip","pdfs":180},"section17-10min-paper":{"zip":"sections/class5-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class5-section18-20min-test.zip","pdfs":18}},"total":1152},"class6":{"repo":"papers-class5-8","term":["class6-term-papers-54.zip"],"chap":["class6-computer-science-chapterwise.zip","class6-english-chapterwise.zip","class6-general-knowledge-chapterwise.zip","class6-general-science-chapterwise.zip","class6-islamiat-chapterwise.zip","class6-mathematics-chapterwise.zip","class6-nazra-quran-chapterwise.zip","class6-social-studies-chapterwise.zip","class6-urdu-chapterwise.zip"],"sections":{"section01-full-paper":{"zip":"sections/class6-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class6-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class6-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class6-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class6-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class6-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class6-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class6-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class6-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class6-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class6-section11-topic-wise.zip","pdfs":196},"section12-chapter-wise":{"zip":"sections/class6-section12-chapter-wise.zip","pdfs":196},"section13-half-book":{"zip":"sections/class6-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class6-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class6-section15-half-chapter.zip","pdfs":392},"section16-full-chapter":{"zip":"sections/class6-section16-full-chapter.zip","pdfs":196},"section17-10min-paper":{"zip":"sections/class6-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class6-section18-20min-test.zip","pdfs":18}},"total":1232},"class7":{"repo":"papers-class5-8","term":["class7-term-papers-54.zip"],"chap":["class7-computer-chapterwise.zip","class7-english-chapterwise.zip","class7-gk-chapterwise.zip","class7-islamiat-chapterwise.zip","class7-math-chapterwise.zip","class7-nazra-chapterwise.zip","class7-science-chapterwise.zip","class7-sstudies-chapterwise.zip","class7-urdu-chapterwise.zip"],"sections":{"section01-full-paper":{"zip":"sections/class7-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class7-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class7-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class7-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class7-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class7-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class7-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class7-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class7-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class7-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class7-section11-topic-wise.zip","pdfs":180},"section12-chapter-wise":{"zip":"sections/class7-section12-chapter-wise.zip","pdfs":180},"section13-half-book":{"zip":"sections/class7-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class7-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class7-section15-half-chapter.zip","pdfs":360},"section16-full-chapter":{"zip":"sections/class7-section16-full-chapter.zip","pdfs":180},"section17-10min-paper":{"zip":"sections/class7-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class7-section18-20min-test.zip","pdfs":18}},"total":1152},"class8":{"repo":"papers-class5-8","term":["class8-term-papers-54.zip"],"chap":["class8-computer-science-chapterwise.zip","class8-english-chapterwise.zip","class8-general-knowledge-chapterwise.zip","class8-general-science-chapterwise.zip","class8-islamiat-chapterwise.zip","class8-mathematics-chapterwise.zip","class8-nazra-quran-chapterwise.zip","class8-social-studies-chapterwise.zip","class8-urdu-chapterwise.zip"],"sections":{"section01-full-paper":{"zip":"sections/class8-section01-full-paper.zip","pdfs":18},"section02-mcq-only":{"zip":"sections/class8-section02-mcq-only.zip","pdfs":18},"section03-mcq-short":{"zip":"sections/class8-section03-mcq-short.zip","pdfs":18},"section04-mcq-long":{"zip":"sections/class8-section04-mcq-long.zip","pdfs":18},"section05-short-only":{"zip":"sections/class8-section05-short-only.zip","pdfs":18},"section06-short-long":{"zip":"sections/class8-section06-short-long.zip","pdfs":18},"section07-long-only":{"zip":"sections/class8-section07-long-only.zip","pdfs":18},"section08-objective-only":{"zip":"sections/class8-section08-objective-only.zip","pdfs":18},"section09-written-practice":{"zip":"sections/class8-section09-written-practice.zip","pdfs":18},"section10-guess-paper":{"zip":"sections/class8-section10-guess-paper.zip","pdfs":18},"section11-topic-wise":{"zip":"sections/class8-section11-topic-wise.zip","pdfs":204},"section12-chapter-wise":{"zip":"sections/class8-section12-chapter-wise.zip","pdfs":204},"section13-half-book":{"zip":"sections/class8-section13-half-book.zip","pdfs":18},"section14-full-book":{"zip":"sections/class8-section14-full-book.zip","pdfs":18},"section15-half-chapter":{"zip":"sections/class8-section15-half-chapter.zip","pdfs":408},"section16-full-chapter":{"zip":"sections/class8-section16-full-chapter.zip","pdfs":204},"section17-10min-paper":{"zip":"sections/class8-section17-10min-paper.zip","pdfs":18},"section18-20min-test":{"zip":"sections/class8-section18-20min-test.zip","pdfs":18}},"total":1272},"class9":{"repo":"papers-class9-10","term":["class9-term-papers-60.zip"],"chap":["class9-biology-chapterwise.zip","class9-chemistry-chapterwise.zip","class9-computer-science-chapterwise.zip","class9-english-chapterwise.zip","class9-islamiat-chapterwise.zip","class9-mathematics-chapterwise.zip","class9-pak-studies-chapterwise.zip","class9-physics-chapterwise.zip","class9-tarjuma-tul-quran-chapterwise.zip","class9-urdu-chapterwise.zip"],"sections":{"section01-full-paper":{"zip":"sections/class9-section01-full-paper.zip","pdfs":20},"section02-mcq-only":{"zip":"sections/class9-section02-mcq-only.zip","pdfs":20},"section03-mcq-short":{"zip":"sections/class9-section03-mcq-short.zip","pdfs":20},"section04-mcq-long":{"zip":"sections/class9-section04-mcq-long.zip","pdfs":20},"section05-short-only":{"zip":"sections/class9-section05-short-only.zip","pdfs":20},"section06-short-long":{"zip":"sections/class9-section06-short-long.zip","pdfs":20},"section07-long-only":{"zip":"sections/class9-section07-long-only.zip","pdfs":20},"section08-objective-only":{"zip":"sections/class9-section08-objective-only.zip","pdfs":20},"section09-written-practice":{"zip":"sections/class9-section09-written-practice.zip","pdfs":20},"section10-guess-paper":{"zip":"sections/class9-section10-guess-paper.zip","pdfs":20},"section11-topic-wise":{"zip":"sections/class9-section11-topic-wise.zip","pdfs":230},"section12-chapter-wise":{"zip":"sections/class9-section12-chapter-wise.zip","pdfs":230},"section13-half-book":{"zip":"sections/class9-section13-half-book.zip","pdfs":20},"section14-full-book":{"zip":"sections/class9-section14-full-book.zip","pdfs":20},"section15-half-chapter":{"zip":"sections/class9-section15-half-chapter.zip","pdfs":460},"section16-full-chapter":{"zip":"sections/class9-section16-full-chapter.zip","pdfs":230},"section17-10min-paper":{"zip":"sections/class9-section17-10min-paper.zip","pdfs":20},"section18-20min-test":{"zip":"sections/class9-section18-20min-test.zip","pdfs":20}},"total":1430},"class10":{"repo":"papers-class9-10","term":["class10-term-papers-60.zip"],"chap":["class10-biology-chapterwise.zip","class10-chemistry-chapterwise.zip","class10-computer-science-chapterwise.zip","class10-english-chapterwise.zip","class10-islamiat-chapterwise.zip","class10-mathematics-chapterwise.zip","class10-pak-studies-chapterwise.zip","class10-physics-chapterwise.zip","class10-tarjuma-tul-quran-chapterwise.zip","class10-urdu-chapterwise.zip"],"sections":{"section01-full-paper":{"zip":"sections/class10-section01-full-paper.zip","pdfs":20},"section02-mcq-only":{"zip":"sections/class10-section02-mcq-only.zip","pdfs":20},"section03-mcq-short":{"zip":"sections/class10-section03-mcq-short.zip","pdfs":20},"section04-mcq-long":{"zip":"sections/class10-section04-mcq-long.zip","pdfs":20},"section05-short-only":{"zip":"sections/class10-section05-short-only.zip","pdfs":20},"section06-short-long":{"zip":"sections/class10-section06-short-long.zip","pdfs":20},"section07-long-only":{"zip":"sections/class10-section07-long-only.zip","pdfs":20},"section08-objective-only":{"zip":"sections/class10-section08-objective-only.zip","pdfs":20},"section09-written-practice":{"zip":"sections/class10-section09-written-practice.zip","pdfs":20},"section10-guess-paper":{"zip":"sections/class10-section10-guess-paper.zip","pdfs":20},"section11-topic-wise":{"zip":"sections/class10-section11-topic-wise.zip","pdfs":226},"section12-chapter-wise":{"zip":"sections/class10-section12-chapter-wise.zip","pdfs":226},"section13-half-book":{"zip":"sections/class10-section13-half-book.zip","pdfs":20},"section14-full-book":{"zip":"sections/class10-section14-full-book.zip","pdfs":20},"section15-half-chapter":{"zip":"sections/class10-section15-half-chapter.zip","pdfs":452},"section16-full-chapter":{"zip":"sections/class10-section16-full-chapter.zip","pdfs":226},"section17-10min-paper":{"zip":"sections/class10-section17-10min-paper.zip","pdfs":20},"section18-20min-test":{"zip":"sections/class10-section18-20min-test.zip","pdfs":20}},"total":1410},"fa-11":{"repo":"papers-class11-12","term":["fa-11-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/fa-11-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/fa-11-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/fa-11-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/fa-11-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/fa-11-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/fa-11-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/fa-11-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/fa-11-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/fa-11-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/fa-11-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/fa-11-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/fa-11-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/fa-11-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/fa-11-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/fa-11-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/fa-11-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/fa-11-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/fa-11-section18-20min-test.zip","pdfs":12}},"total":888},"fa-12":{"repo":"papers-class11-12","term":["fa-12-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/fa-12-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/fa-12-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/fa-12-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/fa-12-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/fa-12-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/fa-12-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/fa-12-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/fa-12-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/fa-12-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/fa-12-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/fa-12-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/fa-12-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/fa-12-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/fa-12-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/fa-12-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/fa-12-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/fa-12-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/fa-12-section18-20min-test.zip","pdfs":12}},"total":888},"fsc-premedical-11":{"repo":"papers-class11-12","term":["fsc-premedical-11-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/fsc-premedical-11-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/fsc-premedical-11-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/fsc-premedical-11-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/fsc-premedical-11-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/fsc-premedical-11-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/fsc-premedical-11-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/fsc-premedical-11-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/fsc-premedical-11-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/fsc-premedical-11-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/fsc-premedical-11-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/fsc-premedical-11-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/fsc-premedical-11-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/fsc-premedical-11-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/fsc-premedical-11-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/fsc-premedical-11-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/fsc-premedical-11-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/fsc-premedical-11-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/fsc-premedical-11-section18-20min-test.zip","pdfs":12}},"total":888},"fsc-premedical-12":{"repo":"papers-class11-12","term":["fsc-premedical-12-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/fsc-premedical-12-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/fsc-premedical-12-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/fsc-premedical-12-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/fsc-premedical-12-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/fsc-premedical-12-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/fsc-premedical-12-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/fsc-premedical-12-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/fsc-premedical-12-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/fsc-premedical-12-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/fsc-premedical-12-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/fsc-premedical-12-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/fsc-premedical-12-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/fsc-premedical-12-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/fsc-premedical-12-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/fsc-premedical-12-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/fsc-premedical-12-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/fsc-premedical-12-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/fsc-premedical-12-section18-20min-test.zip","pdfs":12}},"total":888},"fsc-preengineering-11":{"repo":"papers-class11-12","term":["fsc-preengineering-11-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/fsc-preengineering-11-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/fsc-preengineering-11-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/fsc-preengineering-11-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/fsc-preengineering-11-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/fsc-preengineering-11-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/fsc-preengineering-11-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/fsc-preengineering-11-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/fsc-preengineering-11-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/fsc-preengineering-11-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/fsc-preengineering-11-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/fsc-preengineering-11-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/fsc-preengineering-11-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/fsc-preengineering-11-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/fsc-preengineering-11-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/fsc-preengineering-11-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/fsc-preengineering-11-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/fsc-preengineering-11-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/fsc-preengineering-11-section18-20min-test.zip","pdfs":12}},"total":888},"fsc-preengineering-12":{"repo":"papers-class11-12","term":["fsc-preengineering-12-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/fsc-preengineering-12-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/fsc-preengineering-12-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/fsc-preengineering-12-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/fsc-preengineering-12-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/fsc-preengineering-12-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/fsc-preengineering-12-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/fsc-preengineering-12-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/fsc-preengineering-12-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/fsc-preengineering-12-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/fsc-preengineering-12-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/fsc-preengineering-12-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/fsc-preengineering-12-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/fsc-preengineering-12-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/fsc-preengineering-12-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/fsc-preengineering-12-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/fsc-preengineering-12-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/fsc-preengineering-12-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/fsc-preengineering-12-section18-20min-test.zip","pdfs":12}},"total":888},"ics-11":{"repo":"papers-class11-12","term":["ics-11-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/ics-11-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/ics-11-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/ics-11-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/ics-11-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/ics-11-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/ics-11-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/ics-11-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/ics-11-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/ics-11-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/ics-11-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/ics-11-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/ics-11-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/ics-11-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/ics-11-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/ics-11-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/ics-11-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/ics-11-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/ics-11-section18-20min-test.zip","pdfs":12}},"total":888},"ics-12":{"repo":"papers-class11-12","term":["ics-12-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/ics-12-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/ics-12-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/ics-12-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/ics-12-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/ics-12-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/ics-12-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/ics-12-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/ics-12-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/ics-12-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/ics-12-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/ics-12-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/ics-12-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/ics-12-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/ics-12-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/ics-12-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/ics-12-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/ics-12-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/ics-12-section18-20min-test.zip","pdfs":12}},"total":888},"icom-11":{"repo":"papers-class11-12","term":["icom-11-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/icom-11-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/icom-11-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/icom-11-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/icom-11-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/icom-11-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/icom-11-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/icom-11-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/icom-11-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/icom-11-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/icom-11-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/icom-11-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/icom-11-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/icom-11-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/icom-11-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/icom-11-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/icom-11-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/icom-11-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/icom-11-section18-20min-test.zip","pdfs":12}},"total":888},"icom-12":{"repo":"papers-class11-12","term":["icom-12-papers-12.zip"],"chap":[],"sections":{"section01-full-paper":{"zip":"sections/icom-12-section01-full-paper.zip","pdfs":12},"section02-mcq-only":{"zip":"sections/icom-12-section02-mcq-only.zip","pdfs":12},"section03-mcq-short":{"zip":"sections/icom-12-section03-mcq-short.zip","pdfs":12},"section04-mcq-long":{"zip":"sections/icom-12-section04-mcq-long.zip","pdfs":12},"section05-short-only":{"zip":"sections/icom-12-section05-short-only.zip","pdfs":12},"section06-short-long":{"zip":"sections/icom-12-section06-short-long.zip","pdfs":12},"section07-long-only":{"zip":"sections/icom-12-section07-long-only.zip","pdfs":12},"section08-objective-only":{"zip":"sections/icom-12-section08-objective-only.zip","pdfs":12},"section09-written-practice":{"zip":"sections/icom-12-section09-written-practice.zip","pdfs":12},"section10-guess-paper":{"zip":"sections/icom-12-section10-guess-paper.zip","pdfs":12},"section11-topic-wise":{"zip":"sections/icom-12-section11-topic-wise.zip","pdfs":144},"section12-chapter-wise":{"zip":"sections/icom-12-section12-chapter-wise.zip","pdfs":144},"section13-half-book":{"zip":"sections/icom-12-section13-half-book.zip","pdfs":12},"section14-full-book":{"zip":"sections/icom-12-section14-full-book.zip","pdfs":12},"section15-half-chapter":{"zip":"sections/icom-12-section15-half-chapter.zip","pdfs":288},"section16-full-chapter":{"zip":"sections/icom-12-section16-full-chapter.zip","pdfs":144},"section17-10min-paper":{"zip":"sections/icom-12-section17-10min-paper.zip","pdfs":12},"section18-20min-test":{"zip":"sections/icom-12-section18-20min-test.zip","pdfs":12}},"total":888}};
+    var PAPERS_SECTIONS = [["section01-full-paper","Full Paper"],["section02-mcq-only","MCQ Only"],["section03-mcq-short","MCQ + Short"],["section04-mcq-long","MCQ + Long"],["section05-short-only","Short Only"],["section06-short-long","Short + Long"],["section07-long-only","Long Only"],["section08-objective-only","Objective Only"],["section09-written-practice","Written Practice"],["section10-guess-paper","Guess Paper"],["section11-topic-wise","Topic-wise Papers"],["section12-chapter-wise","Chapter-wise Papers"],["section13-half-book","Half-Book Papers"],["section14-full-book","Full-Book Papers"],["section15-half-chapter","Half-Chapter Papers"],["section16-full-chapter","Full-Chapter Papers"],["section17-10min-paper","10-Minute Papers"],["section18-20min-test","20-Minute Test Papers"]];
+    (function () {
+      var viewer = document.getElementById('papers-viewer');
+      if (!viewer) return;
+      function el(tag, cls, text) {
+        var node = document.createElement(tag);
+        if (cls) node.className = cls;
+        if (text !== undefined && text !== null) node.textContent = text;
+        return node;
+      }
+      function link(href, text) {
+        var a = document.createElement('a');
+        a.href = href; a.textContent = text; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        return a;
+      }
+      var currentPaperClass = null;
+      function gatedLink(href, text) {
+        if (DMAccess.isUnlocked('papers')) return link(href, text);
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'dm-lock-btn';
+        b.textContent = text + ' (Locked)';
+        b.addEventListener('click', function () {
+          DMAccess.openModal('papers', function () {
+            if (currentPaperClass) render(currentPaperClass);
+          });
+        });
+        return b;
+      }
+      function prettyZip(name) {
+        return name.replace(/\.zip$/, '').split('-').join(' ') + ' (ZIP)';
+      }
+      function zipGroup(title, cls, entry, files) {
+        if (!files.length) return null;
+        var g = el('details', 'paper-group');
+        var summary = document.createElement('summary');
+        summary.textContent = title + ' (' + files.length + ' ZIPs)';
+        g.appendChild(summary);
+        var wrap = el('div', 'paper-group-links');
+        files.forEach(function (f) {
+          wrap.appendChild(gatedLink('https://darkhanmentor.github.io/' + entry.repo + '/' + f, prettyZip(f)));
+        });
+        g.appendChild(wrap);
+        return g;
+      }
+      function render(cls) {
+        var entry = PAPERS_DATA[cls];
+        currentPaperClass = cls;
+        viewer.textContent = '';
+        if (DMAccess.isUnlocked('papers')) {
+          viewer.appendChild(el('p', 'dm-unlock-banner', 'Aap ne payment kar di hai, ab aap papers download kar sakte ho'));
+        }
+        var head = el('div', 'papers-view-head');
+        head.appendChild(el('h3', '', document.querySelector('[data-paper-class="' + cls + '"]').textContent + ' \u2014 Papers'));
+        head.appendChild(el('p', '', entry.total + ' papers \u00b7 18 sections \u00b7 har section ka poora set ek ZIP mein'));
+        viewer.appendChild(head);
+        var term = zipGroup('Term Papers', cls, entry, entry.term);
+        if (term) viewer.appendChild(term);
+        var chap = zipGroup('Chapter-wise Tests', cls, entry, entry.chap);
+        if (chap) viewer.appendChild(chap);
+        PAPERS_SECTIONS.forEach(function (pair) {
+          var sec = pair[0], label = pair[1];
+          var info = entry.sections[sec];
+          var det = el('details', 'paper-section');
+          var summary = document.createElement('summary');
+          summary.textContent = label + ' (' + info.pdfs + ' PDFs \u2014 1 ZIP)';
+          det.appendChild(summary);
+          var holder = el('div', 'paper-section-body');
+          holder.appendChild(el('p', '', 'Is section ke saare papers ek ZIP mein hain.'));
+          holder.appendChild(gatedLink('https://darkhanmentor.github.io/' + entry.repo + '/' + info.zip, 'ZIP download karein — andar har subject ka PDF hai'));
+          det.appendChild(holder);
+          viewer.appendChild(det);
+        });
+      }
+      document.querySelectorAll('[data-paper-class]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          document.querySelectorAll('[data-paper-class]').forEach(function (b) { b.setAttribute('aria-selected', 'false'); });
+          btn.setAttribute('aria-selected', 'true');
+          render(btn.getAttribute('data-paper-class'));
+          viewer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      });
+    })();
+  </script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script>
     /* ===== EDIT PACKAGE PRICES HERE ===== */
     var PACKAGE_PRICES = {
@@ -2064,150 +2246,32 @@
       items.forEach(function (item) { observer.observe(item); });
     }());
 
-    (function () {
-      var data = { datesheet: [], timetable: [] };
-      var dayOrder = { Monday: 1, Tuesday: 2, Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6, Sunday: 7 };
-
-      function selectPlanner(name) {
-        document.querySelectorAll('[data-planner-tab]').forEach(function (button) {
-          var active = button.getAttribute('data-planner-tab') === name;
-          button.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        document.querySelectorAll('.planner-pane').forEach(function (pane) {
-          pane.hidden = pane.id !== name + '-pane';
-        });
-      }
-
-      document.querySelectorAll('[data-planner-tab]').forEach(function (button) {
-        button.addEventListener('click', function () { selectPlanner(button.getAttribute('data-planner-tab')); });
-      });
-      document.querySelectorAll('[data-open-planner]').forEach(function (link) {
-        link.addEventListener('click', function () { selectPlanner(link.getAttribute('data-open-planner')); });
-      });
-
-      function readableDate(value) {
-        var parts = value.split('-');
-        if (parts.length !== 3) return value;
-        return new Intl.DateTimeFormat('en', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])));
-      }
-
-      function readableTime(value) {
-        var parts = value.split(':');
-        var hour = Number(parts[0]);
-        var suffix = hour >= 12 ? 'PM' : 'AM';
-        hour = hour % 12 || 12;
-        return hour + ':' + parts[1] + ' ' + suffix;
-      }
-
-      function setText(parent, tag, text) {
-        var node = document.createElement(tag);
-        node.textContent = text;
-        parent.appendChild(node);
-      }
-
-      function render(name) {
-        var list = document.getElementById(name + '-list');
-        var empty = document.getElementById(name + '-empty');
-        var count = document.getElementById(name + '-count');
-        var rows = data[name];
-        list.textContent = '';
-        empty.hidden = rows.length > 0;
-        count.textContent = rows.length + (name === 'datesheet' ? (rows.length === 1 ? ' exam' : ' exams') : (rows.length === 1 ? ' period' : ' periods'));
-        document.querySelectorAll('[data-download="' + name + '"], [data-clear="' + name + '"]').forEach(function (button) { button.disabled = rows.length === 0; });
-
-        rows.forEach(function (item, index) {
-          var row = document.createElement('li');
-          row.className = 'schedule-row';
-          if (name === 'datesheet') {
-            setText(row, 'strong', item.subject);
-            setText(row, 'span', item.className);
-            setText(row, 'span', readableDate(item.date));
-            setText(row, 'span', readableTime(item.time));
-          } else {
-            setText(row, 'strong', item.subject);
-            setText(row, 'span', item.day);
-            setText(row, 'span', readableTime(item.time));
-            setText(row, 'span', item.className);
-          }
-          var remove = document.createElement('button');
-          remove.type = 'button';
-          remove.className = 'remove-row';
-          remove.setAttribute('aria-label', 'Remove ' + item.subject);
-          remove.textContent = '×';
-          remove.addEventListener('click', function () {
-            data[name].splice(index, 1);
-            render(name);
-            document.getElementById(name + '-status').textContent = 'Entry removed.';
-          });
-          row.appendChild(remove);
-          list.appendChild(row);
-        });
-      }
-
-      function addFromForm(name, form) {
-        var values = new FormData(form);
-        var item = {
-          subject: String(values.get('subject') || '').trim(),
-          className: String(values.get('className') || '').trim(),
-          time: String(values.get('time') || '')
-        };
-        if (name === 'datesheet') item.date = String(values.get('date') || '');
-        else item.day = String(values.get('day') || '');
-        data[name].push(item);
-        if (name === 'datesheet') {
-          data[name].sort(function (a, b) { return (a.date + a.time).localeCompare(b.date + b.time); });
-        } else {
-          data[name].sort(function (a, b) { return dayOrder[a.day] - dayOrder[b.day] || a.time.localeCompare(b.time); });
-        }
-        render(name);
-        form.reset();
-        document.getElementById(name + '-status').textContent = name === 'datesheet' ? 'Exam added to the date sheet.' : 'Period added to the time table.';
-      }
-
-      ['datesheet', 'timetable'].forEach(function (name) {
-        var form = document.getElementById(name + '-form');
-        form.addEventListener('submit', function (event) {
-          event.preventDefault();
-          if (!form.reportValidity()) return;
-          addFromForm(name, form);
-        });
-      });
-
-      function csvCell(value) {
-        return '"' + String(value).replace(/"/g, '""') + '"';
-      }
-
-      document.querySelectorAll('[data-download]').forEach(function (button) {
-        button.addEventListener('click', function () {
-          var name = button.getAttribute('data-download');
-          var headings = name === 'datesheet' ? ['Subject', 'Class', 'Date', 'Start Time'] : ['Day', 'Start Time', 'Subject', 'Class / Group'];
-          var lines = [headings.map(csvCell).join(',')];
-          data[name].forEach(function (item) {
-            var values = name === 'datesheet' ? [item.subject, item.className, item.date, item.time] : [item.day, item.time, item.subject, item.className];
-            lines.push(values.map(csvCell).join(','));
-          });
-          var blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
-          var url = URL.createObjectURL(blob);
-          var link = document.createElement('a');
-          link.href = url;
-          link.download = name === 'datesheet' ? 'date-sheet.csv' : 'time-table.csv';
-          document.body.appendChild(link);
-          link.click();
-          link.remove();
-          URL.revokeObjectURL(url);
-          document.getElementById(name + '-status').textContent = 'CSV downloaded.';
-        });
-      });
-
-      document.querySelectorAll('[data-clear]').forEach(function (button) {
-        button.addEventListener('click', function () {
-          var name = button.getAttribute('data-clear');
-          data[name] = [];
-          render(name);
-          document.getElementById(name + '-status').textContent = 'All entries cleared.';
-        });
-      });
-    }());
   </script>
+
+  <!-- Purchase gating modal: package plan + Payment Verify (WhatsApp screenshot) + Access Code entry. -->
+  <div class="dm-modal" id="dm-access-modal" hidden role="dialog" aria-modal="true" aria-labelledby="dm-modal-title">
+    <div class="dm-modal-card">
+      <button class="dm-modal-close" type="button" id="dm-modal-close" aria-label="Band karein">&times;</button>
+      <h3 id="dm-modal-title">Package</h3>
+      <p class="dm-modal-desc" id="dm-modal-desc"></p>
+      <div class="dm-plan-list" id="dm-plan-list" role="radiogroup" aria-label="Package plans"></div>
+      <a class="package-order" id="dm-whatsapp-order" target="_blank" rel="noopener noreferrer" href="#">WhatsApp par Order Karein</a>
+      <p class="dm-note">Payment details (JazzCash / Easypaisa / bank) WhatsApp par share ki jayengi. Payment ke baad download/print access WhatsApp par milega.</p>
+      <hr class="dm-divider">
+      <h4>Payment Verify</h4>
+      <p>Payment ke baad apni Payment / Transaction ID yahan darj karein, phir WhatsApp par screenshot bhejein.</p>
+      <label class="dm-field">Plan<input id="dm-pay-plan" type="text" readonly></label>
+      <label class="dm-field">Payment / Transaction ID<input id="dm-pay-id" type="text" placeholder="Apni Transaction ID likhein" autocomplete="off"></label>
+      <label class="dm-field">Naam (optional)<input id="dm-pay-name" type="text" placeholder="Aap ka naam" autocomplete="name"></label>
+      <p class="dm-hint" id="dm-pay-hint" aria-live="polite"></p>
+      <a class="package-order" id="dm-whatsapp-screenshot" target="_blank" rel="noopener noreferrer" href="#">WhatsApp par Screenshot Bhejein</a>
+      <hr class="dm-divider">
+      <h4>Access Code</h4>
+      <p>Admin ne WhatsApp par jo Access Code bheja hai, woh yahan darj karein.</p>
+      <label class="dm-field">Access Code<input id="dm-access-code" type="text" placeholder="Misaal: DM-SUBJ-XXXX" autocomplete="off"></label>
+      <p class="dm-error" id="dm-access-error" aria-live="polite"></p>
+      <button class="builder-button accent" type="button" id="dm-access-submit">Unlock karein</button>
+    </div>
+  </div>
 </body>
 </html>
