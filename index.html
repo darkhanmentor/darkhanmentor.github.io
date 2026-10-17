@@ -1110,6 +1110,21 @@
     .fiverr-tab-card { flex-basis: 200px; }
     .fiverr-tab-img img { height: 130px; }
   }
+
+  /* ===== Design Templates section ===== */
+.design-section { padding: 46px 0 10px; }
+  .design-section .design-intro { max-width: 760px; color: var(--muted, #5a6b7d); font-size: 1rem; line-height: 1.6; }
+  .design-group { margin-top: 30px; }
+  .design-group h3 { font-size: 1.25rem; color: var(--navy, #0a1f44); margin: 0 0 4px; }
+  .design-group .group-note { color: var(--muted, #5a6b7d); font-size: .92rem; margin: 0 0 14px; }
+  .design-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+  .design-card { border: 1px solid var(--line, #dce3eb); background: var(--paper, #fff); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .design-card .design-swatch { height: 64px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 800; color: #fff; }
+  .design-card h4 { margin: 0; font-size: 1.02rem; color: var(--navy, #0a1f44); }
+  .design-card p { margin: 0; font-size: .88rem; color: var(--muted, #5a6b7d); line-height: 1.5; flex: 1; }
+  .design-card .design-meta { font-size: .78rem; color: var(--muted, #5a6b7d); }
+  .design-card a.design-download { display: inline-block; text-align: center; background: var(--amber, #f5b019); color: var(--navy, #0a1f44); font-weight: 700; padding: 9px 12px; border-radius: 8px; text-decoration: none; }
+  .design-note { margin-top: 22px; font-size: .88rem; color: var(--muted, #5a6b7d); line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -1471,6 +1486,152 @@
 <script>
 (function(){var btns=document.querySelectorAll('[data-site-filter]');var cards=document.querySelectorAll('.site-card');var search=document.getElementById('site-search');var count=document.getElementById('site-count');if(!btns.length||!cards.length){return;}var cur='all';function apply(){var q=(search&&search.value||'').toLowerCase().trim();var shown=0;cards.forEach(function(c){var cats=(c.getAttribute('data-category')||'');var hay=(c.getAttribute('data-name')||'');var ok=(cur==='all'||cats===cur)&&(!q||hay.indexOf(q)>-1);c.style.display=ok?'':'none';if(ok)shown++;});if(count){count.textContent='Showing '+shown+' of 69 websites';}}btns.forEach(function(b){b.addEventListener('click',function(){cur=b.getAttribute('data-site-filter');btns.forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');});apply();});});if(search){search.addEventListener('input',apply);}})();
 </script>
+
+<section class="section design-section" id="design-templates" aria-labelledby="design-templates-title">
+  <div class="content-wrap">
+  <div><p class="label">Free design resources</p><h2 id="design-templates-title">Logo Design | Business | Modern | Stationery | Business Card</h2></div>
+  <p class="design-intro">16 free, print-ready design templates — modern logo concepts, business cards and stationery. Every template uses editable placeholder text (Your Name, Your Company, 0300-0000000, you@email.com) so you can customise it in any PDF editor. Free for personal and business use.</p>
+
+  <!-- ============ LOGO DESIGN TEMPLATES ============ -->
+  <div class="design-group">
+    <h3>Logo Design Templates</h3>
+    <p class="group-note">6 modern logo concepts — each PDF shows the mark, placeholder brand name/tagline, and the colours + fonts used.</p>
+    <div class="design-grid">
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0a1f44;">YB</div>
+        <h4>Monogram Logo</h4>
+        <p>Navy circle badge with amber ring and bold initials. Classic, trustworthy, works everywhere.</p>
+        <span class="design-meta">1 page PDF · Navy #0A1F44 · Amber #F5B019</span>
+        <a class="design-download" href="assets/design-templates/logo-monogram.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0a1f44;">▲</div>
+        <h4>Geometric Logo</h4>
+        <p>Bold triangle mark with an amber inner triangle and white dot. Sharp, modern, memorable.</p>
+        <span class="design-meta">1 page PDF · Navy #0A1F44 · Amber #F5B019</span>
+        <a class="design-download" href="assets/design-templates/logo-geometric.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#ffffff;color:#0a1f44;border:1px solid #dce3eb;">∿</div>
+        <h4>Minimal Line Logo</h4>
+        <p>Clean rising line chart mark with an amber dot. Perfect for consultants, coaches and startups.</p>
+        <span class="design-meta">1 page PDF · Navy #0A1F44 · Amber #F5B019</span>
+        <a class="design-download" href="assets/design-templates/logo-minimal-line.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0a1f44;">◆</div>
+        <h4>Badge Logo</h4>
+        <p>Round badge with a gold star and EST. line. Great for schools, academies and premium brands.</p>
+        <span class="design-meta">1 page PDF · Navy #0A1F44 · Amber #F5B019</span>
+        <a class="design-download" href="assets/design-templates/logo-badge.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#00aca8;">●</div>
+        <h4>Abstract Mark Logo</h4>
+        <p>Three overlapping circles in navy, amber and teal. Creative, friendly, modern.</p>
+        <span class="design-meta">1 page PDF · Navy · Amber · Teal #00ACA8</span>
+        <a class="design-download" href="assets/design-templates/logo-abstract.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0a1f44;">YOURBRAND●</div>
+        <h4>Wordmark Logo</h4>
+        <p>Bold wordmark bar with an amber dot accent. Simple, strong, instantly readable.</p>
+        <span class="design-meta">1 page PDF · Navy #0A1F44 · Amber #F5B019</span>
+        <a class="design-download" href="assets/design-templates/logo-wordmark.pdf" download>Download PDF</a>
+      </article>
+    </div>
+  </div>
+
+  <!-- ============ BUSINESS CARD TEMPLATES ============ -->
+  <div class="design-group">
+    <h3>Business Card Templates</h3>
+    <p class="group-note">6 modern business cards — each PDF has front + back (89 × 51 mm / 3.5 × 2 in) plus a print-guide page with bleed and editing notes.</p>
+    <div class="design-grid">
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0a1f44;">Navy + Amber</div>
+        <h4>Navy + Amber Card</h4>
+        <p>Brand-match design: navy front, amber accents, monogram back. Professional and bold.</p>
+        <span class="design-meta">3 pages PDF · 89 × 51 mm · +3 mm bleed</span>
+        <a class="design-download" href="assets/design-templates/bc-navy-amber.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#141414;">Minimal</div>
+        <h4>Minimal White / Black Card</h4>
+        <p>Ultra-clean white front, black back. For people who want pure simplicity.</p>
+        <span class="design-meta">3 pages PDF · 89 × 51 mm · +3 mm bleed</span>
+        <a class="design-download" href="assets/design-templates/bc-minimal.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#4091e6;">Gradient Blue</div>
+        <h4>Gradient Blue Card</h4>
+        <p>Smooth deep-to-light blue gradient front with a blue monogram back.</p>
+        <span class="design-meta">3 pages PDF · 89 × 51 mm · +3 mm bleed</span>
+        <a class="design-download" href="assets/design-templates/bc-gradient-blue.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0e5c3e;">Green</div>
+        <h4>Green Card</h4>
+        <p>Deep green with a fresh light-green accent. Great for eco, health and food brands.</p>
+        <span class="design-meta">3 pages PDF · 89 × 51 mm · +3 mm bleed</span>
+        <a class="design-download" href="assets/design-templates/bc-green.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#121212;color:#c6a04a;">Black + Gold</div>
+        <h4>Dark Premium Card</h4>
+        <p>Near-black with gold text and double-ring monogram. Premium, luxury feel.</p>
+        <span class="design-meta">3 pages PDF · 89 × 51 mm · +3 mm bleed</span>
+        <a class="design-download" href="assets/design-templates/bc-dark-premium.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#ff6b61;">Creative</div>
+        <h4>Colourful Creative Card</h4>
+        <p>Playful coral, teal and yellow shapes. For designers, artists and creative studios.</p>
+        <span class="design-meta">3 pages PDF · 89 × 51 mm · +3 mm bleed</span>
+        <a class="design-download" href="assets/design-templates/bc-creative.pdf" download>Download PDF</a>
+      </article>
+    </div>
+  </div>
+
+  <!-- ============ STATIONERY TEMPLATES ============ -->
+  <div class="design-group">
+    <h3>Stationery Templates</h3>
+    <p class="group-note">3 A4 letterheads + 1 DL envelope — placeholder company details and logo space, ready to customise.</p>
+    <div class="design-grid">
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0a1f44;">Letterhead</div>
+        <h4>Navy + Amber Letterhead</h4>
+        <p>A4 letterhead with navy header, amber rule, address block and logo space.</p>
+        <span class="design-meta">2 pages PDF · A4 (210 × 297 mm)</span>
+        <a class="design-download" href="assets/design-templates/letterhead-navy.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#ffffff;color:#141414;border:1px solid #dce3eb;">Letterhead</div>
+        <h4>Minimal Letterhead</h4>
+        <p>Clean centred letterhead with thin rules. Formal and timeless.</p>
+        <span class="design-meta">2 pages PDF · A4 (210 × 297 mm)</span>
+        <a class="design-download" href="assets/design-templates/letterhead-minimal.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#0a1f44;">Modern Sidebar</div>
+        <h4>Modern Sidebar Letterhead</h4>
+        <p>A4 letterhead with a navy side bar and monogram badge. Stands out in a pile.</p>
+        <span class="design-meta">2 pages PDF · A4 (210 × 297 mm)</span>
+        <a class="design-download" href="assets/design-templates/letterhead-modern.pdf" download>Download PDF</a>
+      </article>
+      <article class="design-card">
+        <div class="design-swatch" style="background:#faf6ee;color:#0a1f44;border:1px solid #dce3eb;">Envelope</div>
+        <h4>DL Envelope</h4>
+        <p>DL envelope (220 × 110 mm) with return-address block, stamp box and recipient guides.</p>
+        <span class="design-meta">2 pages PDF · DL (220 × 110 mm)</span>
+        <a class="design-download" href="assets/design-templates/envelope-dl.pdf" download>Download PDF</a>
+      </article>
+    </div>
+  </div>
+
+  <p class="design-note">All templates are original designs by Darkhan Mentor, free for personal and business use. Placeholder text (Your Name, Your Company, 0300-0000000, you@email.com) is intentionally fake — replace it with your real details before printing. Business cards: add 3 mm bleed on all sides when printing.</p>
+
+  </div>
+</section>
   </main>
 
   <section class="contact-strip" aria-label="WhatsApp contact">
