@@ -985,7 +985,7 @@
     }
 
     @media print {
-      .site-nav, .hero-visual, .quick-nav, .fiverr-tabs, .floating-socials, .contact-strip, .package-order { display: none !important; }
+      .site-nav, .hero-visual, .quick-nav, .fiverr-tabs, .floating-socials, .contact-strip, .package-order, .dm-sidebar, .dm-sidebar-overlay, .dm-sidebar-toggle { display: none !important; }
       .hero { min-height: auto; padding: 30px 0; background: #fff; color: #000; }
       .hero-copy { color: #333; }
       .section { padding: 30px 0; break-inside: avoid; }
@@ -1203,9 +1203,122 @@
     .fiverr-tab-img img { height: 130px; }
   }
 
+  /* ===== Design C movable sidebar (off-canvas, Fiverr palette) ===== */
+  .dm-sidebar-toggle {
+    position: fixed;
+    top: 14px;
+    left: 14px;
+    z-index: 1002;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 12px;
+    background: #0a2540;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    transition: background .2s ease, transform .2s ease;
+  }
+  .dm-sidebar-toggle:hover,
+  .dm-sidebar-toggle:focus-visible { background: #f59e0b; transform: translateY(-1px); }
+  .dm-sidebar-toggle:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .dm-sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(4, 12, 24, .55);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility 0s linear .3s;
+  }
+  .dm-sidebar-overlay.is-open { opacity: 1; visibility: visible; transition: opacity .3s ease; }
+  .dm-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1001;
+    width: min(300px, 86vw);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 78px 18px 20px;
+    background: linear-gradient(180deg, #0b2440 0%, #081a30 100%);
+    color: #fff;
+    box-shadow: 10px 0 40px rgba(0,0,0,.45);
+    transform: translateX(-105%);
+    visibility: hidden;
+    transition: transform .32s ease, visibility 0s linear .32s;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .dm-sidebar.is-open { transform: translateX(0); visibility: visible; transition: transform .32s ease; }
+  .dm-sidebar-brand { font-size: 1.25rem; font-weight: 800; letter-spacing: .04em; }
+  .dm-sidebar-divider { width: 96px; height: 5px; border-radius: 3px; background: #f59e0b; margin: 6px 0 4px; }
+  .dm-sidebar-domain { color: #cbd5e1; font-size: .82rem; margin: 0 0 14px; }
+  .dm-sidebar-nav { display: flex; flex-direction: column; gap: 10px; }
+  .dm-sidebar-link {
+    display: block;
+    padding: 12px 18px;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: filter .15s ease, transform .15s ease;
+  }
+  .dm-sidebar-link:hover,
+  .dm-sidebar-link:focus-visible { filter: brightness(1.1); transform: translateX(3px); }
+  .dm-sidebar-link:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .dm-sidebar-link:nth-child(6n+1) { background: #f59e0b; }
+  .dm-sidebar-link:nth-child(6n+2) { background: #ff6b5e; }
+  .dm-sidebar-link:nth-child(6n+3) { background: #14b8a6; }
+  .dm-sidebar-link:nth-child(6n+4) { background: #2563eb; }
+  .dm-sidebar-link:nth-child(6n+5) { background: #16a34a; }
+  .dm-sidebar-link:nth-child(6n+6) { background: #a855f7; }
+  .dm-sidebar-close {
+    margin-top: auto;
+    align-self: flex-start;
+    border: 0;
+    background: transparent;
+    color: #cbd5e1;
+    font-size: .95rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 10px 4px;
+  }
+  .dm-sidebar-close:hover,
+  .dm-sidebar-close:focus-visible { color: #fff; }
+  .dm-sidebar-close:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  body.dm-sidebar-open { overflow: hidden; }
+
 </style>
 </head>
 <body>
+  <!-- Design C movable sidebar (off-canvas) -->
+  <button class="dm-sidebar-toggle" type="button" id="dm-sidebar-toggle" aria-label="Sidebar kholein" aria-controls="dm-sidebar" aria-expanded="false">&#9776;</button>
+  <div class="dm-sidebar-overlay" id="dm-sidebar-overlay"></div>
+  <aside class="dm-sidebar" id="dm-sidebar" role="dialog" aria-modal="true" aria-label="Sidebar navigation" aria-hidden="true">
+    <div class="dm-sidebar-brand">DARKHAN MENTOR</div>
+    <div class="dm-sidebar-divider" aria-hidden="true"></div>
+    <p class="dm-sidebar-domain">darkhanmentor.github.io</p>
+    <nav class="dm-sidebar-nav" aria-label="Sidebar sections">
+      <a class="dm-sidebar-link" href="#papers">Papers</a>
+      <a class="dm-sidebar-link" href="#lesson-plans">Lesson Plans</a>
+      <a class="dm-sidebar-link" href="#worksheets" data-open-resource="worksheets">Worksheets</a>
+      <a class="dm-sidebar-link" href="#presentations" data-open-resource="presentations">Presentations</a>
+      <a class="dm-sidebar-link" href="#jobs">Education Jobs</a>
+      <a class="dm-sidebar-link" href="#gallery">Info Gallery</a>
+      <a class="dm-sidebar-link" href="#packages">Packages</a>
+      <a class="dm-sidebar-link" href="#jobs">Jobs</a>
+      <a class="dm-sidebar-link" href="#gallery">Gallery</a>
+    </nav>
+    <button class="dm-sidebar-close" type="button" id="dm-sidebar-close" aria-label="Sidebar band karein">&times; Close</button>
+  </aside>
   <nav class="site-nav" aria-label="Primary navigation">
     <div class="nav-inner">
       <a href="#papers">Papers</a>
@@ -2643,6 +2756,48 @@
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+})();
+</script>
+<script>
+/* Design C movable sidebar: open/close, overlay, Escape, link-click close.
+   Link clicks are NOT intercepted, so the anchor scroll + the existing
+   [data-open-resource] handler keep working. */
+(function () {
+  var toggle = document.getElementById('dm-sidebar-toggle');
+  var sidebar = document.getElementById('dm-sidebar');
+  var overlay = document.getElementById('dm-sidebar-overlay');
+  var closeBtn = document.getElementById('dm-sidebar-close');
+  var modal = document.getElementById('dm-access-modal');
+  if (!toggle || !sidebar || !overlay || !closeBtn) return;
+  function modalOpen() { return modal && !modal.hasAttribute('hidden'); }
+  function openSidebar() {
+    if (modalOpen()) return; /* never cover the gating modal */
+    sidebar.classList.add('is-open');
+    overlay.classList.add('is-open');
+    document.body.classList.add('dm-sidebar-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    sidebar.setAttribute('aria-hidden', 'false');
+    closeBtn.focus();
+  }
+  function closeSidebar(returnFocus) {
+    sidebar.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    document.body.classList.remove('dm-sidebar-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    sidebar.setAttribute('aria-hidden', 'true');
+    if (returnFocus) toggle.focus();
+  }
+  toggle.addEventListener('click', function () {
+    if (sidebar.classList.contains('is-open')) { closeSidebar(true); } else { openSidebar(); }
+  });
+  closeBtn.addEventListener('click', function () { closeSidebar(true); });
+  overlay.addEventListener('click', function () { closeSidebar(true); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebar.classList.contains('is-open')) { closeSidebar(true); }
+  });
+  sidebar.querySelectorAll('.dm-sidebar-link').forEach(function (link) {
+    link.addEventListener('click', function () { closeSidebar(false); });
+  });
 })();
 </script>
 </body>
