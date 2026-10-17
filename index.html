@@ -548,6 +548,30 @@
     .resource-class-grid div { min-height: 66px; display: flex; flex-direction: column; justify-content: center; padding: 11px 12px; background: var(--surface-2); }
     .resource-class-grid strong { font-size: .78rem; }
     .resource-class-grid small { color: var(--muted); font-size: .65rem; }
+    /* ---- Fiverr-style cards for Worksheets + Presentations class grids (CSS only) ---- */
+    #teaching-resources .resource-class-grid { gap: 14px; }
+    #teaching-resources .resource-class-grid > div {
+      padding: 0; overflow: hidden; border-radius: 14px;
+      background: var(--surface, #fff); box-shadow: var(--shadow);
+      justify-content: flex-start;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    #teaching-resources .resource-class-grid > div:hover { transform: translateY(-4px); box-shadow: 0 26px 60px rgba(10, 25, 49, .20); }
+    #teaching-resources .resource-class-grid > div > strong {
+      display: block; padding: 14px 16px; color: #fff;
+      font-size: .95rem; font-weight: 800;
+    }
+    #teaching-resources .resource-class-grid > div:nth-of-type(6n+1) > strong { background: #f59e0b; }
+    #teaching-resources .resource-class-grid > div:nth-of-type(6n+2) > strong { background: #ff6b5e; }
+    #teaching-resources .resource-class-grid > div:nth-of-type(6n+3) > strong { background: #14b8a6; }
+    #teaching-resources .resource-class-grid > div:nth-of-type(6n+4) > strong { background: #2563eb; }
+    #teaching-resources .resource-class-grid > div:nth-of-type(6n+5) > strong { background: #16a34a; }
+    #teaching-resources .resource-class-grid > div:nth-of-type(6n+6) > strong { background: #a855f7; }
+    #teaching-resources .resource-class-grid > div > a { margin: 12px 14px 0; }
+    #teaching-resources .resource-class-grid > div > a:last-child { margin-bottom: 14px; }
+    @media (max-width: 640px) {
+      #teaching-resources .resource-class-grid { grid-template-columns: repeat(2, 1fr); }
+    }
 
     .period-selector {
       display: grid;
