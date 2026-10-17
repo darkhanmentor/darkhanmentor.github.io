@@ -1036,6 +1036,70 @@
     .lp-subjects li > strong { min-width: 170px; }
     .lp-subjects a { color: var(--navy-3); font-size: .8rem; font-weight: 800; }
     @media (prefers-color-scheme: dark) { .lp-subjects a { color: var(--amber); } }
+    /* ---- Fiverr-style lesson-plan cards (Class-wise + Subject-wise) ----
+       CSS-ONLY restyle: no markup, labels, links or JS changed, so gating
+       (plan → WhatsApp → Payment ID → access code → unlock), selection and
+       download behaviour are exactly as before. */
+    #lesson-plans .lesson-catalog.lesson-classwise {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;
+      background: transparent; border: 0;
+    }
+    #lesson-plans .lp-class {
+      border: 0; border-radius: 14px; overflow: hidden;
+      background: var(--surface, #fff); box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+      align-self: start;
+    }
+    #lesson-plans .lp-class:hover { transform: translateY(-4px); box-shadow: 0 26px 60px rgba(10, 25, 49, .20); }
+    #lesson-plans .lp-class[open] { outline: 3px solid var(--amber); outline-offset: 0; }
+    #lesson-plans .lp-class > summary {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      padding: 16px; min-height: 58px; color: #fff;
+      font-weight: 800; font-size: 1.05rem; line-height: 1.25;
+      cursor: pointer; list-style: none;
+    }
+    #lesson-plans .lp-class > summary::-webkit-details-marker { display: none; }
+    #lesson-plans .lp-class > summary::after { content: "\25BE"; font-size: .9rem; opacity: .9; transition: transform .18s ease; flex: 0 0 auto; }
+    #lesson-plans .lp-class[open] > summary::after { transform: rotate(180deg); }
+    #lesson-plans .lp-class > summary span { color: rgba(255,255,255,.92); font-size: .76rem; font-weight: 700; }
+    /* Rotating 6-colour palette — same colours as the Fiverr tab carousel */
+    #lesson-plans .lp-class:nth-of-type(6n+1) > summary { background: #f59e0b; }
+    #lesson-plans .lp-class:nth-of-type(6n+2) > summary { background: #ff6b5e; }
+    #lesson-plans .lp-class:nth-of-type(6n+3) > summary { background: #14b8a6; }
+    #lesson-plans .lp-class:nth-of-type(6n+4) > summary { background: #2563eb; }
+    #lesson-plans .lp-class:nth-of-type(6n+5) > summary { background: #16a34a; }
+    #lesson-plans .lp-class:nth-of-type(6n+6) > summary { background: #a855f7; }
+    #lesson-plans .lp-subjects { padding: 14px 16px 16px; }
+    /* ---- Subject-wise: class picker chips + subject cards ---- */
+    #lesson-plans .class-option {
+      border: 0; border-radius: 10px; background: rgba(255,255,255,.14);
+      color: #fff; transition: transform .15s ease, box-shadow .15s ease, outline-color .15s ease, background .15s ease;
+    }
+    #lesson-plans .class-option:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.25); }
+    #lesson-plans .class-option:has(input:checked) { outline: 3px solid var(--amber); outline-offset: 0; background: rgba(255,255,255,.24); }
+    #lesson-plans .subject-class-group {
+      border: 0; border-radius: 14px; overflow: hidden;
+      background: var(--surface, #fff); box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    #lesson-plans .subject-class-group:hover { transform: translateY(-3px); box-shadow: 0 26px 60px rgba(10, 25, 49, .20); }
+    #lesson-plans .subject-class-heading { padding: 14px 16px; }
+    #lesson-plans .subject-class-heading span { color: rgba(255,255,255,.92); }
+    #lesson-plans .subject-class-group:nth-child(6n+1) .subject-class-heading { background: #f59e0b; }
+    #lesson-plans .subject-class-group:nth-child(6n+2) .subject-class-heading { background: #ff6b5e; }
+    #lesson-plans .subject-class-group:nth-child(6n+3) .subject-class-heading { background: #14b8a6; }
+    #lesson-plans .subject-class-group:nth-child(6n+4) .subject-class-heading { background: #2563eb; }
+    #lesson-plans .subject-class-group:nth-child(6n+5) .subject-class-heading { background: #16a34a; }
+    #lesson-plans .subject-class-group:nth-child(6n+6) .subject-class-heading { background: #a855f7; }
+    #lesson-plans .subject-option {
+      border-radius: 10px; border: 1px solid var(--line);
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+    }
+    #lesson-plans .subject-option:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(10, 25, 49, .14); }
+    #lesson-plans .subject-option:has(input:checked) { border-color: var(--amber-deep); outline: 2px solid var(--amber); background: #fff8e6; }
+    @media (max-width: 640px) {
+      #lesson-plans .lesson-catalog.lesson-classwise { grid-template-columns: 1fr; }
+    }
     .site-note { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 14px 16px; margin: 0 0 16px; }
     .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
     .site-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin: 0 0 10px; }
