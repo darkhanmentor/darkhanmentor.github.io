@@ -1331,7 +1331,6 @@
       <a class="dm-sidebar-link" href="#presentations" data-open-resource="presentations">Presentations</a>
       <a class="dm-sidebar-link" href="#jobs">Education Jobs</a>
       <a class="dm-sidebar-link" href="#gallery">Info Gallery</a>
-      <a class="dm-sidebar-link" href="#packages">Packages</a>
       <a class="dm-sidebar-link" href="#jobs">Jobs</a>
       <a class="dm-sidebar-link" href="#gallery">Gallery</a>
     </nav>
@@ -1343,7 +1342,6 @@
       <a href="#lesson-plans">Lesson Plans</a>
       <a href="#worksheets" data-open-resource="worksheets">Worksheets</a>
       <a href="#presentations" data-open-resource="presentations">Presentations</a>
-      <a href="#packages">Packages / پیکیجز</a>
       <a href="#jobs">Jobs</a>
       <a href="#gallery">Gallery</a>
     </div>
@@ -1984,20 +1982,6 @@
       </div>
     </section>
 
-    <section class="section packages-section" id="packages" aria-labelledby="packages-title">
-      <div class="content-wrap">
-        <header class="section-heading reveal">
-          <div><p class="label">Packages • پیکیجز</p><h2 id="packages-title">Choose the access that fits</h2></div>
-          <p>Lesson plans and paper resources for schools and teachers, with clear durations and direct WhatsApp ordering.</p>
-        </header>
-        <div id="packages-catalog" aria-live="polite"></div>
-        <aside class="package-note reveal" aria-label="Payment information">
-          <p><strong>Payment update:</strong> Online payment via JazzCash, Easypaisa and bank transfer is coming soon. For now, place your order on WhatsApp.</p>
-          <p class="urdu-script" lang="ur" dir="rtl"><strong>ادائیگی کی اطلاع:</strong> جاز کیش، ایزی پیسہ اور بینک کے ذریعے آن لائن ادائیگی جلد دستیاب ہوگی۔ فی الحال واٹس ایپ پر آرڈر کریں۔</p>
-        </aside>
-      </div>
-    </section>
-
     <section class="section" id="jobs" aria-labelledby="jobs-title">
       <div class="content-wrap">
         <header class="section-heading reveal">
@@ -2443,111 +2427,6 @@
   </script>
     <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
   <script>
-    /* ===== EDIT PACKAGE PRICES HERE ===== */
-    var PACKAGE_PRICES = {
-      classWise: { singleClass: 1000, classes1To5: 2500, classes6To8: 2500, classes9To10: 2000 },
-      periodWise: { fullAccess: 800 },
-      papers: { monthly: 299, threeMonths: 600, sixMonths: 800, oneYear: 1500 }
-    };
-
-    (function () {
-      var whatsappBase = 'https://wa.me/923411686858?text=';
-      var durations = [
-        { key: 'monthly', label: 'Monthly', urdu: 'ماہانہ' },
-        { key: 'threeMonths', label: '3 Months', urdu: '3 ماہ' },
-        { key: 'sixMonths', label: '6 Months', urdu: '6 ماہ' },
-        { key: 'oneYear', label: '1 Year', urdu: '1 سال' }
-      ];
-      var categories = [
-        {
-          key: 'classWise',
-          name: 'Lesson Plans — Class-wise',
-          urdu: 'جماعت وار سبق کے منصوبے',
-          description: 'Choose one class or save with a multi-class bundle.',
-          notice: 'Payment karne ke baad aap apne selected class package ke lesson plans ka print le sakte hain.',
-          plans: [
-            { key: 'singleClass', label: 'Single Class Package', urdu: 'ایک جماعت کا پیکیج' },
-            { key: 'classes1To5', label: 'Classes 1–5 Bundle', urdu: 'جماعت 1 تا 5 پیکیج' },
-            { key: 'classes6To8', label: 'Classes 6–8 Bundle', urdu: 'جماعت 6 تا 8 پیکیج' },
-            { key: 'classes9To10', label: 'Classes 9–10 Bundle', urdu: 'جماعت 9 تا 10 پیکیج' }
-          ],
-          features: ['Class-wise lesson plan access', 'English + Urdu medium', 'Print-ready teaching resources']
-        },
-        {
-          key: 'periodWise',
-          name: 'Lesson Plans — Subject-wise',
-          urdu: 'مضمون وار سبق کے منصوبے',
-          description: 'One subject-wise package at a single price.',
-          plans: [{ key: 'fullAccess', label: 'Subject-wise Package', urdu: 'مضمون وار پیکیج' }],
-          features: ['Subject-wise lesson plan access', 'English + Urdu medium', 'Print-ready teaching resources']
-        },
-        {
-          key: 'papers',
-          name: 'Papers Pack',
-          urdu: 'پیپرز پیک',
-          description: 'A focused package for printable paper resources.',
-          features: ['Paper resource access', 'Class and subject categories', 'Print-ready paper formats']
-        }
-      ];
-      var catalog = document.getElementById('packages-catalog');
-
-      function addTextElement(parent, tag, className, text) {
-        var element = document.createElement(tag);
-        if (className) element.className = className;
-        element.textContent = text;
-        parent.appendChild(element);
-        return element;
-      }
-
-      categories.forEach(function (category) {
-        var section = document.createElement('section');
-        section.className = 'package-category reveal';
-        var heading = document.createElement('div');
-        heading.className = 'package-category-head';
-        var titleWrap = document.createElement('div');
-        addTextElement(titleWrap, 'h3', '', category.name);
-        addTextElement(titleWrap, 'p', 'urdu-script', category.urdu).setAttribute('dir', 'rtl');
-        heading.appendChild(titleWrap);
-        addTextElement(heading, 'p', '', category.description);
-        section.appendChild(heading);
-        if (category.notice) {
-          var notice = addTextElement(section, 'p', 'package-access-message', category.notice);
-          notice.setAttribute('role', 'note');
-        }
-
-        var categoryPlans = category.plans || durations;
-        var grid = document.createElement('div');
-        grid.className = 'package-grid' + (categoryPlans.length === 1 ? ' single-plan' : '');
-        categoryPlans.forEach(function (duration) {
-          var price = PACKAGE_PRICES[category.key][duration.key];
-          var card = document.createElement('article');
-          card.className = 'package-card';
-          addTextElement(card, 'div', 'package-duration', duration.label + ' / ' + duration.urdu);
-          var priceLine = document.createElement('div');
-          priceLine.className = 'package-price';
-          addTextElement(priceLine, 'strong', '', 'Rs ' + price);
-          addTextElement(priceLine, 'span', '', 'PKR');
-          card.appendChild(priceLine);
-          var featureList = document.createElement('ul');
-          featureList.className = 'package-features';
-          category.features.forEach(function (feature) { addTextElement(featureList, 'li', '', feature); });
-          card.appendChild(featureList);
-
-          var order = document.createElement('a');
-          order.className = 'package-order';
-          order.target = '_blank';
-          order.rel = 'noopener noreferrer';
-          var message = "Assalam-o-Alaikum! Main '" + category.name + ' — ' + duration.label + ' (Rs ' + price + ")' ka package order karna chahta hoon.";
-          order.href = whatsappBase + encodeURIComponent(message);
-          order.innerHTML = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.45L3.5 20.5l1.4-4.25A8.5 8.5 0 1 1 20.5 11.7Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.2 7.7c.2-.44.4-.45.63-.46h.5c.16 0 .34.05.44.3l.73 1.76c.08.2.04.36-.08.52l-.49.64c-.11.14-.14.29-.03.46.44.77 1.08 1.4 1.85 1.84.18.1.32.08.45-.05l.77-.88c.14-.16.31-.19.5-.11l1.7.8c.2.1.33.16.36.26.03.1.03.56-.14 1.09-.17.52-.98 1-1.37 1.07-.35.06-.78.09-1.26-.07-.3-.09-.67-.22-1.15-.43-.5-.22-2.25-.82-3.84-3.08-.45-.63-.76-1.33-.85-1.55-.09-.22-.93-2.23.38-3.88Z" fill="currentColor"/></svg><span>Order via WhatsApp / واٹس ایپ پر آرڈر کریں</span>';
-          card.appendChild(order);
-          grid.appendChild(card);
-        });
-        section.appendChild(grid);
-        catalog.appendChild(section);
-      });
-    }());
-
     (function () {
       var lessonTabs = document.querySelectorAll('[data-lesson-tab]');
       var classSelect = document.getElementById('lesson-class-select');
