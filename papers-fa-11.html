@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FA · Class 11 — Papers — Darkhan Mentor</title>
+<meta name="description" content="FA · Class 11 — Papers — Darkhan Mentor free education resources for Pakistani students.">
+<style>
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#f7f8fa;color:#0A1931}
+header{background:#0A1931;color:#f8fbff;padding:22px 20px;border-bottom:5px solid #FFC300}
+header h1{margin:0 0 6px;font-family:Georgia,"Times New Roman",serif;font-size:1.7rem}
+header p{margin:0;color:#c9d6e6}
+a{color:#0A1931}
+.back{display:inline-block;margin:16px 20px 0;padding:9px 14px;background:#FFC300;color:#0A1931;font-weight:800;text-decoration:none;border-radius:5px}
+nav.classnav{margin:16px 20px 0;display:flex;flex-wrap:wrap;gap:6px}
+nav.classnav a{padding:6px 10px;background:#fff;border:1px solid #dce3eb;border-radius:5px;text-decoration:none;font-size:.8rem;font-weight:700}
+nav.classnav a.current{background:#0A1931;color:#FFC300}
+main{max-width:980px;margin:0 auto;padding:16px 20px 40px}
+.count{color:#4d5b6d}
+ul.lp-subjects,ul.paper-list{list-style:none;margin:0;padding:0}
+li.lp-entry,li.paper-item{background:#fff;border:1px solid #dce3eb;border-radius:6px;padding:14px 16px;margin:0 0 12px}
+.lp-entry-title{display:block;font-size:.95rem;font-weight:700;margin:3px 0 5px;line-height:1.35}
+.lp-entry-desc{margin:0 0 10px;color:#4d5b6d;font-size:.88rem;line-height:1.5}
+.lp-dl a,.paper-item a.dl{display:inline-block;padding:8px 12px;background:#FFC300;color:#0A1931;font-size:.8rem;font-weight:800;text-decoration:none;border-radius:5px}
+.lp-new-badge{display:inline-block;font-size:.6rem;font-weight:800;color:#fff;background:#c0392b;padding:2px 6px;border-radius:3px;margin-left:6px}
+h2.sec{font-family:Georgia,serif;border-bottom:3px solid #FFC300;padding-bottom:6px;margin-top:28px}
+.paper-item strong{display:block;margin-bottom:4px}
+.paper-item .meta{color:#4d5b6d;font-size:.85rem;margin:0 0 10px}
+footer{max-width:980px;margin:0 auto;padding:0 20px 30px;color:#4d5b6d;font-size:.85rem}
+
+/* --- purchase gate (verbatim from live index.html) --- */
+:root {
+      color-scheme: light dark;
+      --navy: #0A1931;
+      --navy-2: #102745;
+      --navy-3: #17385d;
+      --amber: #FFC300;
+      --amber-deep: #d59a00;
+      --paper: #f7f8fa;
+      --surface: #ffffff;
+      --surface-2: #eef2f6;
+      --ink: #0A1931;
+      --muted: #4d5b6d;
+      --line: #dce3eb;
+      --hero-ink: #f8fbff;
+      --hero-muted: #c9d4e1;
+      --shadow: 0 22px 55px rgba(10, 25, 49, .13);
+      --soft-shadow: 0 12px 28px rgba(10, 25, 49, .08);
+    }
+.builder-button {
+      min-height: 44px;
+      padding: 0 16px;
+      border: 1px solid var(--navy);
+      background: var(--navy);
+      color: #fff;
+      font: 800 .78rem/1 "Manrope", sans-serif;
+      cursor: pointer;
+    }
+.builder-button.accent { border-color: var(--amber); background: var(--amber); color: var(--navy); }
+.builder-button.ghost { border-color: var(--line); background: transparent; color: var(--ink); }
+.builder-button:disabled { opacity: .45; cursor: not-allowed; }
+.builder-button:focus-visible { outline: 3px solid var(--amber-deep); outline-offset: 2px; }
+/* ===== Purchase gating: access modal, locked downloads, unlock banner ===== */
+    .dm-lock-btn { width: fit-content; border: 1px solid var(--amber-deep); background: transparent; color: var(--ink); padding: 10px 18px; font-weight: 800; font-size: .82rem; cursor: pointer; }
+.dm-lock-btn:hover { background: var(--amber); color: var(--navy); }
+.dm-unlock-banner { margin: 0 0 18px; padding: 14px 18px; background: #e8f7ee; color: #14532d; border: 1px solid #7ecb9b; font-weight: 700; font-size: .9rem; }
+.dm-modal { position: fixed; inset: 0; z-index: 200; display: flex; align-items: flex-start; justify-content: center; overflow-y: auto; padding: 32px 16px; background: rgba(4, 18, 38, .72); }
+.dm-modal[hidden] { display: none; }
+.dm-modal-card { position: relative; width: 100%; max-width: 560px; background: var(--surface); color: var(--ink); padding: 28px; border-top: 6px solid var(--amber); box-shadow: 0 24px 60px rgba(0, 0, 0, .35); }
+.dm-modal-card h3 { font: 600 1.4rem/1.2 "Lora", serif; margin: 0 0 6px; }
+.dm-modal-card h4 { font: 600 1.05rem/1.25 "Lora", serif; margin: 22px 0 6px; }
+.dm-modal-card p { font-size: .88rem; }
+.dm-modal-close { position: absolute; top: 10px; right: 14px; border: 0; background: transparent; font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--ink); }
+.dm-modal-desc { color: var(--muted); margin: 0 0 14px; }
+.dm-plan-list { display: grid; gap: 10px; margin-bottom: 14px; }
+.dm-plan-option { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); padding: 12px 14px; cursor: pointer; font-weight: 700; text-align: left; }
+.dm-plan-option.selected { border-color: var(--amber-deep); background: var(--amber); color: var(--navy); }
+.dm-plan-option .dm-plan-price { font: 600 1.15rem/1 "Lora", serif; }
+.dm-note { color: var(--muted); font-size: .82rem; margin: 12px 0 0; }
+.dm-divider { border: 0; border-top: 1px solid var(--line); margin: 20px 0; }
+.dm-field { display: block; margin: 10px 0; font-size: .85rem; font-weight: 700; }
+.dm-field input { display: block; width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: .95rem; }
+.dm-field input[readonly] { background: var(--paper); color: var(--muted); }
+.dm-error { color: #b3261e; font-weight: 700; min-height: 1.2em; margin: 8px 0; }
+.dm-hint { color: #b3261e; font-size: .82rem; font-weight: 700; min-height: 1.2em; margin: 8px 0; }
+.package-order {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 14px;
+      background: var(--amber);
+      color: var(--navy);
+      text-decoration: none;
+      text-align: center;
+      font-size: .76rem;
+      font-weight: 800;
+    }
+.package-order:hover { background: #ffd23f; }
+.package-order:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+.package-order svg { width: 17px; height: 17px; flex: 0 0 auto; }
+.builder-actions .builder-button { flex: 1 1 100%; }
+.site-nav, .hero-visual, .quick-nav, .fiverr-tabs, .floating-socials, .contact-strip, .package-order, .dm-sidebar, .dm-sidebar-overlay, .dm-sidebar-toggle { display: none !important; }
+</style>
+</head>
+<body>
+<header><h1>Darkhan Mentor</h1><p>FA · Class 11 — Papers</p></header>
+<a class="back" href="index.html">&larr; Back to Home</a>
+<nav class="classnav" aria-label="All classes"><a href="papers-play-group.html">Play Group</a><a href="papers-junior-play.html">Junior Play</a><a href="papers-senior-play.html">Senior Play</a><a href="papers-class1.html">Class 1</a><a href="papers-class2.html">Class 2</a><a href="papers-class3.html">Class 3</a><a href="papers-class4.html">Class 4</a><a href="papers-class5.html">Class 5</a><a href="papers-class6.html">Class 6</a><a href="papers-class7.html">Class 7</a><a href="papers-class8.html">Class 8</a><a href="papers-class9.html">Class 9</a><a href="papers-class10.html">Class 10</a><a href="papers-fa-11.html" class="current">FA · Class 11</a><a href="papers-fa-12.html">FA · Class 12</a><a href="papers-fsc-premedical-11.html">FSc Pre-Medical · Class 11</a><a href="papers-fsc-premedical-12.html">FSc Pre-Medical · Class 12</a><a href="papers-fsc-preengineering-11.html">FSc Pre-Engineering · Class 11</a><a href="papers-fsc-preengineering-12.html">FSc Pre-Engineering · Class 12</a><a href="papers-ics-11.html">ICS · Class 11</a><a href="papers-ics-12.html">ICS · Class 12</a><a href="papers-icom-11.html">I.Com · Class 11</a><a href="papers-icom-12.html">I.Com · Class 12</a></nav>
+<main>
+<h2>FA · Class 11 — Papers</h2>
+<p class="count">900 papers · 18 sections · har section ka poora set ek ZIP mein</p>
+<h2 class="sec">Term Papers (1 ZIPs)</h2><ul class="paper-list"><li class="paper-item"><strong>fa 11 papers 12 (ZIP)</strong><p class="meta">Term pack ZIP</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/fa-11-papers-12.zip">ZIP download karein</a></li></ul>
+<h2 class="sec">Sections (18 sections)</h2><ul class="paper-list"><li class="paper-item"><strong>Full Paper (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section01-full-paper.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>MCQ Only (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section02-mcq-only.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>MCQ + Short (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section03-mcq-short.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>MCQ + Long (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section04-mcq-long.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Short Only (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section05-short-only.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Short + Long (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section06-short-long.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Long Only (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section07-long-only.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Objective Only (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section08-objective-only.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Written Practice (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section09-written-practice.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Guess Paper (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section10-guess-paper.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Topic-wise Papers (144 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section11-topic-wise.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Chapter-wise Papers (156 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section12-chapter-wise.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Half-Book Papers (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section13-half-book.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Full-Book Papers (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section14-full-book.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Half-Chapter Papers (288 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section15-half-chapter.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>Full-Chapter Papers (144 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section16-full-chapter.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>10-Minute Papers (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section17-10min-paper.zip">ZIP download karein — andar har subject ka PDF hai</a></li><li class="paper-item"><strong>20-Minute Test Papers (12 PDFs — 1 ZIP)</strong><p class="meta">Is section ke saare papers ek ZIP mein hain.</p><a class="dl" href="https://darkhanmentor.github.io/papers-class11-12/sections/fa-11-section18-20min-test.zip">ZIP download karein — andar har subject ka PDF hai</a></li></ul>
+</main>
+<footer><p><a href="index.html">&larr; Back to Darkhan Mentor home</a></p></footer>
+<div class="dm-modal" id="dm-access-modal" hidden role="dialog" aria-modal="true" aria-labelledby="dm-modal-title">
+    <div class="dm-modal-card">
+      <button class="dm-modal-close" type="button" id="dm-modal-close" aria-label="Band karein">&times;</button>
+      <h3 id="dm-modal-title">Package</h3>
+      <p class="dm-modal-desc" id="dm-modal-desc"></p>
+      <div class="dm-plan-list" id="dm-plan-list" role="radiogroup" aria-label="Package plans"></div>
+      <a class="package-order" id="dm-whatsapp-order" target="_blank" rel="noopener noreferrer" href="#">WhatsApp par Order Karein</a>
+      <p class="dm-note">Payment details (JazzCash / Easypaisa / bank) WhatsApp par share ki jayengi. Payment ke baad download/print access WhatsApp par milega.</p>
+      <hr class="dm-divider">
+      <h4>Payment Verify</h4>
+      <p>Payment ke baad apni Payment / Transaction ID yahan darj karein, phir WhatsApp par screenshot bhejein.</p>
+      <label class="dm-field">Plan<input id="dm-pay-plan" type="text" readonly></label>
+      <label class="dm-field">Payment / Transaction ID<input id="dm-pay-id" type="text" placeholder="Apni Transaction ID likhein" autocomplete="off"></label>
+      <label class="dm-field">Naam (optional)<input id="dm-pay-name" type="text" placeholder="Aap ka naam" autocomplete="name"></label>
+      <p class="dm-hint" id="dm-pay-hint" aria-live="polite"></p>
+      <a class="package-order" id="dm-whatsapp-screenshot" target="_blank" rel="noopener noreferrer" href="#">WhatsApp par Screenshot Bhejein</a>
+      <hr class="dm-divider">
+      <h4>Access Code</h4>
+      <p>Admin ne WhatsApp par jo Access Code bheja hai, woh yahan darj karein.</p>
+      <label class="dm-field">Access Code<input id="dm-access-code" type="text" placeholder="Misaal: DM-SUBJ-XXXX" autocomplete="off"></label>
+      <p class="dm-error" id="dm-access-error" aria-live="polite"></p>
+      <button class="builder-button accent" type="button" id="dm-access-submit">Unlock karein</button>
+    </div>
+  </div>
+<script>
+
+    /* ===== Purchase gating: ACCESS_CODES (1 code per plan; see admin reference file) ===== */
+    var ACCESS_CODES = {"DM-SUBJ-XPY9": {"plan": "subject-wise", "days": 365}, "DM-PAPER-M-7HWU": {"plan": "papers-monthly", "days": 30}, "DM-PAPER-3M-2XYV": {"plan": "papers-3months", "days": 90}, "DM-PAPER-6M-W8EE": {"plan": "papers-6months", "days": 180}, "DM-PAPER-1Y-ZRTM": {"plan": "papers-1year", "days": 365}, "DM-C1-DEAD": {"plan": "classwise-single", "classes": ["class1"], "days": 365}, "DM-C2-M6Z7": {"plan": "classwise-single", "classes": ["class2"], "days": 365}, "DM-C3-XE8J": {"plan": "classwise-single", "classes": ["class3"], "days": 365}, "DM-C4-MCZD": {"plan": "classwise-single", "classes": ["class4"], "days": 365}, "DM-C5-HKLJ": {"plan": "classwise-single", "classes": ["class5"], "days": 365}, "DM-C6-PAC6": {"plan": "classwise-single", "classes": ["class6"], "days": 365}, "DM-C7-AZ34": {"plan": "classwise-single", "classes": ["class7"], "days": 365}, "DM-C8-ZH93": {"plan": "classwise-single", "classes": ["class8"], "days": 365}, "DM-C9-FZCP": {"plan": "classwise-single", "classes": ["class9"], "days": 365}, "DM-C10-PZFQ": {"plan": "classwise-single", "classes": ["class10"], "days": 365}, "DM-FA11-LPMZ": {"plan": "classwise-single", "classes": ["fa-11"], "days": 365}, "DM-FA12-TU4X": {"plan": "classwise-single", "classes": ["fa-12"], "days": 365}, "DM-FM11-M6X5": {"plan": "classwise-single", "classes": ["fsc-premedical-11"], "days": 365}, "DM-FM12-JL56": {"plan": "classwise-single", "classes": ["fsc-premedical-12"], "days": 365}, "DM-FE11-RRLY": {"plan": "classwise-single", "classes": ["fsc-preengineering-11"], "days": 365}, "DM-FE12-9S2T": {"plan": "classwise-single", "classes": ["fsc-preengineering-12"], "days": 365}, "DM-ICS11-2XUS": {"plan": "classwise-single", "classes": ["ics-11"], "days": 365}, "DM-ICS12-BE32": {"plan": "classwise-single", "classes": ["ics-12"], "days": 365}, "DM-IC11-NWNH": {"plan": "classwise-single", "classes": ["icom-11"], "days": 365}, "DM-IC12-229W": {"plan": "classwise-single", "classes": ["icom-12"], "days": 365}, "DM-B15-UE76": {"plan": "classwise-1to5", "classes": ["class1","class2","class3","class4","class5"], "days": 365}, "DM-B68-EDDR": {"plan": "classwise-6to8", "classes": ["class6","class7","class8"], "days": 365}, "DM-B910-3DT3": {"plan": "classwise-9to10", "classes": ["class9","class10"], "days": 365}};
+    var DMAccess = (function () {
+      var WHATSAPP_BASE = 'https://wa.me/923411686858?text=';
+      var PLANS = {
+        'subject-wise': { area: 'subjectwise', name: 'Lesson Plans — Subject-wise', label: 'Subject-wise Package', price: 800, days: 365 },
+        'papers-monthly': { area: 'papers', name: 'Papers Pack', label: 'Monthly', price: 299, days: 30 },
+        'papers-3months': { area: 'papers', name: 'Papers Pack', label: '3 Months', price: 600, days: 90 },
+        'papers-6months': { area: 'papers', name: 'Papers Pack', label: '6 Months', price: 800, days: 180 },
+        'papers-1year': { area: 'papers', name: 'Papers Pack', label: '1 Year', price: 1500, days: 365 },
+        'classwise-single': { area: 'classwise', name: 'Lesson Plans — Class-wise', label: 'Single Class Package', price: 1000, days: 365 },
+        'classwise-1to5': { area: 'classwise', name: 'Lesson Plans — Class-wise', label: 'Classes 1–5 Bundle', price: 2500, days: 365 },
+        'classwise-6to8': { area: 'classwise', name: 'Lesson Plans — Class-wise', label: 'Classes 6–8 Bundle', price: 2500, days: 365 },
+        'classwise-9to10': { area: 'classwise', name: 'Lesson Plans — Class-wise', label: 'Classes 9–10 Bundle', price: 2000, days: 365 }
+      };
+      function keyFor(area) { if (area === 'papers') return 'dm_access_papers'; if (area === 'classwise') return 'dm_access_classwise'; return 'dm_access_subjectwise'; }
+      function read(area) {
+        if (area === 'classwise') { var cw = readClasswise(); return Object.keys(cw).length ? cw : null; }
+        try {
+          var raw = localStorage.getItem(keyFor(area));
+          if (!raw) return null;
+          var entry = JSON.parse(raw);
+          if (!entry || !entry.expiresAt || Date.now() > entry.expiresAt) { localStorage.removeItem(keyFor(area)); return null; }
+          return entry;
+        } catch (err) { return null; }
+      }
+      /* ---- Class-wise unlocks: one entry per class key, each with its own expiry ---- */
+      function readClasswise() {
+        try {
+          var raw = localStorage.getItem(keyFor('classwise'));
+          if (!raw) return {};
+          var map = JSON.parse(raw);
+          if (!map || typeof map !== 'object') return {};
+          var now = Date.now(); var changed = false;
+          Object.keys(map).forEach(function (k) { if (!map[k] || !map[k].expiresAt || now > map[k].expiresAt) { delete map[k]; changed = true; } });
+          if (changed) { try { localStorage.setItem(keyFor('classwise'), JSON.stringify(map)); } catch (err) { /* ignore */ } }
+          return map;
+        } catch (err) { return {}; }
+      }
+      function isClassUnlocked(classKey) { var map = readClasswise(); return !!(classKey && map[classKey]); }
+      function isUnlocked(area) { return !!read(area); }
+      function unlock(code, area) {
+        var norm = String(code || '').trim().toUpperCase();
+        var found = (typeof ACCESS_CODES !== 'undefined') ? ACCESS_CODES[norm] : null;
+        if (!found || !PLANS[found.plan]) return null;
+        var plan = PLANS[found.plan];
+        if (plan.area !== area) return null;
+        if (area === 'classwise') {
+          var classes = found.classes || [];
+          if (!classes.length) return null;
+          var map = readClasswise();
+          classes.forEach(function (ck) { map[ck] = { code: norm, plan: found.plan, expiresAt: Date.now() + found.days * 86400000 }; });
+          try { localStorage.setItem(keyFor('classwise'), JSON.stringify(map)); } catch (err) { /* storage unavailable: session-only */ }
+          return { code: norm, plan: found.plan, classes: classes, expiresAt: Date.now() + found.days * 86400000 };
+        }
+        var stored = { code: norm, plan: found.plan, expiresAt: Date.now() + found.days * 86400000 };
+        try { localStorage.setItem(keyFor(plan.area), JSON.stringify(stored)); } catch (err) { /* storage unavailable: session-only */ }
+        return stored;
+      }
+      function planDisplay(planKey) {
+        var p = PLANS[planKey];
+        return p.name + ' — ' + p.label + ' (Rs ' + p.price + ')';
+      }
+      function whatsappOrder(planKey) {
+        return WHATSAPP_BASE + encodeURIComponent("Assalam-o-Alaikum! Main '" + planDisplay(planKey) + "' ka package order karna chahta hoon.");
+      }
+      function whatsappScreenshot(planKey, payId, name) {
+        var msg = "Assalam-o-Alaikum! Maine '" + planDisplay(planKey) + "' ka package order kiya hai. Payment / Transaction ID: " + payId + (name ? ' | Naam: ' + name : '') + '. Payment ka screenshot attach kar raha hoon, barah-e-karam verify karke Access Code bhej dein.';
+        return WHATSAPP_BASE + encodeURIComponent(msg);
+      }
+      /* Modal elements are looked up lazily: this script runs BEFORE the modal
+         markup is parsed, so top-level getElementById calls would return null. */
+      function els() {
+        return {
+          modal: document.getElementById('dm-access-modal'),
+          title: document.getElementById('dm-modal-title'),
+          desc: document.getElementById('dm-modal-desc'),
+          planList: document.getElementById('dm-plan-list'),
+          order: document.getElementById('dm-whatsapp-order'),
+          payPlan: document.getElementById('dm-pay-plan'),
+          payId: document.getElementById('dm-pay-id'),
+          payName: document.getElementById('dm-pay-name'),
+          payHint: document.getElementById('dm-pay-hint'),
+          screenshot: document.getElementById('dm-whatsapp-screenshot'),
+          code: document.getElementById('dm-access-code'),
+          error: document.getElementById('dm-access-error'),
+          submit: document.getElementById('dm-access-submit'),
+          close: document.getElementById('dm-modal-close')
+        };
+      }
+      var currentArea = 'subjectwise';
+      var currentClassKey = null;
+      var currentPlanKey = 'subject-wise';
+      var currentOnUnlock = null;
+      var wired = false;
+      function selectPlan(planKey) {
+        var E = els();
+        currentPlanKey = planKey;
+        E.planList.querySelectorAll('.dm-plan-option').forEach(function (btn) {
+          var active = btn.getAttribute('data-plan-key') === planKey;
+          btn.classList.toggle('selected', active);
+          btn.setAttribute('aria-checked', active ? 'true' : 'false');
+        });
+        E.order.href = whatsappOrder(planKey);
+        E.payPlan.value = planDisplay(planKey);
+      }
+      function submitCode() {
+        var E = els();
+        var stored = unlock(E.code.value, currentArea);
+        if (!stored) {
+          E.error.textContent = 'Ghalat Access Code hai. Dobara check karein ya WhatsApp par rabta karein.';
+          return;
+        }
+        E.error.textContent = '';
+        var cb = currentOnUnlock;
+        currentOnUnlock = null;
+        closeModal();
+        if (cb) cb(stored);
+      }
+      function wireModal() {
+        if (wired) return;
+        wired = true;
+        var E = els();
+        E.screenshot.addEventListener('click', function (event) {
+          var payId = E.payId.value.trim();
+          if (!payId) {
+            event.preventDefault();
+            E.payHint.textContent = 'Payment / Transaction ID darj karein.';
+            E.payId.focus();
+            return;
+          }
+          E.payHint.textContent = '';
+          E.screenshot.href = whatsappScreenshot(currentPlanKey, payId, E.payName.value.trim());
+        });
+        E.submit.addEventListener('click', submitCode);
+        E.code.addEventListener('keydown', function (event) { if (event.key === 'Enter') submitCode(); });
+        E.close.addEventListener('click', closeModal);
+        E.modal.addEventListener('click', function (event) { if (event.target === E.modal) closeModal(); });
+        document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && !E.modal.hidden) closeModal(); });
+      }
+      function openModal(area, onUnlock, classKey) {
+        wireModal();
+        var E = els();
+        currentArea = area;
+        currentClassKey = classKey || null;
+        currentOnUnlock = onUnlock || null;
+        var keys = area === 'papers'
+          ? ['papers-monthly', 'papers-3months', 'papers-6months', 'papers-1year']
+          : area === 'classwise' ? classwisePlanKeys()
+          : ['subject-wise'];
+        E.title.textContent = area === 'papers' ? 'Papers Pack — Package' : area === 'classwise' ? 'Lesson Plans — Class-wise — Package' : 'Lesson Plans — Subject-wise — Package';
+        E.desc.textContent = area === 'papers'
+          ? 'Papers download karne ke liye apna plan select karein, WhatsApp par order karein, phir payment verify karke Access Code hasil karein.'
+          : area === 'classwise'
+          ? (CLASSWISE_LABELS[currentClassKey] || 'Class-wise') + ' ke lesson plans download/print karne ke liye package order karein, phir payment verify karke Access Code hasil karein.'
+          : 'Subject-wise lesson plans download/print karne ke liye package order karein, phir payment verify karke Access Code hasil karein.';
+        E.planList.textContent = '';
+        keys.forEach(function (key) {
+          var p = PLANS[key];
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'dm-plan-option';
+          btn.setAttribute('data-plan-key', key);
+          btn.setAttribute('role', 'radio');
+          var lbl = document.createElement('span');
+          lbl.textContent = p.label;
+          var prc = document.createElement('span');
+          prc.className = 'dm-plan-price';
+          prc.textContent = 'Rs ' + p.price;
+          btn.appendChild(lbl);
+          btn.appendChild(prc);
+          btn.addEventListener('click', function () { selectPlan(key); });
+          E.planList.appendChild(btn);
+        });
+        E.payId.value = '';
+        E.payName.value = '';
+        E.payHint.textContent = '';
+        E.code.value = '';
+        E.error.textContent = '';
+        selectPlan(keys[0]);
+        E.modal.hidden = false;
+      }
+      function closeModal() { var E = els(); if (E.modal) E.modal.hidden = true; }
+      /* ---- Subject-wise lesson-plans button gate ----
+         Registered BEFORE the lesson builder's own click handler, so when locked it
+         stops that handler (stopImmediatePropagation) and opens this modal instead.
+         After a valid code, the button is re-clicked and the original handler runs. */
+      var lessonBtn = document.getElementById('lesson-show-selected');
+      if (lessonBtn) {
+        lessonBtn.addEventListener('click', function (event) {
+          if (isUnlocked('subjectwise')) return;
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          openModal('subjectwise', function () {
+            lessonBtn.click();
+            var st = document.getElementById('lesson-selection-status');
+            if (st) st.textContent = 'Aap ne payment kar di hai, ab aap lesson plans print/download kar sakte ho';
+          });
+        });
+      }
+      /* ---- Class-wise lesson-plans catalog gate ----
+         Every static catalog link is swapped for a Locked button until its
+         class is unlocked. Re-runs after a successful unlock. */
+      var CLASSWISE_LABELS = {"class1": "Class 1", "class2": "Class 2", "class3": "Class 3", "class4": "Class 4", "class5": "Class 5", "class6": "Class 6", "class7": "Class 7", "class8": "Class 8", "class9": "Class 9", "class10": "Class 10", "fa-11": "FA \u00b7 Class 11", "fa-12": "FA \u00b7 Class 12", "fsc-premedical-11": "FSc Pre-Medical \u00b7 Class 11", "fsc-premedical-12": "FSc Pre-Medical \u00b7 Class 12", "fsc-preengineering-11": "FSc Pre-Engineering \u00b7 Class 11", "fsc-preengineering-12": "FSc Pre-Engineering \u00b7 Class 12", "ics-11": "ICS \u00b7 Class 11", "ics-12": "ICS \u00b7 Class 12", "icom-11": "I.Com \u00b7 Class 11", "icom-12": "I.Com \u00b7 Class 12"};
+      var CLASSWISE_BUNDLES = { class1: 'classwise-1to5', class2: 'classwise-1to5', class3: 'classwise-1to5', class4: 'classwise-1to5', class5: 'classwise-1to5', class6: 'classwise-6to8', class7: 'classwise-6to8', class8: 'classwise-6to8', class9: 'classwise-9to10', class10: 'classwise-9to10' };
+      var CLASSWISE_PREFIXES = ['fsc-premedical-11', 'fsc-premedical-12', 'fsc-preengineering-11', 'fsc-preengineering-12', 'class10', 'class1', 'class2', 'class3', 'class4', 'class5', 'class6', 'class7', 'class8', 'class9', 'icom-11', 'icom-12', 'ics-11', 'ics-12', 'fa-11', 'fa-12'];
+      function classwisePlanKeys() {
+        var list = ['classwise-single'];
+        var bundle = CLASSWISE_BUNDLES[currentClassKey];
+        if (bundle) list.push(bundle);
+        return list;
+      }
+      function classKeyFromHref(href) {
+        var h = href || '';
+        for (var i = 0; i < CLASSWISE_PREFIXES.length; i++) {
+          if (h.indexOf('assets/lesson-plans/' + CLASSWISE_PREFIXES[i] + '-') === 0) return CLASSWISE_PREFIXES[i];
+        }
+        return null;
+      }
+      function updateClasswiseBanner() {
+        var pane = document.getElementById('lesson-pane-classwise');
+        if (!pane) return;
+        var old = pane.querySelector('.dm-unlock-banner[data-classwise-banner]');
+        if (old) old.parentNode.removeChild(old);
+        var map = readClasswise();
+        var keys = Object.keys(map);
+        if (!keys.length) return;
+        var banner = document.createElement('p');
+        banner.className = 'dm-unlock-banner';
+        banner.setAttribute('data-classwise-banner', 'true');
+        banner.textContent = 'Aap ne payment kar di hai, ab aap in classes ke lesson plans download kar sakte ho: ' + keys.map(function (k) { return CLASSWISE_LABELS[k] || k; }).join(', ');
+        pane.insertBefore(banner, pane.firstChild);
+      }
+      function gateClasswiseCatalog() {
+        var catalog = document.querySelector('.lesson-classwise');
+        if (!catalog) return;
+        catalog.querySelectorAll('button.dm-lock-btn[data-classwise-href]').forEach(function (btn) {
+          var ck = btn.getAttribute('data-classwise-key');
+          if (ck && isClassUnlocked(ck)) {
+            var a = document.createElement('a');
+            a.href = btn.getAttribute('data-classwise-href');
+            a.setAttribute('download', '');
+            a.textContent = btn.getAttribute('data-classwise-text');
+            btn.parentNode.replaceChild(a, btn);
+          }
+        });
+        catalog.querySelectorAll('a[href^="assets/lesson-plans/"]').forEach(function (a) {
+          var ck = classKeyFromHref(a.getAttribute('href'));
+          if (!ck || isClassUnlocked(ck)) return;
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'dm-lock-btn';
+          btn.textContent = a.textContent + ' (Locked)';
+          btn.setAttribute('data-classwise-href', a.getAttribute('href'));
+          btn.setAttribute('data-classwise-text', a.textContent);
+          btn.setAttribute('data-classwise-key', ck);
+          btn.addEventListener('click', function () {
+            DMAccess.openModal('classwise', function () { gateClasswiseCatalog(); updateClasswiseBanner(); }, ck);
+          });
+          a.parentNode.replaceChild(btn, a);
+        });
+      }
+      gateClasswiseCatalog();
+      (function(){var n=document.querySelectorAll('.lesson-classwise .lp-entry').length;
+        var el=document.getElementById('lp-plan-count'); if(el&&n>0) el.textContent=n;})();
+      updateClasswiseBanner();
+      return { PLANS: PLANS, isUnlocked: isUnlocked, read: read, unlock: unlock, whatsappOrder: whatsappOrder, whatsappScreenshot: whatsappScreenshot, openModal: openModal, closeModal: closeModal, planDisplay: planDisplay };
+    }());
+  
+</script>
+<script>
+/* Papers-page gate adapter: mirrors the homepage gatedLink() flow using the
+   same DMAccess modal/unlock check. Static ZIP links become lock buttons
+   while 'papers' is locked; after a successful unlock they are restored. */
+(function () {
+  function restorePapers() {
+    document.querySelectorAll('button.dm-lock-btn[data-papers-href]').forEach(function (btn) {
+      var a = document.createElement('a');
+      a.className = 'dl';
+      a.href = btn.getAttribute('data-papers-href');
+      a.textContent = btn.getAttribute('data-papers-text');
+      btn.parentNode.replaceChild(a, btn);
+    });
+  }
+  function gatePapers() {
+    document.querySelectorAll('a.dl').forEach(function (a) {
+      if (DMAccess.isUnlocked('papers')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'dm-lock-btn';
+      btn.textContent = a.textContent + ' (Locked)';
+      btn.setAttribute('data-papers-href', a.getAttribute('href'));
+      btn.setAttribute('data-papers-text', a.textContent);
+      btn.addEventListener('click', function () {
+        DMAccess.openModal('papers', function () { restorePapers(); });
+      });
+      a.parentNode.replaceChild(btn, a);
+    });
+  }
+  gatePapers();
+})();
+</script>
+</body>
+</html>
