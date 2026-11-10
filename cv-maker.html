@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Maker — Create Your Professional CV | Darkhan Mentor</title>
+<meta name="description" content="Create a professional CV with Darkhan Mentor CV Maker. Enter your information once, preview 200 CV designs, pay via EasyPaisa (PKR 50 Basic / PKR 100 Premium) and download PDF, Word or ZIP.">
+<style>
+:root{
+  --navy:#0A1931; --navy-2:#102745; --navy-3:#17385d;
+  --amber:#FFC300; --amber-deep:#d59a00;
+  --paper:#f7f8fa; --surface:#ffffff; --surface-2:#eef2f6;
+  --ink:#0A1931; --muted:#4d5b6d; --line:#dce3eb;
+  --green:#15803d; --red:#b91c1c; --blue:#0369a1;
+  --shadow:0 22px 55px rgba(10,25,49,.13);
+  --soft-shadow:0 12px 28px rgba(10,25,49,.08);
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}
+a{color:var(--blue)}
+h1,h2,h3{line-height:1.25;margin:0 0 .5em}
+p{margin:0 0 .8em}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(255,195,0,.55);border-color:var(--amber-deep)}
+label{font-weight:700;font-size:.92rem;display:block;margin:0 0 5px}
+small{color:var(--muted)}
+/* ---------- header ---------- */
+.cv-topbar{background:var(--navy);color:#fff;position:sticky;top:0;z-index:50;box-shadow:0 4px 18px rgba(10,25,49,.25)}
+.cv-topbar-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:12px 16px;flex-wrap:wrap}
+.cv-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:900;font-size:1.15rem;letter-spacing:.2px}
+.cv-brand .dm-mark{background:var(--amber);color:var(--navy);border-radius:8px;padding:4px 9px;font-weight:900}
+.cv-topbar nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+.cv-topbar nav a{color:#dbe4ef;text-decoration:none;font-weight:700;padding:8px 12px;border-radius:8px;font-size:.95rem}
+.cv-topbar nav a:hover,.cv-topbar nav a.active{background:rgba(255,255,255,.12);color:#fff}
+.cv-topbar nav a.cta{background:var(--amber);color:var(--navy)}
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+.view{display:none}
+.view.active{display:block}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--soft-shadow);padding:22px;margin-bottom:18px}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 100%);color:#fff;border-radius:18px;padding:34px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+.hero h1{font-size:2rem;color:#fff}
+.hero h1 em{color:var(--amber);font-style:normal}
+.hero p{color:#c9d4e1;max-width:640px}
+.btn{display:inline-block;border:0;border-radius:10px;padding:12px 20px;font-weight:800;text-decoration:none;background:var(--amber);color:var(--navy);box-shadow:0 6px 16px rgba(10,25,49,.18)}
+.btn:hover{filter:brightness(1.06)}
+.btn.secondary{background:var(--navy);color:#fff}
+.btn.ghost{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.btn.danger{background:#fff;color:var(--red);border:2px solid var(--red)}
+.btn.small{padding:8px 13px;font-size:.9rem}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.badge{display:inline-block;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:.8rem;font-weight:700;color:var(--muted)}
+.badge.amber{background:#fff7d6;border-color:var(--amber);color:#7a5b00}
+.badge.green{background:#dcfce7;border-color:#86efac;color:var(--green)}
+.badge.red{background:#fee2e2;border-color:#fca5a5;color:var(--red)}
+.badge.blue{background:#e0f2fe;border-color:#7dd3fc;color:var(--blue)}
+.notice{border-radius:10px;padding:13px 15px;margin:12px 0;font-size:.95rem}
+.notice.info{background:#e0f2fe;border:1px solid #7dd3fc;color:#0c4a6e}
+.notice.warn{background:#fef3c7;border:1px solid #fbbf24;color:#713f12}
+.notice.ok{background:#dcfce7;border:1px solid #86efac;color:#14532d}
+.notice.err{background:#fee2e2;border:1px solid #fca5a5;color:#7f1d1d}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.field{margin-bottom:13px}
+.field-row{display:flex;gap:10px;flex-wrap:wrap}
+.field-row>*{flex:1;min-width:140px}
+fieldset{border:1px solid var(--line);border-radius:12px;padding:16px;margin:0 0 16px}
+legend{font-weight:900;padding:0 8px;color:var(--navy)}
+.repeater{border:1px dashed var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:#fbfcfe}
+.repeater-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.repeater-head strong{font-size:.95rem}
+/* ---------- packages ---------- */
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pkg{border:2px solid var(--line);border-radius:16px;padding:22px;background:#fff}
+.pkg.premium{border-color:var(--amber);box-shadow:0 0 0 3px rgba(255,195,0,.35)}
+.pkg h3{font-size:1.25rem}
+.pkg .price{font-size:2rem;font-weight:900;color:var(--navy)}
+.pkg ul{margin:10px 0;padding-left:20px}
+.pkg li{margin-bottom:6px}
+/* ---------- gallery ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.filters button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-weight:700;color:var(--muted)}
+.filters button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.cv-card{border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden;display:flex;flex-direction:column}
+.cv-card.sel{outline:3px solid var(--amber)}
+.cv-thumb{height:300px;overflow:hidden;background:#fff;border-bottom:1px solid var(--line);position:relative;cursor:pointer}
+.cv-thumb .cv-page{transform-origin:top left;pointer-events:none}
+.cv-card-body{padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+.cv-card-body .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cv-card-body label{display:flex;gap:7px;align-items:center;font-weight:700;font-size:.9rem;cursor:pointer}
+.cv-card-body input[type=checkbox]{width:18px;height:18px;accent-color:var(--amber-deep)}
+.counter{position:sticky;top:64px;z-index:40;background:var(--navy);color:#fff;border-radius:12px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.counter strong{color:var(--amber);font-size:1.2rem}
+/* ---------- CV page (design render) ---------- */
+.cv-page{width:794px;min-height:1123px;background:#fff;color:#222;margin:0 auto;position:relative;font-size:14px;line-height:1.45;overflow:hidden}
+.cv-page *{box-sizing:border-box}
+.cv-page h1,.cv-page h2,.cv-page h3,.cv-page h4{margin:0}
+.cv-page p{margin:0 0 6px}
+.cv-sec{margin-bottom:14px}
+.cv-sec h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;margin-bottom:7px;padding-bottom:4px}
+.cv-photo{object-fit:cover;background:#e5e7eb}
+.cv-photo.round{border-radius:50%}
+.cv-photo.square{border-radius:6px}
+.cv-name{font-size:30px;font-weight:900;line-height:1.1}
+.cv-title{font-size:15px;font-weight:600}
+.cv-contact{font-size:12.5px;color:#444}
+.cv-contact span{margin-right:10px;white-space:nowrap}
+.cv-list{margin:0;padding-left:18px}
+.cv-list li{margin-bottom:3px}
+.cv-exp{margin-bottom:10px}
+.cv-exp .cv-exp-head{display:flex;justify-content:space-between;gap:10px;font-weight:700}
+.cv-exp .cv-exp-sub{font-style:italic;color:#555;font-size:12.5px}
+.cv-chips{display:flex;flex-wrap:wrap;gap:6px}
+.cv-chip{border:1px solid #cbd5e1;border-radius:999px;padding:2px 10px;font-size:12px}
+.cv-bar{height:7px;background:#e5e7eb;border-radius:99px;overflow:hidden}
+.cv-bar>i{display:block;height:100%}
+.cv-table{width:100%;border-collapse:collapse;font-size:13px}
+.cv-table th,.cv-table td{border:1px solid #cbd5e1;padding:5px 8px;text-align:left;vertical-align:top}
+.cv-table th{background:#f1f5f9}
+.cv-timeline{border-left:3px solid #cbd5e1;margin-left:6px;padding-left:16px}
+.cv-timeline .cv-exp{position:relative}
+.cv-timeline .cv-exp:before{content:"";position:absolute;left:-23px;top:5px;width:11px;height:11px;border-radius:50%;background:currentColor}
+/* ---------- modal / preview ---------- */
+.modal{position:fixed;inset:0;background:rgba(10,25,49,.75);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:24px 12px;overflow:auto}
+.modal.open{display:flex}
+.modal-box{background:#fff;border-radius:14px;max-width:860px;width:100%;padding:18px}
+.modal-box .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;flex-wrap:wrap}
+/* ---------- tables ---------- */
+table.tbl{width:100%;border-collapse:collapse;font-size:.93rem}
+table.tbl th,table.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.tbl th{background:var(--surface-2)}
+/* ---------- dashboard ---------- */
+.proj{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px;background:#fff}
+.proj h3{margin-bottom:4px}
+.proj .meta{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+footer.cv-footer{max-width:1180px;margin:0 auto;padding:26px 16px 40px;color:var(--muted);font-size:.9rem;text-align:center}
+.hidden{display:none!important}
+.progress{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin:8px 0}
+.progress>i{display:block;height:100%;background:var(--amber);width:0%}
+@media (max-width:700px){
+  .grid2,.grid3,.pkg-grid{grid-template-columns:1fr}
+  .hero h1{font-size:1.5rem}
+  .cv-topbar-inner{padding:10px 12px}
+  .cv-thumb{height:260px}
+  .wrap{padding:14px 10px 50px}
+  .counter{top:110px}
+}
+@media (max-width:390px){
+  .hero{padding:26px 16px}
+  .hero h1{font-size:1.7rem}
+  .cv-page{font-size:13px}
+  .btn{padding:10px 14px;font-size:.92rem}
+  .field-row{flex-direction:column}
+  .cv-thumb{height:230px}
+}
+@media print{
+  body *{visibility:hidden}
+  #print-area,#print-area *{visibility:visible}
+  #print-area{position:absolute;left:0;top:0;width:100%}
+  .cv-page{box-shadow:none!important;margin:0}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+</head>
+<body>
+<header class="cv-topbar">
+  <div class="cv-topbar-inner">
+    <a class="cv-brand" href="index.html"><span class="dm-mark">DM</span> Darkhan Mentor</a>
+    <nav aria-label="CV Maker navigation">
+      <a href="index.html">← Home</a>
+      <a href="#/" data-nav="home">CV Maker</a>
+      <a href="#/dashboard" data-nav="dashboard">My Dashboard</a>
+      <a href="#/admin" data-nav="admin">Admin</a>
+      <a href="#/" class="cta" data-nav="new">+ New CV</a>
+      <span id="nav-auth"></span>
+    </nav>
+  </div>
+</header>
+<main class="wrap" id="app">
+  <section class="view" id="view-home"></section>
+  <section class="view" id="view-auth"></section>
+  <section class="view" id="view-dashboard"></section>
+  <section class="view" id="view-form"></section>
+  <section class="view" id="view-designs"></section>
+  <section class="view" id="view-design"></section>
+  <section class="view" id="view-pay"></section>
+  <section class="view" id="view-admin"></section>
+</main>
+<div class="modal" id="modal"><div class="modal-box" id="modal-box"></div></div>
+<div id="print-area" class="hidden"></div>
+<footer class="cv-footer">
+  <p><strong>Darkhan Mentor — CV Maker.</strong> Enter your information once, preview 200 CV designs, pay via EasyPaisa and download your CVs as PDF, Word or ZIP.</p>
+  <p>EasyPaisa: <strong>03411686858</strong> &nbsp;•&nbsp; Basic PKR 50 = 5 downloads &nbsp;•&nbsp; Premium PKR 100 = 15 downloads</p>
+  <p><small>This website is hosted on free static hosting. Accounts, CV projects and payment requests are stored in your own browser only. Payment verification is manual by the admin — no payment is auto-approved.</small></p>
+</footer>
+<script>
+"use strict";
+/* ============================================================
+   DARKHAN MENTOR — CV MAKER (client-side app)
+   Static-site honest limits:
+   - No server, no server database. Accounts, projects, payments
+     and admin data live in each visitor's own browser (localStorage).
+   - Payment verification is MANUAL by the admin. Nothing is
+     auto-approved from a screenshot or transaction ID.
+   - Approval codes are a manual-trust mechanism (derived from the
+     payment request so the admin panel can reproduce them). A
+     determined user can bypass any client-side lock — real server
+     enforcement needs a backend (e.g. Firebase). See the report.
+   ============================================================ */
+
+/* ---------- tiny utils ---------- */
+const $  = (s, r) => (r||document).querySelector(s);
+const $$ = (s, r) => Array.from((r||document).querySelectorAll(s));
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid = p => (p||"id") + "_" + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+const todayISO = () => new Date().toISOString().slice(0,10);
+const fmtDate = d => { try { return new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}); } catch(e){ return d||""; } };
+const clampNum = (n, a, b) => Math.max(a, Math.min(b, n));
+
+/* ---------- SHA-256 (pure JS, sync — works everywhere) ---------- */
+function sha256(ascii){
+  function rr(v,a){return (v>>>a)|(v<<(32-a));}
+  let maxWord=Math.pow(2,32), result="";
+  let words=[], asciiBitLength=ascii.length*8;
+  let hash=sha256.h=sha256.h||[], k=sha256.k=sha256.k||[];
+  let primeCounter=k.length, isComposite={};
+  for(let candidate=2;primeCounter<64;candidate++){
+    if(!isComposite[candidate]){
+      for(let i=0;i<313;i+=candidate){isComposite[i]=candidate;}
+      hash[primeCounter]=(Math.pow(candidate,.5)*maxWord)|0;
+      k[primeCounter++]=(Math.pow(candidate,1/3)*maxWord)|0;
+    }
+  }
+  ascii+="\x80";
+  while(ascii.length%64-56) ascii+="\x00";
+  for(let i=0;i<ascii.length;i++){
+    let j=ascii.charCodeAt(i); if(j>>8) return ""; // ASCII only
+    words[i>>2]|=j<<((3-i)%4)*8;
+  }
+  words[words.length]=(asciiBitLength/maxWord)|0;
+  words[words.length]=(asciiBitLength);
+  for(let j=0;j<words.length;){
+    let w=words.slice(j,j+=16), oldHash=hash;
+    hash=hash.slice(0,8);
+    for(let i=0;i<64;i++){
+      let w15=w[i-15], w2=w[i-2];
+      let a=hash[0], e=hash[4];
+      let temp1=hash[7]
+        +(rr(e,6)^rr(e,11)^rr(e,25))
+        +((e&hash[5])^((~e)&hash[6]))
+        +k[i]
+        +(w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+      let temp2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));
+      hash=[(temp1+temp2)|0].concat(hash);
+      hash[4]=(hash[4]+temp1)|0;
+    }
+    for(let i=0;i<8;i++){hash[i]=(hash[i]+oldHash[i])|0;}
+  }
+  for(let i=0;i<8;i++){
+    for(let j=3;j+1;j--){
+      let b=(hash[i]>>(j*8))&255;
+      result+=((b<16)?0:"")+b.toString(16);
+    }
+  }
+  return result;
+}
+const hashPass = (salt, pass) => sha256(salt + "::" + pass);
+
+/* ---------- storage ---------- */
+const LS = {
+  get(k, d){ try { const v = localStorage.getItem("dmcv_"+k); return v==null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem("dmcv_"+k, JSON.stringify(v)); return true; } catch(e){ return false; } },
+  del(k){ try { localStorage.removeItem("dmcv_"+k); } catch(e){} }
+};
+const store = {
+  users(){ return LS.get("users", []); },
+  saveUsers(u){ return LS.set("users", u); },
+  projects(){ return LS.get("projects", []); },
+  saveProjects(p){ return LS.set("projects", p); },
+  session(){ return LS.get("session", null); },
+  setSession(id){ LS.set("session", id); },
+  admin(){ return LS.get("admin", null); },
+  setAdmin(a){ LS.set("admin", a); },
+  adminSession(){ return LS.get("admin_session", null); },
+  setAdminSession(v){ v ? LS.set("admin_session", v) : LS.del("admin_session"); },
+  adminRequests(){ return LS.get("admin_requests", []); },
+  saveAdminRequests(r){ return LS.set("admin_requests", r); }
+};
+function currentUser(){
+  const id = store.session(); if(!id) return null;
+  return store.users().find(u => u.id===id) || null;
+}
+function myProjects(){
+  const u = currentUser(); if(!u) return [];
+  return store.projects().filter(p => p.userId===u.id);
+}
+function getProject(id){
+  return store.projects().find(p => p.id===id) || null;
+}
+function saveProject(p){
+  const all = store.projects();
+  const i = all.findIndex(x => x.id===p.id);
+  if(i>=0) all[i]=p; else all.push(p);
+  p.updated = todayISO();
+  store.saveProjects(all);
+  return p;
+}
+function deleteProject(id){
+  store.saveProjects(store.projects().filter(p => p.id!==id));
+}
+function createProject(data){
+  const u = currentUser();
+  if(!u) return null;
+  const d = data || blankCV();
+  const p = { id:uid("cv"), userId:u.id, title:(d.fullName||"My CV")+" — CV",
+    created:todayISO(), updated:todayISO(), data:d,
+    package:null, payment:{status:"none"}, selected:[], downloads:[] };
+  saveProject(p);
+  return p;
+}
+
+/* ---------- packages ---------- */
+const PACKAGES = {
+  basic:   { key:"basic",   name:"Basic",   price:50,  limit:5,  label:"PKR 50 — 5 CV downloads" },
+  premium: { key:"premium", name:"Premium", price:100, limit:15, label:"PKR 100 — 15 CV downloads" }
+};
+const EASYPAISA_NUMBER = "03411686858";
+
+/* ---------- approval code (manual-trust mechanism) ----------
+   Deterministic from the payment request so the admin panel can
+   reproduce the same code from the buyer's request code.
+   This is NOT a server secret — see the header note. */
+function approvalCodeFor(pay){
+  const raw = [pay.refId, pay.txid||"", pay.sender||"", pay.amount, pay.package].join("|") + "|DM-CV-APPROVE";
+  const h = sha256(raw).toUpperCase().replace(/[^0-9A-F]/g,"");
+  return h.slice(0,4)+"-"+h.slice(4,8)+"-"+h.slice(8,12);
+}
+function encodePaymentRequest(pay, project, user){
+  const obj = { v:1, refId:pay.refId, projectId:project.id, projectTitle:project.title,
+    buyer:user?user.name:"", buyerEmail:user?user.email:"",
+    package:pay.package, amount:pay.amount, txid:pay.txid, sender:pay.sender, date:pay.date };
+  return btoa(unescape(encodeURIComponent(JSON.stringify(obj))))
+    .replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function decodePaymentRequest(code){
+  try {
+    const s = code.trim().replace(/-/g,"+").replace(/_/g,"/");
+    const obj = JSON.parse(decodeURIComponent(escape(atob(s))));
+    if(obj && obj.v===1 && obj.refId && obj.projectId) return obj;
+  } catch(e){}
+  return null;
+}
+
+/* ---------- auth ---------- */
+function registerUser(name, email, pass){
+  email = email.trim().toLowerCase();
+  if(!name.trim()) return { ok:false, msg:"Please enter your full name." };
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { ok:false, msg:"Please enter a valid email address." };
+  if(pass.length < 6) return { ok:false, msg:"Password must be at least 6 characters." };
+  const users = store.users();
+  if(users.some(u => u.email===email)) return { ok:false, msg:"An account with this email already exists on this browser. Please log in." };
+  const salt = uid("s");
+  const user = { id:uid("u"), name:name.trim(), email, salt, hash:hashPass(salt, pass), created:todayISO() };
+  users.push(user); store.saveUsers(users);
+  store.setSession(user.id);
+  return { ok:true, user };
+}
+function loginUser(email, pass){
+  email = email.trim().toLowerCase();
+  const user = store.users().find(u => u.email===email);
+  if(!user) return { ok:false, msg:"No account found with this email on this browser." };
+  if(hashPass(user.salt, pass) !== user.hash) return { ok:false, msg:"Incorrect password." };
+  store.setSession(user.id);
+  return { ok:true, user };
+}
+function logoutUser(){ store.setSession(null); }
+
+/* ---------- admin auth (passcode created by the owner on first run) ---------- */
+function adminSetup(pass){
+  if(!pass || pass.length < 4) return { ok:false, msg:"Passcode must be at least 4 characters." };
+  const salt = uid("as");
+  store.setAdmin({ salt, hash:hashPass(salt, pass), created:todayISO() });
+  store.setAdminSession("1");
+  return { ok:true };
+}
+function adminLogin(pass){
+  const a = store.admin(); if(!a) return { ok:false, msg:"Admin is not set up yet." };
+  if(hashPass(a.salt, pass) !== a.hash) return { ok:false, msg:"Incorrect admin passcode." };
+  store.setAdminSession("1");
+  return { ok:true };
+}
+function adminLogout(){ store.setAdminSession(null); }
+function isAdmin(){ return !!store.adminSession() && !!store.admin(); }
+
+/* ---------- CV data model ---------- */
+function blankCV(){
+  return {
+    fullName:"", fatherName:"", photo:"", dob:"", gender:"", nationality:"Pakistani",
+    phone:"", whatsapp:"", email:"", address:"", city:"", country:"Pakistan",
+    title:"", objective:"", summary:"",
+    experience:[{ company:"", position:"", duration:"", details:"" }],
+    education:[{ degree:"", institution:"", year:"", marks:"", extra:"" }],
+    skills:[], computerSkills:[], languages:[],
+    certifications:[], awards:[], projects:[], references:[],
+    signature:""
+  };
+}
+function listFromText(t){ return String(t||"").split(/[\n,]+/).map(s=>s.trim()).filter(Boolean); }
+function textFromList(a){ return (a||[]).join(", "); }
+
+/* ---------- form ---------- */
+function formHTML(d){
+  const rep = (items, kind, title, fields) => `
+    <div class="repeater" data-rep="${kind}">
+      <div class="repeater-head"><strong>${title} <span class="rep-count"></span></strong>
+      <button type="button" class="btn small ghost" data-rep-add="${kind}">+ Add</button></div>
+      <div class="rep-items">${
+        items.map((it, i) => `<div class="rep-item" data-idx="${i}"><div class="field-row">${
+          fields.map(f => `<div class="field"><label>${f.label}</label>
+            <input data-f="${f.key}" value="${esc(it[f.key]||"")}" placeholder="${esc(f.ph||"")}"></div>`).join("")
+        }</div><button type="button" class="btn small danger" data-rep-del="${kind}" data-idx="${i}">Remove</button></div>`).join("")
+      }</div>
+    </div>`;
+  const simpleRep = (items, kind, title, ph) => `
+    <div class="repeater" data-rep="${kind}">
+      <div class="repeater-head"><strong>${title}</strong>
+      <button type="button" class="btn small ghost" data-rep-add="${kind}">+ Add</button></div>
+      <div class="rep-items">${
+        items.map((it, i) => `<div class="rep-item field" data-idx="${i}" style="display:flex;gap:8px">
+          <input data-f="value" value="${esc(it)}" placeholder="${esc(ph)}" style="flex:1">
+          <button type="button" class="btn small danger" data-rep-del="${kind}" data-idx="${i}">×</button></div>`).join("")
+      }</div>
+    </div>`;
+  return `
+  <form id="cv-form" novalidate>
+  <fieldset><legend>Personal Details</legend>
+    <div class="field-row">
+      <div class="field"><label>Full Name *</label><input name="fullName" value="${esc(d.fullName)}" required></div>
+      <div class="field"><label>Father's Name</label><input name="fatherName" value="${esc(d.fatherName)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Profile Photograph</label>
+        <input type="file" id="photo-input" accept="image/*">
+        <small>Optional. Photo is resized and stored in your browser only.</small>
+        <div id="photo-preview" style="margin-top:8px">${d.photo?`<img src="${d.photo}" alt="Profile photo" style="width:90px;height:110px;object-fit:cover;border-radius:8px;border:1px solid var(--line)"> <button type="button" class="btn small danger" id="photo-remove">Remove photo</button>`:""}</div>
+      </div>
+      <div class="field"><label>Date of Birth</label><input type="date" name="dob" value="${esc(d.dob)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Gender (optional)</label><select name="gender">
+        ${["","Male","Female","Prefer not to say"].map(g=>`<option ${d.gender===g?"selected":""} value="${g}">${g||"— Select —"}</option>`).join("")}</select></div>
+      <div class="field"><label>Nationality</label><input name="nationality" value="${esc(d.nationality)}"></div>
+      <div class="field"><label>City</label><input name="city" value="${esc(d.city)}"></div>
+      <div class="field"><label>Country</label><input name="country" value="${esc(d.country)}"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Phone Number</label><input name="phone" value="${esc(d.phone)}" placeholder="03xx-xxxxxxx"></div>
+      <div class="field"><label>WhatsApp Number</label><input name="whatsapp" value="${esc(d.whatsapp)}"></div>
+      <div class="field"><label>Email Address</label><input type="email" name="email" value="${esc(d.email)}"></div>
+    </div>
+    <div class="field"><label>Complete Address</label><textarea name="address" rows="2">${esc(d.address)}</textarea></div>
+  </fieldset>
+  <fieldset><legend>Professional Details</legend>
+    <div class="field-row">
+      <div class="field"><label>Professional Title</label><input name="title" value="${esc(d.title)}" placeholder="e.g. Primary School Teacher"></div>
+    </div>
+    <div class="field"><label>Career Objective</label><textarea name="objective" rows="2">${esc(d.objective)}</textarea></div>
+    <div class="field"><label>Professional Summary</label><textarea name="summary" rows="3">${esc(d.summary)}</textarea></div>
+    ${rep(d.experience, "experience", "Work Experience", [
+      {key:"position",label:"Job Position",ph:"e.g. Sales Officer"},
+      {key:"company",label:"Company Name",ph:"e.g. ABC Pvt Ltd"},
+      {key:"duration",label:"Employment Duration",ph:"e.g. 2021 – 2023"},
+      {key:"details",label:"Job Responsibilities",ph:"e.g. Managed a team of 5…"}])}
+  </fieldset>
+  <fieldset><legend>Education</legend>
+    ${rep(d.education, "education", "Education", [
+      {key:"degree",label:"Degree",ph:"e.g. BSc Mathematics"},
+      {key:"institution",label:"School / College / University",ph:"e.g. University of the Punjab"},
+      {key:"year",label:"Passing Year",ph:"e.g. 2022"},
+      {key:"marks",label:"Marks / CGPA",ph:"e.g. 3.5 CGPA"},
+      {key:"extra",label:"Additional Qualifications",ph:"e.g. B.Ed (in progress)"}])}
+  </fieldset>
+  <fieldset><legend>Additional Information</legend>
+    ${simpleRep(d.skills, "skills", "Skills", "e.g. Communication")}
+    ${simpleRep(d.computerSkills, "computerSkills", "Computer Skills", "e.g. MS Office")}
+    ${simpleRep(d.languages, "languages", "Languages", "e.g. English — Fluent")}
+    ${simpleRep(d.certifications, "certifications", "Certifications", "e.g. Computer Course Certificate")}
+    ${simpleRep(d.awards, "awards", "Awards", "e.g. Best Teacher Award 2023")}
+    ${simpleRep(d.projects, "projects", "Projects", "e.g. School website project")}
+    ${simpleRep(d.references, "references", "References", "e.g. Mr. Ahmed — Headmaster, Govt. School")}
+    <div class="field"><label>Signature (optional — type your name, shown in script style)</label>
+      <input name="signature" value="${esc(d.signature)}" placeholder="e.g. Ahmed Ali"></div>
+  </fieldset>
+  <div class="btn-row">
+    <button type="submit" class="btn">💾 Save CV Project</button>
+    <button type="button" class="btn secondary" id="save-generate">Save &amp; Generate 200 Designs →</button>
+    <button type="button" class="btn ghost" id="form-cancel">Cancel</button>
+  </div>
+  </form>`;
+}
+function readFormData(form){
+  const d = blankCV();
+  const fd = new FormData(form);
+  ["fullName","fatherName","dob","gender","nationality","phone","whatsapp","email","address","city","country",
+   "title","objective","summary","signature"].forEach(k => { d[k] = String(fd.get(k)||"").trim(); });
+  d.photo = form.dataset.photo || "";
+  const readRep = kind => {
+    const items = [];
+    $$('.repeater[data-rep="'+kind+'"] .rep-item', form).forEach(item => {
+      const obj = {};
+      $$('input[data-f]', item).forEach(inp => { obj[inp.dataset.f] = inp.value.trim(); });
+      items.push(obj);
+    });
+    return items;
+  };
+  const readSimple = kind => readRep(kind).map(o => o.value).filter(Boolean);
+  d.experience = readRep("experience").filter(x => x.position||x.company||x.details);
+  d.education  = readRep("education").filter(x => x.degree||x.institution);
+  d.skills = readSimple("skills"); d.computerSkills = readSimple("computerSkills");
+  d.languages = readSimple("languages"); d.certifications = readSimple("certifications");
+  d.awards = readSimple("awards"); d.projects = readSimple("projects"); d.references = readSimple("references");
+  if(!d.experience.length) d.experience = blankCV().experience;
+  if(!d.education.length) d.education = blankCV().education;
+  return d;
+}
+function bindForm(form, project){
+  form.addEventListener("click", e => {
+    const add = e.target.closest("[data-rep-add]");
+    const del = e.target.closest("[data-rep-del]");
+    if(add){
+      const kind = add.dataset.repAdd;
+      const box = $('.repeater[data-rep="'+kind+'"] .rep-items', form);
+      const idx = box.children.length;
+      const isSimple = ["skills","computerSkills","languages","certifications","awards","projects","references"].includes(kind);
+      if(isSimple){
+        box.insertAdjacentHTML("beforeend", `<div class="rep-item field" data-idx="${idx}" style="display:flex;gap:8px">
+          <input data-f="value" placeholder="" style="flex:1">
+          <button type="button" class="btn small danger" data-rep-del="${kind}" data-idx="${idx}">×</button></div>`);
+      } else {
+        const fields = kind==="experience"
+          ? [["position","Job Position"],["company","Company Name"],["duration","Employment Duration"],["details","Job Responsibilities"]]
+          : [["degree","Degree"],["institution","School / College / University"],["year","Passing Year"],["marks","Marks / CGPA"],["extra","Additional Qualifications"]];
+        box.insertAdjacentHTML("beforeend", `<div class="rep-item" data-idx="${idx}"><div class="field-row">${
+          fields.map(f=>`<div class="field"><label>${f[1]}</label><input data-f="${f[0]}"></div>`).join("")
+        }</div><button type="button" class="btn small danger" data-rep-del="${kind}" data-idx="${idx}">Remove</button></div>`);
+      }
+    }
+    if(del){
+      const item = del.closest(".rep-item");
+      const box = item.parentElement;
+      if(box.children.length <= 1 && !["skills","computerSkills","languages","certifications","awards","projects","references"].includes(del.dataset.repDel)){
+        alert("At least one entry is required in this section.");
+        return;
+      }
+      item.remove();
+    }
+    if(e.target.id === "photo-remove"){ form.dataset.photo=""; $("#photo-preview").innerHTML=""; }
+  });
+  const photoInput = $("#photo-input", form);
+  if(photoInput){
+    photoInput.addEventListener("change", () => {
+      const f = photoInput.files && photoInput.files[0];
+      if(!f) return;
+      if(!/^image\//.test(f.type)){ alert("Please choose an image file."); return; }
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const max = 480, scale = Math.min(1, max/Math.max(img.width, img.height));
+          const c = document.createElement("canvas");
+          c.width = Math.round(img.width*scale); c.height = Math.round(img.height*scale);
+          c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+          const dataUrl = c.toDataURL("image/jpeg", 0.82);
+          form.dataset.photo = dataUrl;
+          $("#photo-preview").innerHTML = `<img src="${dataUrl}" alt="Profile photo" style="width:90px;height:110px;object-fit:cover;border-radius:8px;border:1px solid var(--line)"> <button type="button" class="btn small danger" id="photo-remove">Remove photo</button>`;
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(f);
+    });
+  }
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const d = readFormData(form);
+    if(!d.fullName){ alert("Full Name is required."); return; }
+    saveProjectFromForm(project, d, false);
+  });
+  $("#save-generate", form).addEventListener("click", () => {
+    const d = readFormData(form);
+    if(!d.fullName){ alert("Full Name is required."); return; }
+    saveProjectFromForm(project, d, true);
+  });
+  $("#form-cancel", form).addEventListener("click", () => { location.hash = "#/dashboard"; });
+}
+function saveProjectFromForm(project, d, goDesigns){
+  const user = currentUser();
+  if(!user){ location.hash = "#/login"; return; }
+  if(!project){
+    project = { id:uid("cv"), userId:user.id, title:(d.fullName||"My CV")+" — CV",
+      created:todayISO(), updated:todayISO(), data:d,
+      package:null, payment:{status:"none"}, selected:[], downloads:[] };
+  } else {
+    project.data = d;
+    project.title = (d.fullName||"My CV")+" — CV";
+  }
+  saveProject(project);
+  if(goDesigns) location.hash = "#/designs/"+project.id;
+  else { alert("CV project saved."); location.hash = "#/dashboard"; }
+}
+
+/* ---------- 200-design engine ---------- */
+const CATEGORIES = [
+  { key:"modern",      name:"Modern CV" },
+  { key:"professional",name:"Professional CV" },
+  { key:"corporate",   name:"Corporate CV" },
+  { key:"simple",      name:"Simple CV" },
+  { key:"ats",         name:"ATS-Friendly CV" },
+  { key:"executive",   name:"Executive CV" },
+  { key:"creative",    name:"Creative CV" },
+  { key:"academic",    name:"Academic CV" },
+  { key:"teacher",     name:"Teacher CV" },
+  { key:"engineering", name:"Engineering CV" },
+  { key:"medical",     name:"Medical CV" },
+  { key:"it",          name:"IT Professional CV" },
+  { key:"government",  name:"Government Job CV" },
+  { key:"banking",     name:"Banking CV" },
+  { key:"international",name:"International CV" },
+  { key:"european",    name:"European CV" },
+  { key:"gulf",        name:"Gulf Countries CV" },
+  { key:"canadian",    name:"Canadian CV" },
+  { key:"australian",  name:"Australian CV" },
+  { key:"fresh",       name:"Fresh Graduate CV" }
+];
+const VARIANTS = [
+  { font:"Georgia, 'Times New Roman', serif", accent:"#0A1931", header:"band",  photo:"round"  },
+  { font:"Arial, Helvetica, sans-serif",      accent:"#0F766E", header:"line",  photo:"square" },
+  { font:"'Segoe UI', Calibri, sans-serif",   accent:"#1D4ED8", header:"plain", photo:"round"  },
+  { font:"Verdana, Geneva, sans-serif",       accent:"#7C3AED", header:"band",  photo:"none"   },
+  { font:"'Trebuchet MS', sans-serif",        accent:"#B45309", header:"line",  photo:"square" },
+  { font:"'Times New Roman', serif",          accent:"#111827", header:"plain", photo:"none"   },
+  { font:"Georgia, serif",                    accent:"#9F1239", header:"band",  photo:"round"  },
+  { font:"'Courier New', monospace",          accent:"#065F46", header:"line",  photo:"none"   },
+  { font:"'Palatino Linotype', Palatino, serif", accent:"#0E7490", header:"plain", photo:"square" },
+  { font:"system-ui, sans-serif",             accent:"#C2410C", header:"band",  photo:"round"  }
+];
+function designMeta(n){
+  n = clampNum(parseInt(n,10)||1, 1, 200);
+  const cat = Math.floor((n-1)/10), v = (n-1)%10;
+  return { n, num:String(n).padStart(3,"0"), category:CATEGORIES[cat], variant:VARIANTS[v], layout:cat };
+}
+/* ----- shared render helpers ----- */
+function photoHTML(d, shape, size){
+  if(!d.photo || shape==="none") return "";
+  const w = size||110, h = Math.round(w*1.25);
+  return `<img class="cv-photo ${shape}" src="${d.photo}" alt="Photo" style="width:${w}px;height:${h}px">`;
+}
+function contactSpans(d){
+  const bits = [];
+  if(d.phone) bits.push("☎ "+esc(d.phone));
+  if(d.whatsapp) bits.push("WhatsApp: "+esc(d.whatsapp));
+  if(d.email) bits.push("✉ "+esc(d.email));
+  const addr = [d.address, d.city, d.country].filter(Boolean).join(", ");
+  if(addr) bits.push("⌂ "+esc(addr));
+  return bits.map(b=>`<span>${b}</span>`).join("");
+}
+function secH(title, v, numbered){
+  const style = v.header==="band"
+    ? `background:var(--acc);color:#fff;padding:6px 10px;border-radius:4px`
+    : `color:var(--acc);border-bottom:2px solid var(--acc)`;
+  return `<h2 style="${style}">${numbered||""}${esc(title)}</h2>`;
+}
+function expList(d, mode){
+  const items = (d.experience||[]).filter(x=>x.position||x.company);
+  if(!items.length) return "";
+  if(mode==="table"){
+    return `<table class="cv-table"><tr><th>Position</th><th>Organisation</th><th>Duration</th><th>Responsibilities</th></tr>${
+      items.map(x=>`<tr><td><strong>${esc(x.position)}</strong></td><td>${esc(x.company)}</td><td>${esc(x.duration)}</td><td>${esc(x.details)}</td></tr>`).join("")}</table>`;
+  }
+  if(mode==="timeline"){
+    return `<div class="cv-timeline">${items.map(x=>`<div class="cv-exp">
+      <div class="cv-exp-head"><span>${esc(x.position)} — ${esc(x.company)}</span><span>${esc(x.duration)}</span></div>
+      ${x.details?`<p>${esc(x.details)}</p>`:""}</div>`).join("")}</div>`;
+  }
+  return items.map(x=>`<div class="cv-exp">
+    <div class="cv-exp-head"><span>${esc(x.position)} — ${esc(x.company)}</span><span>${esc(x.duration)}</span></div>
+    ${x.details?`<p>${esc(x.details)}</p>`:""}</div>`).join("");
+}
+function eduList(d, mode){
+  const items = (d.education||[]).filter(x=>x.degree||x.institution);
+  if(!items.length) return "";
+  if(mode==="table"){
+    return `<table class="cv-table"><tr><th>Degree</th><th>Institution</th><th>Year</th><th>Marks / CGPA</th><th>Other</th></tr>${
+      items.map(x=>`<tr><td><strong>${esc(x.degree)}</strong></td><td>${esc(x.institution)}</td><td>${esc(x.year)}</td><td>${esc(x.marks)}</td><td>${esc(x.extra)}</td></tr>`).join("")}</table>`;
+  }
+  return items.map(x=>`<div class="cv-exp">
+    <div class="cv-exp-head"><span>${esc(x.degree)}</span><span>${esc(x.year)}</span></div>
+    <div class="cv-exp-sub">${esc(x.institution)}${x.marks?` • ${esc(x.marks)}`:""}${x.extra?` • ${esc(x.extra)}`:""}</div></div>`).join("");
+}
+function skillChips(d, keys){
+  const all = [];
+  (keys||["skills","computerSkills","languages"]).forEach(k => (d[k]||[]).forEach(s=>all.push(s)));
+  if(!all.length) return "";
+  return `<div class="cv-chips">${all.map(s=>`<span class="cv-chip">${esc(s)}</span>`).join("")}</div>`;
+}
+function skillBars(d){
+  const all = [...(d.skills||[]), ...(d.computerSkills||[])];
+  if(!all.length) return "";
+  return all.map((s,i)=>`<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${esc(s)}</span><span>${90 - (i%5)*8}%</span></div>
+    <div class="cv-bar"><i style="width:${90-(i%5)*8}%;background:var(--acc)"></i></div></div>`).join("");
+}
+function simpleList(arr){
+  if(!arr || !arr.length) return "";
+  return `<ul class="cv-list">${arr.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+}
+function sectionIf(title, inner, v, numbered){
+  if(!inner) return "";
+  return `<div class="cv-sec">${secH(title, v, numbered)}${inner}</div>`;
+}
+function personalBlock(d){
+  const rows = [];
+  if(d.fatherName) rows.push(["Father's Name", d.fatherName]);
+  if(d.dob) rows.push(["Date of Birth", fmtDate(d.dob)]);
+  if(d.gender) rows.push(["Gender", d.gender]);
+  if(d.nationality) rows.push(["Nationality", d.nationality]);
+  if(d.city || d.country) rows.push(["Domicile / Residence", [d.city, d.country].filter(Boolean).join(", ")]);
+  if(!rows.length) return "";
+  return `<table class="cv-table">${rows.map(r=>`<tr><th style="width:38%">${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join("")}</table>`;
+}
+function headerBlock(d, v, opts){
+  opts = opts||{};
+  const name = `<div class="cv-name">${esc(d.fullName||"Your Name")}</div>`;
+  const title = d.title ? `<div class="cv-title">${esc(d.title)}</div>` : "";
+  const contact = `<div class="cv-contact">${contactSpans(d)}</div>`;
+  const photo = photoHTML(d, v.photo, opts.photoSize||110);
+  if(opts.center) return `<div style="text-align:center;padding:18px 30px 10px">${photo}${name}${title}${contact}</div>`;
+  return `<div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:22px 30px 12px">
+    <div>${name}${title}<div style="height:6px"></div>${contact}</div>${photo}</div>`;
+}
+function sigHTML(d){
+  if(!d.signature) return "";
+  return `<div style="margin-top:22px;display:flex;justify-content:space-between;align-items:flex-end">
+    <div><div style="font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px">${esc(d.signature)}</div>
+    <div style="border-top:1px solid #999;width:180px;padding-top:3px;font-size:12px">Signature</div></div>
+    <div style="font-size:12px;color:#666">Date: ${fmtDate(todayISO())}</div></div>`;
+}
+
+/* ----- 20 genuinely different layouts ----- */
+const LAYOUTS = [
+/* 1 Modern — band header, two-column body */
+(d,v)=>{ const body = `<div style="display:flex;gap:22px;padding:6px 30px 26px">
+  <div style="flex:1.9">${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Work Experience", expList(d), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Projects", simpleList(d.projects), v)}</div>
+  <div style="flex:1;border-left:2px solid var(--acc);padding-left:18px">
+  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Awards", simpleList(d.awards), v)}
+  ${sectionIf("References", simpleList(d.references), v)}</div></div>`;
+  return headerBlock(d,v)+body+`<div style="padding:0 30px">${sigHTML(d)}</div>`; },
+/* 2 Professional — navy left sidebar */
+(d,v)=>{ const side = `<div style="width:250px;background:var(--acc);color:#fff;padding:22px 18px;flex-shrink:0">
+  <div style="text-align:center;margin-bottom:14px">${photoHTML(d, v.photo==="none"?"round":v.photo, 120)}</div>
+  <div style="font-size:13px;line-height:1.8">${contactSpans(d).replace(/<span>/g,'<div>').replace(/<\/span>/g,'</div>')}</div>
+  <h3 style="color:#fff;border-bottom:2px solid rgba(255,255,255,.5);padding-bottom:4px;margin:16px 0 8px;font-size:13px;letter-spacing:2px">SKILLS</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px">${[...(d.skills||[]),...(d.computerSkills||[])].map(s=>`<span style="border:1px solid rgba(255,255,255,.7);border-radius:99px;padding:2px 9px;font-size:12px">${esc(s)}</span>`).join("")}</div>
+  <h3 style="color:#fff;border-bottom:2px solid rgba(255,255,255,.5);padding-bottom:4px;margin:16px 0 8px;font-size:13px;letter-spacing:2px">LANGUAGES</h3>
+  ${simpleList(d.languages)}
+  <h3 style="color:#fff;border-bottom:2px solid rgba(255,255,255,.5);padding-bottom:4px;margin:16px 0 8px;font-size:13px;letter-spacing:2px">CERTIFICATIONS</h3>
+  ${simpleList(d.certifications)}</div>`;
+  const main = `<div style="flex:1;padding:24px 26px">
+  <div class="cv-name" style="color:var(--acc)">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Work Experience", expList(d,"timeline"), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Projects", simpleList(d.projects), v)}
+  ${sectionIf("Awards", simpleList(d.awards), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`;
+  return `<div style="display:flex;min-height:1123px">${side}${main}</div>`; },
+/* 3 Corporate — right grey sidebar, name left */
+(d,v)=>{ const main = `<div style="flex:1;padding:24px 26px">
+  <div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="color:var(--acc)">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin:8px 0 16px">${contactSpans(d)}</div>
+  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Work Experience", expList(d,"table"), v)}
+  ${sectionIf("Education", eduList(d,"table"), v)}
+  ${sectionIf("Projects", simpleList(d.projects), v)}</div>`;
+  const side = `<div style="width:240px;background:#f1f5f9;padding:22px 18px;flex-shrink:0">
+  <div style="text-align:center;margin-bottom:12px">${photoHTML(d, v.photo, 110)}</div>
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Computer Skills", simpleList(d.computerSkills), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Awards", simpleList(d.awards), v)}
+  ${sectionIf("References", simpleList(d.references), v)}</div>`;
+  return `<div style="display:flex;min-height:1123px">${main}${side}</div>`; },
+/* 4 Simple — centred, minimal, no photo */
+(d,v)=>{ return `<div style="padding:26px 44px">
+  <div style="text-align:center"><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div>
+  <hr style="border:none;border-top:1px solid #999;margin:16px 0"></div>
+  ${sectionIf("Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Experience", expList(d), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Projects", simpleList(d.projects), v)}
+  ${sectionIf("Awards", simpleList(d.awards), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 5 ATS-Friendly — plain black/white, no photo, no colour */
+(d,v)=>{ const v2 = Object.assign({}, v, { accent:"#111111", photo:"none", header:"plain" });
+  return `<div style="padding:26px 40px;color:#111">
+  <div class="cv-name" style="font-size:26px">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="color:#111">${contactSpans(d)}</div>
+  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v2)}
+  ${sectionIf("Work Experience", expList(d), v2)}
+  ${sectionIf("Education", eduList(d), v2)}
+  ${sectionIf("Skills", `<p>${esc([...(d.skills||[]),...(d.computerSkills||[])].join(" • "))}</p>`, v2)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v2)}
+  ${sectionIf("Languages", simpleList(d.languages), v2)}
+  ${sectionIf("Projects", simpleList(d.projects), v2)}
+  ${sectionIf("References", simpleList(d.references), v2)}
+  ${sigHTML(d)}</div>`; },
+/* 6 Executive — serif, wide margins, double rule */
+(d,v)=>{ return `<div style="padding:34px 56px">
+  <div style="text-align:center">
+  <div class="cv-name" style="font-size:32px;letter-spacing:1px">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="letter-spacing:3px;text-transform:uppercase;font-size:13px">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin-top:8px">${contactSpans(d)}</div></div>
+  <hr style="border:none;border-top:3px double #999;margin:18px 0">
+  ${sectionIf("Executive Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Professional Experience", expList(d,"timeline"), v)}
+  ${sectionIf("Education & Qualifications", eduList(d), v)}
+  ${sectionIf("Core Competencies", skillChips(d), v)}
+  ${sectionIf("Certifications & Awards", simpleList([...(d.certifications||[]),...(d.awards||[])]), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 7 Creative — big name, colour blocks */
+(d,v)=>{ return `<div style="padding:0">
+  <div style="background:var(--acc);color:#fff;padding:26px 30px;display:flex;justify-content:space-between;gap:14px;align-items:center">
+  <div><div class="cv-name" style="font-size:36px">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div style="font-size:17px;opacity:.92">${esc(d.title)}</div>`:""}</div>${photoHTML(d, v.photo, 100)}</div>
+  <div style="padding:20px 30px 26px">
+  <div class="cv-contact" style="margin-bottom:14px">${contactSpans(d)}</div>
+  ${sectionIf("About Me", (d.summary||d.objective)?`<p>${esc(d.summary||d.objective)}</p>`:"", v)}
+  ${sectionIf("Experience", expList(d), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("My Skills", skillChips(d), v)}
+  ${sectionIf("Projects", simpleList(d.projects), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div></div>`; },
+/* 8 Academic — numbered sections, education first */
+(d,v)=>{ let n=0; const num=()=>String(++n)+". ";
+  return `<div style="padding:26px 40px">
+  ${headerBlock(d,v,{center:true})}
+  <hr style="border:none;border-top:2px solid var(--acc);margin:10px 0 16px">
+  ${sectionIf("Education", eduList(d,"table"), v, num())}
+  ${sectionIf("Research & Teaching Experience", expList(d), v, num())}
+  ${sectionIf("Publications, Projects & Certifications", simpleList([...(d.projects||[]),...(d.certifications||[])]), v, num())}
+  ${sectionIf("Academic Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v, num())}
+  ${sectionIf("Skills & Languages", skillChips(d), v, num())}
+  ${sectionIf("Awards & Honours", simpleList(d.awards), v, num())}
+  ${sectionIf("References", simpleList(d.references), v, num())}
+  ${sigHTML(d)}</div>`; },
+/* 9 Teacher — education first, subjects table */
+(d,v)=>{ return `<div style="padding:26px 36px">
+  ${headerBlock(d,v)}
+  ${sectionIf("Teaching Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Education & Qualifications", eduList(d,"table"), v)}
+  ${sectionIf("Teaching Experience", expList(d,"timeline"), v)}
+  ${sectionIf("Subjects & Skills", `<table class="cv-table"><tr><th>Subject / Skill</th><th>Level</th></tr>${
+    [...(d.skills||[]),...(d.computerSkills||[])].map((s,i)=>`<tr><td>${esc(s)}</td><td>${["Expert","Advanced","Intermediate","Advanced","Expert"][i%5]}</td></tr>`).join("")}</table>`, v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Awards", simpleList(d.awards), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 10 Engineering — projects first, skill bars */
+(d,v)=>{ return `<div style="padding:26px 36px">
+  ${headerBlock(d,v)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Engineering Projects", simpleList(d.projects), v)}
+  ${sectionIf("Technical Skills", skillBars(d), v)}
+  ${sectionIf("Work Experience", expList(d), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; }
+];
+
+LAYOUTS.push(
+/* 11 Medical — registration block */
+(d,v)=>{ return `<div style="padding:26px 36px">
+  ${headerBlock(d,v)}
+  ${sectionIf("Registration & Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Clinical / Work Experience", expList(d,"table"), v)}
+  ${sectionIf("Education & Qualifications", eduList(d,"table"), v)}
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Awards", simpleList(d.awards), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 12 IT Professional — tech stack first, bars */
+(d,v)=>{ return `<div style="padding:26px 36px">
+  <div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start">
+  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="color:var(--acc)">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>${photoHTML(d, v.photo, 96)}</div>
+  ${sectionIf("Tech Stack", skillChips(d,["computerSkills","skills"]), v)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Projects", simpleList(d.projects), v)}
+  ${sectionIf("Work Experience", expList(d), v)}
+  ${sectionIf("Skill Proficiency", skillBars(d), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 13 Government Job — biodata table first */
+(d,v)=>{ return `<div style="padding:26px 36px">
+  <div style="text-align:center"><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}</div>
+  <div style="display:flex;justify-content:space-between;gap:14px;margin:14px 0">
+  <div style="flex:1">${sectionIf("Personal Information", personalBlock(d), v)}</div>
+  <div>${photoHTML(d, v.photo==="none"?"square":v.photo, 120)}</div></div>
+  <div class="cv-contact" style="margin-bottom:12px">${contactSpans(d)}</div>
+  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Educational Qualifications", eduList(d,"table"), v)}
+  ${sectionIf("Work Experience", expList(d,"table"), v)}
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 14 Banking — compact, small type */
+(d,v)=>{ return `<div style="padding:24px 34px;font-size:13px">
+  ${headerBlock(d,v)}
+  ${sectionIf("Profile Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Professional Experience", expList(d,"table"), v)}
+  ${sectionIf("Education", eduList(d,"table"), v)}
+  ${sectionIf("Skills & Computer Skills", skillChips(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 15 International — CURRICULUM VITAE header, languages prominent */
+(d,v)=>{ return `<div style="padding:26px 38px">
+  <div style="text-align:center;border-bottom:3px solid var(--acc);padding-bottom:12px;margin-bottom:16px">
+  <div style="letter-spacing:5px;font-size:13px;color:var(--acc);font-weight:800">CURRICULUM VITAE</div>
+  <div class="cv-name" style="margin-top:6px">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>
+  ${sectionIf("Personal Details", personalBlock(d), v)}
+  ${sectionIf("Profile", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Work Experience", expList(d), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Projects", simpleList(d.projects), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 16 European — Europass-like label/value rows */
+(d,v)=>{ const row = (label, inner) => inner ? `<div style="display:flex;gap:14px;margin-bottom:12px">
+    <div style="width:170px;flex-shrink:0;font-weight:800;color:var(--acc);font-size:12.5px;text-transform:uppercase;letter-spacing:1px">${esc(label)}</div>
+    <div style="flex:1">${inner}</div></div>` : "";
+  return `<div style="padding:26px 38px">
+  <div style="display:flex;justify-content:space-between;gap:14px;align-items:flex-start">
+  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>${photoHTML(d, v.photo, 100)}</div>
+  <hr style="border:none;border-top:2px solid var(--acc);margin:16px 0">
+  ${row("Profile", d.summary?`<p>${esc(d.summary)}</p>`:"")}
+  ${row("Work Experience", expList(d))}
+  ${row("Education", eduList(d))}
+  ${row("Skills", skillChips(d))}
+  ${row("Languages", simpleList(d.languages))}
+  ${row("Certifications", simpleList(d.certifications))}
+  ${row("Projects", simpleList(d.projects))}
+  ${row("References", simpleList(d.references))}
+  ${sigHTML(d)}</div>`; },
+/* 17 Gulf — photo prominent, objective first */
+(d,v)=>{ return `<div style="padding:26px 36px">
+  <div style="display:flex;gap:18px;align-items:center;background:var(--surface-2);border-radius:10px;padding:16px 20px">
+  ${photoHTML(d, v.photo==="none"?"square":v.photo, 120)}
+  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="color:var(--acc)">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div></div>
+  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Personal Details", personalBlock(d), v)}
+  ${sectionIf("Work Experience", expList(d), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 18 Canadian — clean centred, two-column skills */
+(d,v)=>{ return `<div style="padding:26px 42px">
+  <div style="text-align:center"><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>
+  <hr style="border:none;border-top:1px solid #bbb;margin:16px 0">
+  ${sectionIf("Summary of Qualifications", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Work Experience", expList(d,"timeline"), v)}
+  ${sectionIf("Education", eduList(d), v)}
+  ${sectionIf("Skills", `<div style="columns:2;column-gap:26px">${simpleList([...(d.skills||[]),...(d.computerSkills||[])])}</div>`, v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Volunteer & Projects", simpleList(d.projects), v)}
+  ${sectionIf("References Available Upon Request", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; },
+/* 19 Australian — band header, key selection criteria */
+(d,v)=>{ return `<div style="padding:0">
+  <div style="background:var(--acc);color:#fff;padding:22px 30px;display:flex;gap:16px;align-items:center">
+  ${photoHTML(d, v.photo, 96)}
+  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
+  ${d.title?`<div style="font-size:15px;opacity:.92">${esc(d.title)}</div>`:""}</div></div>
+  <div style="padding:20px 30px 26px">
+  <div class="cv-contact" style="margin-bottom:12px">${contactSpans(d)}</div>
+  ${sectionIf("Career Profile", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Key Selection Criteria", skillChips(d), v)}
+  ${sectionIf("Employment History", expList(d,"timeline"), v)}
+  ${sectionIf("Education & Training", eduList(d), v)}
+  ${sectionIf("Certifications", simpleList(d.certifications), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Referees", simpleList(d.references), v)}
+  ${sigHTML(d)}</div></div>`; },
+/* 20 Fresh Graduate — education first, big */
+(d,v)=>{ return `<div style="padding:26px 36px">
+  ${headerBlock(d,v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Education", eduList(d,"table"), v)}
+  ${sectionIf("Academic Projects", simpleList(d.projects), v)}
+  ${sectionIf("Skills", skillChips(d), v)}
+  ${sectionIf("Computer Skills", skillBars(d), v)}
+  ${sectionIf("Internships / Experience", expList(d), v)}
+  ${sectionIf("Certifications & Awards", simpleList([...(d.certifications||[]),...(d.awards||[])]), v)}
+  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("References", simpleList(d.references), v)}
+  ${sigHTML(d)}</div>`; }
+);
+function renderCV(d, n){
+  const m = designMeta(n);
+  const v = m.variant;
+  const inner = LAYOUTS[m.layout](d, v);
+  return `<div class="cv-page" data-design="${m.num}" data-category="${m.category.key}"
+    style="font-family:${v.font};--acc:${v.accent}">${inner}</div>`;
+}
+function designLabel(n){
+  const m = designMeta(n);
+  return "Design " + m.num + " — " + m.category.name;
+}
+
+/* ---------- views / router ---------- */
+function showView(name){
+  $$(".view").forEach(v => v.classList.remove("active"));
+  const el = $("#view-"+name);
+  if(el) el.classList.add("active");
+  $$("[data-nav]").forEach(a => a.classList.toggle("active", a.dataset.nav===name));
+  window.scrollTo(0,0);
+}
+function renderNavAuth(){
+  const u = currentUser();
+  $("#nav-auth").innerHTML = u
+    ? `<a href="#/dashboard">👤 ${esc(u.name.split(" ")[0])}</a> <a href="#" id="nav-logout">Logout</a>`
+    : `<a href="#/login">Login</a>`;
+  const lo = $("#nav-logout");
+  if(lo) lo.addEventListener("click", e => { e.preventDefault(); logoutUser(); renderNavAuth(); location.hash = "#/"; });
+}
+function toast(msg, kind){
+  const t = document.createElement("div");
+  t.className = "notice " + (kind||"info");
+  t.textContent = msg;
+  const app = $("#app");
+  app.prepend(t);
+  setTimeout(()=>t.remove(), 6000);
+}
+function openModal(html){
+  $("#modal-box").innerHTML = html;
+  $("#modal").classList.add("open");
+}
+function closeModal(){ $("#modal").classList.remove("open"); }
+$("#modal").addEventListener("click", e => { if(e.target.id==="modal") closeModal(); });
+
+/* ---------- HOME ---------- */
+function viewHome(){
+  const u = currentUser();
+  $("#view-home").innerHTML = `
+  <div class="hero">
+    <p class="badge amber">CV MAKER — CREATE YOUR PROFESSIONAL CV</p>
+    <h1>Your CV, in <em>200 designs.</em></h1>
+    <p>Enter your information once. Preview 200 genuinely different professional CV designs, pick your favourites, pay securely via EasyPaisa, and download as PDF, Word or ZIP.</p>
+    <div class="btn-row">
+      <a class="btn" href="#/form">Start Creating CV →</a>
+      <a class="btn ghost" style="background:#fff" href="#/dashboard">My Dashboard</a>
+    </div>
+    <p style="margin-top:14px"><span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border-color:transparent">200 designs</span>
+    <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border-color:transparent">PDF • Word • ZIP</span>
+    <span class="badge" style="background:rgba(255,255,255,.15);color:#fff;border-color:transparent">EasyPaisa</span></p>
+  </div>
+  <div class="grid3">
+    <div class="card"><h3>1. Fill your details</h3><p>Personal, professional, education, skills, experience, certifications — add as many entries as you need. Your photo is optional.</p></div>
+    <div class="card"><h3>2. Preview 200 designs</h3><p>Modern, Professional, Corporate, ATS-Friendly, Executive, Creative, Academic, Teacher, Medical, IT, Government, Banking, International and more — all free to preview.</p></div>
+    <div class="card"><h3>3. Pay &amp; download</h3><p>Basic PKR 50 = any 5 designs. Premium PKR 100 = any 15 designs. Pay via EasyPaisa <strong>03411686858</strong>. Admin verifies manually, then you download.</p></div>
+  </div>
+  <div class="card">
+    <h2>Two simple packages</h2>
+    <div class="pkg-grid">
+      <div class="pkg"><h3>Basic</h3><div class="price">PKR 50</div>
+        <ul><li>Preview all 200 CV designs</li><li>Select up to <strong>5</strong> favourite designs</li><li>Download up to 5 unique CVs</li><li>PDF + Word (DOCX) + ZIP</li></ul>
+        <a class="btn" href="#/form">Choose Basic</a></div>
+      <div class="pkg premium"><h3>Premium <span class="badge amber">Best value</span></h3><div class="price">PKR 100</div>
+        <ul><li>Preview all 200 CV designs</li><li>Select up to <strong>15</strong> favourite designs</li><li>Download up to 15 unique CVs</li><li>PDF + Word (DOCX) + ZIP</li></ul>
+        <a class="btn" href="#/form">Choose Premium</a></div>
+    </div>
+    <div class="notice info">Previewing never uses a download slot. Re-downloading a design you already unlocked is free and uses no new slot. Payment is verified <strong>manually by the admin</strong> — no payment is auto-approved.</div>
+  </div>
+  <div class="card">
+    <h2>20 design categories</h2>
+    <p>${CATEGORIES.map(c=>`<span class="badge" style="margin:2px">${esc(c.name)}</span>`).join("")}</p>
+    <p><small>Each category has 10 visual variations — 20 × 10 = 200 numbered designs (Design 001 – Design 200).</small></p>
+    ${u ? "" : `<div class="btn-row"><a class="btn secondary" href="#/register">Create free account</a><a class="btn ghost" href="#/login">Log in</a></div>`}
+  </div>`;
+  showView("home");
+}
+
+/* ---------- AUTH ---------- */
+function viewAuth(mode){
+  const isLogin = mode==="login";
+  $("#view-auth").innerHTML = `
+  <div class="card" style="max-width:520px;margin:0 auto">
+    <h2>${isLogin?"Log in":"Create your account"}</h2>
+    <p><small>Your account lives in this browser only (this is a free static website — there is no server). Use the same browser and device to find your CVs again.</small></p>
+    <form id="auth-form">
+      ${isLogin?"":`<div class="field"><label>Full Name</label><input name="name" required></div>`}
+      <div class="field"><label>Email Address</label><input type="email" name="email" required></div>
+      <div class="field"><label>Password</label><input type="password" name="pass" required minlength="6">
+      <small>At least 6 characters. Stored as a hash in your browser — never in plain text.</small></div>
+      <div id="auth-err"></div>
+      <div class="btn-row"><button class="btn" type="submit">${isLogin?"Log in":"Create account"}</button>
+      <a class="btn ghost" href="#/${isLogin?"register":"login"}">${isLogin?"No account? Register":"Have an account? Log in"}</a></div>
+    </form>
+  </div>`;
+  $("#auth-form").addEventListener("submit", e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const r = isLogin ? loginUser(fd.get("email"), fd.get("pass"))
+                      : registerUser(fd.get("name"), fd.get("email"), fd.get("pass"));
+    if(!r.ok){ $("#auth-err").innerHTML = `<div class="notice err">${esc(r.msg)}</div>`; return; }
+    renderNavAuth();
+    location.hash = "#/dashboard";
+  });
+  showView("auth");
+}
+
+/* ---------- DASHBOARD ---------- */
+function projectStatusBadge(p){
+  const s = (p.payment||{}).status || "none";
+  if(s==="approved") return `<span class="badge green">✓ Payment APPROVED</span>`;
+  if(s==="pending")  return `<span class="badge amber">⏳ Payment PENDING</span>`;
+  if(s==="rejected") return `<span class="badge red">✕ Payment REJECTED</span>`;
+  return `<span class="badge">No payment yet</span>`;
+}
+function viewDashboard(){
+  const u = currentUser();
+  if(!u){ location.hash = "#/login"; return; }
+  const projs = myProjects().slice().sort((a,b)=>String(b.updated).localeCompare(String(a.updated)));
+  $("#view-dashboard").innerHTML = `
+  <h1>My Dashboard</h1>
+  <p>Welcome, <strong>${esc(u.name)}</strong> (${esc(u.email)})</p>
+  <div class="btn-row" style="margin-bottom:16px">
+    <a class="btn" href="#/form">+ New CV Project</a>
+    <button class="btn ghost" id="dash-logout">Log out</button>
+  </div>
+  ${projs.length ? "" : `<div class="card"><p>You have no CV projects yet.</p><a class="btn" href="#/form">Create your first CV →</a></div>`}
+  ${projs.map(p => {
+    const pkg = p.package ? PACKAGES[p.package] : null;
+    const used = new Set((p.downloads||[]).map(x=>x.design)).size;
+    const limit = pkg ? pkg.limit : 0;
+    const selected = (p.selected||[]).length;
+    return `<div class="proj">
+      <h3>${esc(p.title)}</h3>
+      <div class="meta">Created ${fmtDate(p.created)} • Updated ${fmtDate(p.updated)} • Project ID: <code>${esc(p.id)}</code></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+        ${projectStatusBadge(p)}
+        ${pkg?`<span class="badge blue">${esc(pkg.name)} — PKR ${pkg.price}</span>`:`<span class="badge">No package chosen</span>`}
+        <span class="badge">Selected ${selected}${pkg?"/"+pkg.limit:""}</span>
+        <span class="badge">Downloads used: ${used}${pkg?"/"+pkg.limit:""}</span>
+      </div>
+      ${pkg?`<div class="progress"><i style="width:${limit?Math.round(used/limit*100):0}%"></i></div>`:""}
+      <div class="btn-row">
+        <a class="btn small secondary" href="#/form/${p.id}">✏️ Edit Info</a>
+        <a class="btn small" href="#/designs/${p.id}">👁 My 200 Designs</a>
+        <a class="btn small ghost" href="#/pay/${p.id}">${p.payment&&p.payment.status!=="none"?"💳 Payment Status":"💳 Choose Package & Pay"}</a>
+        <button class="btn small danger" data-del="${p.id}">🗑 Delete</button>
+      </div>
+      ${(p.downloads||[]).length?`<p style="margin-top:10px"><small><strong>Download history:</strong> ${p.downloads.slice(-8).map(x=>`Design ${String(x.design).padStart(3,"0")} (${esc(x.kind)})`).join(", ")}</small></p>`:""}
+    </div>`;
+  }).join("")}`;
+  $("#dash-logout").addEventListener("click", () => { logoutUser(); renderNavAuth(); location.hash = "#/"; });
+  $$("[data-del]").forEach(b => b.addEventListener("click", () => {
+    if(confirm("Delete this CV project permanently? This cannot be undone.")){
+      deleteProject(b.dataset.del); viewDashboard();
+    }
+  }));
+  showView("dashboard");
+}
+
+/* ---------- FORM VIEW ---------- */
+function viewForm(projectId){
+  const u = currentUser();
+  if(!u){ location.hash = "#/login"; return; }
+  let project = projectId ? getProject(projectId) : null;
+  if(projectId && (!project || project.userId!==u.id)){
+    $("#view-form").innerHTML = `<div class="notice err">Project not found, or it belongs to a different account on this browser.</div>`;
+    showView("form"); return;
+  }
+  const d = project ? project.data : blankCV();
+  $("#view-form").innerHTML = `
+  <h1>${project?"Edit CV Information":"Create Your CV"}</h1>
+  <p><small>Fill in your details once — the same information will fill all 200 designs. Fields marked * are required.</small></p>
+  ${formHTML(d)}`;
+  const form = $("#cv-form");
+  form.dataset.photo = d.photo || "";
+  bindForm(form, project);
+  showView("form");
+}
+
+/* ---------- DESIGNS GALLERY ---------- */
+let galleryState = { projectId:null, filter:"all", query:"" };
+function pkgLimit(p){ return p.package ? PACKAGES[p.package].limit : 0; }
+function canDownload(p, designNo){
+  if(!p || !p.package) return { ok:false, why:"Choose a package and complete payment first." };
+  const pay = p.payment||{};
+  if(pay.status!=="approved") return { ok:false, why:"Payment is not approved yet. Complete payment and enter your approval code." };
+  if(!(p.selected||[]).includes(designNo)) return { ok:false, why:"This design is not in your selected list. Select it first (within your package limit)." };
+  return { ok:true };
+}
+function recordDownload(p, designNo, kind){
+  p.downloads = p.downloads||[];
+  p.downloads.push({ design:designNo, kind, at:new Date().toISOString() });
+  saveProject(p);
+}
+function viewDesigns(projectId){
+  const u = currentUser();
+  if(!u){ location.hash = "#/login"; return; }
+  const p = getProject(projectId);
+  if(!p || p.userId!==u.id){
+    $("#view-designs").innerHTML = `<div class="notice err">Project not found, or it belongs to a different account on this browser.</div>`;
+    showView("designs"); return;
+  }
+  galleryState.projectId = projectId;
+  const d = p.data;
+  const limit = pkgLimit(p);
+  const selected = p.selected||[];
+  const pay = p.payment||{};
+  $("#view-designs").innerHTML = `
+  <h1>My 200 CV Designs</h1>
+  <p><strong>${esc(p.title)}</strong> &nbsp;•&nbsp; Project ID: <code>${esc(p.id)}</code></p>
+  <div class="counter">
+    <div>Selected: <strong id="sel-count">${selected.length}${limit?"/"+limit:""}</strong>
+    ${limit?`&nbsp;•&nbsp; Package: <strong>${esc(PACKAGES[p.package].name)} (PKR ${PACKAGES[p.package].price})</strong>`:"&nbsp;•&nbsp; No package chosen yet — select a package to enable downloads."}
+    ${pay.status==="approved"?`&nbsp;•&nbsp; <span class="badge green">✓ Approved — downloads unlocked</span>`:pay.status==="pending"?`&nbsp;•&nbsp; <span class="badge amber">⏳ Payment pending</span>`:""}</div>
+    <div class="btn-row" style="margin-top:0">
+      <a class="btn small" href="#/pay/${p.id}">💳 ${pay.status==="none"?"Choose Package & Pay":"Payment"}</a>
+      <button class="btn small secondary" id="dl-zip">⬇ Download Selected (ZIP)</button>
+      <a class="btn small ghost" href="#/form/${p.id}">✏️ Edit Info</a>
+    </div>
+  </div>
+  <div class="notice info">Previewing is free and never uses a download slot. Tick a design to select it${limit?` — you may select up to <strong>${limit}</strong> designs on your ${esc(PACKAGES[p.package].name)} package`:" — choose a package on the payment page to set your limit"}. Re-downloading an unlocked design is free.</div>
+  <div class="field-row" style="align-items:flex-end">
+    <div class="field" style="flex:2"><label>Search by design number (e.g. 042)</label>
+      <input id="gal-query" placeholder="Design number…" value="${esc(galleryState.query)}"></div>
+    <div class="field"><label>&nbsp;</label><button class="btn secondary" id="gal-search">Search</button></div>
+  </div>
+  <div class="filters" id="gal-filters">
+    <button data-f="all" class="${galleryState.filter==="all"?"on":""}">All 200</button>
+    ${CATEGORIES.map(c=>`<button data-f="${c.key}" class="${galleryState.filter===c.key?"on":""}">${esc(c.name)}</button>`).join("")}
+  </div>
+  <div class="gallery" id="gallery"></div>
+  <p id="gal-empty" class="hidden">No designs match this filter.</p>`;
+  const renderGallery = () => {
+    const g = $("#gallery");
+    const q = galleryState.query.trim();
+    let nums = [];
+    for(let n=1;n<=200;n++){
+      const m = designMeta(n);
+      if(galleryState.filter!=="all" && m.category.key!==galleryState.filter) continue;
+      if(q && !m.num.includes(q) && String(n)!==q) continue;
+      nums.push(n);
+    }
+    $("#gal-empty").classList.toggle("hidden", nums.length>0);
+    g.innerHTML = nums.map(n => {
+      const m = designMeta(n);
+      const sel = selected.includes(n);
+      return `<div class="cv-card ${sel?"sel":""}" data-n="${n}">
+        <div class="cv-thumb" data-preview="${n}" title="Click for full preview"></div>
+        <div class="cv-card-body">
+          <div class="row"><strong>Design ${m.num}</strong><span class="badge">${esc(m.category.name)}</span></div>
+          <label><input type="checkbox" data-select="${n}" ${sel?"checked":""}> Select this design</label>
+          <div class="row">
+            <button class="btn small ghost" data-preview="${n}">🔍 Full Preview</button>
+            <button class="btn small secondary" data-dl="${n}">⬇ PDF</button>
+          </div>
+        </div></div>`;
+    }).join("");
+    // lazy-render thumbnails when visible (fallback: render all at once)
+    const renderThumb = (el) => {
+      const n = parseInt(el.dataset.preview, 10);
+      const holder = el.closest(".cv-card").querySelector(".cv-thumb");
+      if(holder && !holder.dataset.rendered){
+        holder.dataset.rendered = "1";
+        holder.innerHTML = `<div style="width:794px;transform:scale(${Math.max(.1, Math.min(1, (holder.clientWidth||300)/794))});transform-origin:top left">${renderCV(d, n)}</div>`;
+      }
+    };
+    if(typeof IntersectionObserver === "undefined"){
+      $$(".cv-thumb", g).forEach(renderThumb);
+    } else {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(en => { if(en.isIntersecting){ io.unobserve(en.target); renderThumb(en.target); } });
+      }, { rootMargin:"200px" });
+      $$(".cv-thumb", g).forEach(el => io.observe(el));
+    }
+  };
+  renderGallery();
+  $("#gal-filters").addEventListener("click", e => {
+    const b = e.target.closest("[data-f]"); if(!b) return;
+    galleryState.filter = b.dataset.f;
+    $$("#gal-filters button").forEach(x => x.classList.toggle("on", x===b));
+    renderGallery();
+  });
+  $("#gal-search").addEventListener("click", () => { galleryState.query = $("#gal-query").value; renderGallery(); });
+  $("#gal-query").addEventListener("keydown", e => { if(e.key==="Enter"){ galleryState.query = e.target.value; renderGallery(); } });
+  $("#gallery").addEventListener("click", e => {
+    const pv = e.target.closest("[data-preview]");
+    if(pv){ openDesignPreview(p, parseInt(pv.dataset.preview,10)); return; }
+    const dl = e.target.closest("[data-dl]");
+    if(dl){ downloadPDF(p, parseInt(dl.dataset.dl,10)); return; }
+  });
+  $("#gallery").addEventListener("change", e => {
+    const cb = e.target.closest("[data-select]"); if(!cb) return;
+    const n = parseInt(cb.dataset.select, 10);
+    const lim = pkgLimit(p);
+    if(cb.checked){
+      if(lim && (p.selected||[]).length >= lim){
+        cb.checked = false;
+        alert(`Your ${PACKAGES[p.package].name} package allows up to ${lim} designs. Unselect one first, or upgrade to Premium (15 designs).`);
+        return;
+      }
+      if(!p.selected.includes(n)) p.selected.push(n);
+    } else {
+      p.selected = (p.selected||[]).filter(x => x!==n);
+    }
+    saveProject(p);
+    const c = $("#sel-count"); if(c) c.textContent = `${p.selected.length}${lim?"/"+lim:""}`;
+    const card = cb.closest(".cv-card"); if(card) card.classList.toggle("sel", cb.checked);
+  });
+  $("#dl-zip").addEventListener("click", () => downloadZIP(p));
+  showView("designs");
+}
+function openDesignPreview(p, n){
+  const m = designMeta(n);
+  const d = p.data;
+  const chk = canDownload(p, n);
+  openModal(`
+    <div class="modal-head">
+      <h3 style="margin:0">${designLabel(n)}</h3>
+      <button class="btn small ghost" onclick="document.getElementById('modal').classList.remove('open')">✕ Close</button>
+    </div>
+    <div style="max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:10px">
+      <div style="transform:scale(.72);transform-origin:top left;width:794px">${renderCV(d, n)}</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn small secondary" id="pv-pdf">⬇ Download PDF</button>
+      <button class="btn small secondary" id="pv-docx">⬇ Download Word (DOCX)</button>
+      <button class="btn small ghost" id="pv-print">🖨 Print</button>
+      ${chk.ok?"":`<span class="badge amber">${esc(chk.why)}</span>`}
+    </div>`);
+  $("#pv-pdf").addEventListener("click", () => downloadPDF(p, n));
+  $("#pv-docx").addEventListener("click", () => downloadDOCX(p, n));
+  $("#pv-print").addEventListener("click", () => printDesign(p, n));
+}
+
+/* ---------- single design view (shareable route) ---------- */
+function viewDesign(projectId, n){
+  const u = currentUser();
+  if(!u){ location.hash = "#/login"; return; }
+  const p = getProject(projectId);
+  if(!p || p.userId!==u.id){
+    $("#view-design").innerHTML = `<div class="notice err">This CV design is private. Only the owner (logged in on this browser) can open it.</div>`;
+    showView("design"); return;
+  }
+  const m = designMeta(n);
+  const chk = canDownload(p, n);
+  $("#view-design").innerHTML = `
+  <h1>${designLabel(n)}</h1>
+  <p><strong>${esc(p.title)}</strong> • Project ID: <code>${esc(p.id)}</code></p>
+  <div class="btn-row" style="margin-bottom:14px">
+    <a class="btn small ghost" href="#/designs/${p.id}">← Back to all 200 designs</a>
+    <button class="btn small secondary" id="dv-pdf">⬇ PDF</button>
+    <button class="btn small secondary" id="dv-docx">⬇ Word (DOCX)</button>
+    <button class="btn small ghost" id="dv-print">🖨 Print</button>
+  </div>
+  ${chk.ok?"":`<div class="notice warn">${esc(chk.why)}</div>`}
+  <div id="dv-wrap">${renderCV(p.data, n)}</div>`;
+  $("#dv-pdf").addEventListener("click", () => downloadPDF(p, n));
+  $("#dv-docx").addEventListener("click", () => downloadDOCX(p, n));
+  $("#dv-print").addEventListener("click", () => printDesign(p, n));
+  showView("design");
+}
+
+/* ---------- downloads ---------- */
+function needLib(name){
+  if(name==="pdf" && !window.html2pdf){ toast("PDF library (html2pdf.js) could not load. Check your internet connection and retry — or use Print, then save as PDF from the print dialog.", "err"); return false; }
+  if(name==="docx" && !window.docx){ toast("Word library (docx) could not load. Check your internet connection and retry.", "err"); return false; }
+  if(name==="zip" && !window.JSZip){ toast("ZIP library (JSZip) could not load. Check your internet connection and retry.", "err"); return false; }
+  return true;
+}
+function cvFileName(p, n, ext){
+  const name = (p.data.fullName||"CV").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g,"") || "CV";
+  return `${name}-Design-${String(n).padStart(3,"0")}.${ext}`;
+}
+function renderOffscreen(p, n){
+  const host = document.createElement("div");
+  host.style.cssText = "position:fixed;left:-99999px;top:0;width:794px;background:#fff";
+  host.innerHTML = renderCV(p.data, n);
+  document.body.appendChild(host);
+  return host;
+}
+async function downloadPDF(p, n){
+  const chk = canDownload(p, n);
+  if(!chk.ok){ alert("Download locked: " + chk.why); return false; }
+  if(!needLib("pdf")) return false;
+  toast("Generating PDF for Design " + String(n).padStart(3,"0") + "…", "info");
+  const host = renderOffscreen(p, n);
+  try {
+    const node = host.querySelector(".cv-page");
+    await window.html2pdf().set({
+      margin:0, filename:cvFileName(p, n, "pdf"),
+      image:{ type:"jpeg", quality:0.92 }, html2canvas:{ scale:2, useCORS:true, backgroundColor:"#ffffff" },
+      jsPDF:{ unit:"px", format:[794, 1123], orientation:"portrait" },
+      pagebreak:{ mode:["css","legacy"] }
+    }).from(node).save();
+    recordDownload(p, n, "PDF");
+    toast("PDF downloaded — Design " + String(n).padStart(3,"0"), "ok");
+    return true;
+  } catch(err){
+    toast("PDF failed: " + (err && err.message ? err.message : err) + ". Try Print instead.", "err");
+    return false;
+  } finally { host.remove(); }
+}
+function docxDocument(p, n){
+  const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell, WidthType, BorderStyle } = window.docx;
+  const d = p.data, m = designMeta(n);
+  const accent = m.variant.accent.replace("#","");
+  const accentNum = parseInt(accent, 16);
+  const H = t => new Paragraph({ heading:HeadingLevel.HEADING_2, children:[new TextRun({ text:t, bold:true, color:accent, size:26 })], spacing:{ before:220, after:80 } });
+  const P = t => new Paragraph({ children:[new TextRun({ text:t||"", size:22 })], spacing:{ after:80 } });
+  const items = [];
+  items.push(new Paragraph({ alignment:AlignmentType.CENTER, children:[new TextRun({ text:d.fullName||"Your Name", bold:true, size:40 })] }));
+  if(d.title) items.push(new Paragraph({ alignment:AlignmentType.CENTER, children:[new TextRun({ text:d.title, size:26, color:accent })] }));
+  const contact = [d.phone, d.email, [d.city, d.country].filter(Boolean).join(", ")].filter(Boolean).join("  |  ");
+  if(contact) items.push(new Paragraph({ alignment:AlignmentType.CENTER, children:[new TextRun({ text:contact, size:20 })], spacing:{ after:160 } }));
+  if(d.objective){ items.push(H("Career Objective")); items.push(P(d.objective)); }
+  if(d.summary){ items.push(H("Professional Summary")); items.push(P(d.summary)); }
+  if((d.experience||[]).some(x=>x.position||x.company)){
+    items.push(H("Work Experience"));
+    d.experience.forEach(x => {
+      if(!x.position && !x.company) return;
+      items.push(new Paragraph({ children:[new TextRun({ text:(x.position||"") + (x.company?(" — "+x.company):""), bold:true, size:22 })] }));
+      if(x.duration) items.push(new Paragraph({ children:[new TextRun({ text:x.duration, italics:true, size:20 })] }));
+      if(x.details) items.push(P(x.details));
+    });
+  }
+  if((d.education||[]).some(x=>x.degree||x.institution)){
+    items.push(H("Education"));
+    d.education.forEach(x => {
+      if(!x.degree && !x.institution) return;
+      items.push(new Paragraph({ children:[new TextRun({ text:(x.degree||"") + (x.institution?(" — "+x.institution):""), bold:true, size:22 })] }));
+      const bits = [x.year, x.marks, x.extra].filter(Boolean).join(" • ");
+      if(bits) items.push(P(bits));
+    });
+  }
+  const listSec = (title, arr) => { if(arr && arr.length){ items.push(H(title)); arr.forEach(s => items.push(new Paragraph({ text:"•  "+s, bullet:{ level:0 }, spacing:{ after:40 } }))); } };
+  listSec("Skills", [...(d.skills||[]), ...(d.computerSkills||[])]);
+  listSec("Languages", d.languages);
+  listSec("Certifications", d.certifications);
+  listSec("Awards", d.awards);
+  listSec("Projects", d.projects);
+  listSec("References", d.references);
+  if(d.signature) items.push(new Paragraph({ children:[new TextRun({ text:"Signature: "+d.signature, italics:true, size:22 })], spacing:{ before:300 } }));
+  const doc = new Document({ creator:"Darkhan Mentor CV Maker", title:(d.fullName||"CV")+" — Design "+m.num,
+    sections:[{ properties:{}, children:items }] });
+  return { doc, Packer };
+}
+async function downloadDOCX(p, n){
+  const chk = canDownload(p, n);
+  if(!chk.ok){ alert("Download locked: " + chk.why); return false; }
+  if(!needLib("docx")) return false;
+  try {
+    const { doc, Packer } = docxDocument(p, n);
+    const blob = await Packer.toBlob(doc);
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = cvFileName(p, n, "docx");
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 5000);
+    recordDownload(p, n, "DOCX");
+    toast("Word file downloaded — Design " + String(n).padStart(3,"0"), "ok");
+    return true;
+  } catch(err){
+    toast("Word download failed: " + (err && err.message ? err.message : err), "err");
+    return false;
+  }
+}
+async function downloadZIP(p){
+  const chk0 = canDownload(p, (p.selected||[])[0]);
+  if(!p.package){ alert("Choose a package and complete payment first."); return false; }
+  if((p.payment||{}).status!=="approved"){ alert("Payment is not approved yet. Complete payment and enter your approval code."); return false; }
+  const selected = (p.selected||[]).slice();
+  if(!selected.length){ alert("Select at least one design first."); return false; }
+  if(!needLib("zip") || !needLib("pdf")) return false;
+  toast("Building ZIP for " + selected.length + " design(s)… this can take a minute.", "info");
+  const zip = new window.JSZip();
+  const folder = zip.folder("my-cv-designs");
+  let done = 0;
+  for(const n of selected){
+    const host = renderOffscreen(p, n);
+    try {
+      const node = host.querySelector(".cv-page");
+      const pdfBlob = await window.html2pdf().set({
+        margin:0, filename:"x.pdf",
+        image:{ type:"jpeg", quality:0.92 }, html2canvas:{ scale:2, useCORS:true, backgroundColor:"#ffffff" },
+        jsPDF:{ unit:"px", format:[794, 1123], orientation:"portrait" },
+        pagebreak:{ mode:["css","legacy"] }
+      }).from(node).output("blob");
+      folder.file(cvFileName(p, n, "pdf"), pdfBlob);
+      recordDownload(p, n, "PDF (ZIP)");
+    } catch(err){ toast("PDF failed for Design " + String(n).padStart(3,"0") + ": " + err.message, "err"); }
+    finally { host.remove(); }
+    done++;
+    toast("ZIP progress: " + done + "/" + selected.length + " designs…", "info");
+  }
+  try {
+    const blob = await zip.generateAsync({ type:"blob" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = ((p.data.fullName||"CV").replace(/[^A-Za-z0-9]+/g,"-") || "CV") + "-Selected-CVs.zip";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 8000);
+    toast("ZIP downloaded with " + selected.length + " CV(s).", "ok");
+    return true;
+  } catch(err){ toast("ZIP failed: " + err.message, "err"); return false; }
+}
+function printDesign(p, n){
+  const chk = canDownload(p, n);
+  if(!chk.ok){ alert("Print locked: " + chk.why); return false; }
+  const pa = $("#print-area");
+  pa.innerHTML = renderCV(p.data, n);
+  pa.classList.remove("hidden");
+  recordDownload(p, n, "Print");
+  window.print();
+  setTimeout(()=>{ pa.classList.add("hidden"); pa.innerHTML=""; }, 1000);
+  return true;
+}
+
+/* ---------- PAYMENT ---------- */
+function viewPay(projectId){
+  const u = currentUser();
+  if(!u){ location.hash = "#/login"; return; }
+  const p = getProject(projectId);
+  if(!p || p.userId!==u.id){
+    $("#view-pay").innerHTML = `<div class="notice err">Project not found, or it belongs to a different account on this browser.</div>`;
+    showView("pay"); return;
+  }
+  const pay = p.payment||{ status:"none" };
+  const pkg = p.package ? PACKAGES[p.package] : null;
+  $("#view-pay").innerHTML = `
+  <h1>Payment — ${esc(p.title)}</h1>
+  <p>Project ID: <code>${esc(p.id)}</code></p>
+  <div class="card">
+    <h2>Step 1 — Choose your package</h2>
+    <div class="pkg-grid">
+      ${Object.values(PACKAGES).map(pk => `
+      <div class="pkg ${pk.key==="premium"?"premium":""}" style="${p.package===pk.key?"outline:3px solid var(--amber)":""}">
+        <h3>${pk.name}</h3><div class="price">PKR ${pk.price}</div>
+        <ul><li>Preview all 200 designs</li><li>Select up to <strong>${pk.limit}</strong> designs</li><li>Download up to ${pk.limit} unique CVs</li><li>PDF + Word + ZIP</li></ul>
+        <button class="btn ${p.package===pk.key?"secondary":""}" data-pkg="${pk.key}">${p.package===pk.key?"✓ Selected":"Select "+pk.name}</button>
+      </div>`).join("")}
+    </div>
+  </div>
+  ${pkg ? `
+  <div class="card">
+    <h2>Step 2 — Pay via EasyPaisa</h2>
+    <p>Selected package: <strong>${esc(pkg.name)} — PKR ${pkg.price}</strong></p>
+    <div class="notice info">
+      <strong>EasyPaisa Account Number:</strong>
+      <span style="font-size:1.35rem;font-weight:900;letter-spacing:1px">${EASYPAISA_NUMBER}</span>
+      <button class="btn small" id="copy-easypaisa" type="button">📋 Copy Number</button>
+    </div>
+    <ol>
+      <li>Open EasyPaisa on your phone and send <strong>PKR ${pkg.price}</strong> to <strong>${EASYPAISA_NUMBER}</strong>.</li>
+      <li>Note your <strong>Transaction ID (TID)</strong> from the EasyPaisa confirmation SMS/app.</li>
+      <li>Fill the form below and submit. Your payment status becomes <strong>PENDING</strong>.</li>
+      <li>Send your <strong>payment request code</strong> + payment screenshot to the admin on WhatsApp (button below). The admin checks the payment in his EasyPaisa account and approves it manually.</li>
+      <li>The admin sends you an <strong>approval code</strong> — enter it below to unlock your downloads.</li>
+    </ol>
+    <div class="notice warn"><strong>Honest note:</strong> This website runs on free static hosting, so there is no automatic payment check. The admin verifies every payment by hand in EasyPaisa. A payment is never approved from a screenshot or transaction ID alone — the admin confirms the money arrived before approving.</div>
+    ${pay.status==="none" ? `
+    <form id="pay-form">
+      <div class="field-row">
+        <div class="field"><label>Transaction ID (TID) *</label><input name="txid" required placeholder="e.g. 1234567890"></div>
+        <div class="field"><label>Sender Mobile Number *</label><input name="sender" required placeholder="e.g. 03xx-xxxxxxx"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Payment Amount (PKR) *</label><input name="amount" type="number" required value="${pkg.price}"></div>
+        <div class="field"><label>Payment Date *</label><input name="date" type="date" required value="${todayISO()}"></div>
+      </div>
+      <div class="field"><label>Payment Screenshot (optional — also send it on WhatsApp)</label>
+        <input type="file" id="pay-shot" accept="image/*">
+        <small>Screenshots are stored in your browser only. The admin checks the screenshot you send on WhatsApp.</small></div>
+      <div class="btn-row"><button class="btn" type="submit">Submit Payment — Status becomes PENDING</button></div>
+    </form>` : `
+    <div class="notice ${pay.status==="approved"?"ok":pay.status==="rejected"?"err":"info"}">
+      <strong>Payment status: ${esc(pay.status.toUpperCase())}</strong><br>
+      Reference ID: <code>${esc(pay.refId||"—")}</code> • Package: ${esc(pay.package||"—")} • Amount: PKR ${esc(pay.amount||"—")} • TxID: <code>${esc(pay.txid||"—")}</code> • Sender: ${esc(pay.sender||"—")} • Date: ${esc(pay.date||"—")}
+      ${pay.note?`<br>Admin note: ${esc(pay.note)}`:""}
+    </div>
+    ${pay.status==="pending" ? `
+    <h3>Send your payment request to the admin</h3>
+    <p>Copy this code and send it to the admin on WhatsApp, together with your payment screenshot:</p>
+    <textarea id="req-code" rows="3" readonly>${esc(encodePaymentRequest(pay, p, u))}</textarea>
+    <div class="btn-row">
+      <button class="btn small" id="copy-req" type="button">📋 Copy Request Code</button>
+      <a class="btn small secondary" id="wa-send" target="_blank" rel="noopener">💬 Send via WhatsApp</a>
+    </div>` : ""}
+    ${pay.status==="approved" ? `<div class="notice ok">✓ Your downloads are unlocked. Go to <a href="#/designs/${p.id}">My 200 Designs</a> and download your ${pkg.limit} selected CVs.</div>` : ""}
+    ${pay.status==="rejected" ? `<div class="btn-row"><button class="btn" id="pay-retry" type="button">Submit a new payment</button></div>` : ""}
+    ${pay.status==="pending" ? `
+    <h3>Have your approval code?</h3>
+    <p>The admin sends you an approval code after verifying your payment. Enter it here to unlock downloads:</p>
+    <div class="field-row">
+      <div class="field"><label>Approval Code</label><input id="approval-input" placeholder="e.g. AB12-CD34-EF56"></div>
+      <div class="field"><label>&nbsp;</label><button class="btn" id="approval-submit" type="button">Unlock Downloads</button></div>
+    </div>
+    <div id="approval-msg"></div>` : ""}`}
+  </div>` : `<div class="notice info">Choose a package above to see the payment steps.</div>`}
+  `;
+  $$("#view-pay [data-pkg]").forEach(b => b.addEventListener("click", () => {
+    p.package = b.dataset.pkg;
+    if(p.payment && p.payment.status==="approved" && p.payment.package!==p.package){
+      alert("This project already has an approved payment for a different package. Changing the package needs a new payment.");
+      return;
+    }
+    p.payment = { status:"none" };
+    saveProject(p); viewPay(p.id);
+  }));
+  const copyBtn = $("#copy-easypaisa");
+  if(copyBtn) copyBtn.addEventListener("click", () => {
+    (navigator.clipboard ? navigator.clipboard.writeText(EASYPAISA_NUMBER) : Promise.reject())
+      .then(()=>toast("EasyPaisa number copied: " + EASYPAISA_NUMBER, "ok"))
+      .catch(()=>{ prompt("Copy the EasyPaisa number:", EASYPAISA_NUMBER); });
+  });
+  const pf = $("#pay-form");
+  if(pf){
+    let shotData = "";
+    $("#pay-shot").addEventListener("change", e => {
+      const f = e.target.files && e.target.files[0]; if(!f) return;
+      const r = new FileReader();
+      r.onload = () => { shotData = String(r.result); };
+      r.readAsDataURL(f);
+    });
+    pf.addEventListener("submit", e => {
+      e.preventDefault();
+      const fd = new FormData(pf);
+      const amount = parseInt(fd.get("amount"), 10);
+      if(amount !== pkg.price){ alert("Amount must be exactly PKR " + pkg.price + " for the " + pkg.name + " package."); return; }
+      p.payment = { status:"pending", refId:uid("PAY"), package:pkg.key, amount,
+        txid:String(fd.get("txid")||"").trim(), sender:String(fd.get("sender")||"").trim(),
+        date:String(fd.get("date")||""), screenshot:shotData, submittedAt:new Date().toISOString() };
+      saveProject(p);
+      toast("Payment submitted — status PENDING. Send the request code + screenshot to the admin.", "ok");
+      viewPay(p.id);
+    });
+  }
+  const cr = $("#copy-req");
+  if(cr) cr.addEventListener("click", () => {
+    const v = $("#req-code").value;
+    (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject())
+      .then(()=>toast("Request code copied.", "ok"))
+      .catch(()=>{ $("#req-code").select(); });
+  });
+  const wa = $("#wa-send");
+  if(wa){
+    const msg = encodeURIComponent("Assalam-o-Alaikum, I paid for a CV Maker package on Darkhan Mentor.\n\nMy payment request code:\n" + encodePaymentRequest(pay, p, u) + "\n\n(Payment screenshot attached.)");
+    wa.href = "https://wa.me/?text=" + msg;
+  }
+  const rt = $("#pay-retry");
+  if(rt) rt.addEventListener("click", () => { p.payment = { status:"none" }; saveProject(p); viewPay(p.id); });
+  const as = $("#approval-submit");
+  if(as) as.addEventListener("click", () => {
+    const code = $("#approval-input").value.trim().toUpperCase();
+    const expect = approvalCodeFor(pay);
+    if(code === expect){
+      pay.status = "approved"; pay.approvalCode = code; pay.decidedAt = new Date().toISOString();
+      saveProject(p);
+      $("#approval-msg").innerHTML = `<div class="notice ok">✓ Approval code accepted — downloads unlocked!</div>`;
+      setTimeout(()=>viewPay(p.id), 1200);
+    } else {
+      $("#approval-msg").innerHTML = `<div class="notice err">This approval code does not match your payment. Check the code the admin sent you, or contact the admin.</div>`;
+    }
+  });
+  showView("pay");
+}
+
+/* ---------- ADMIN ---------- */
+function adminAllPayments(){
+  const rows = [];
+  store.projects().forEach(p => {
+    const pay = p.payment;
+    if(pay && pay.status && pay.status!=="none"){
+      const user = store.users().find(u => u.id===p.userId);
+      rows.push({ project:p, pay, user });
+    }
+  });
+  store.adminRequests().forEach(r => {
+    if(!rows.some(x => x.pay.refId===r.refId)) rows.push({ imported:r, pay:r, project:null, user:null });
+  });
+  return rows.sort((a,b)=>String(b.pay.submittedAt||"").localeCompare(String(a.pay.submittedAt||"")));
+}
+function viewAdmin(){
+  const box = $("#view-admin");
+  if(!store.admin()){
+    box.innerHTML = `
+    <div class="card" style="max-width:560px;margin:0 auto">
+      <h1>Admin Setup</h1>
+      <p>This is the <strong>first run</strong> — create the admin passcode. Only the site owner should know it. It is stored (hashed) in <em>this browser only</em>.</p>
+      <form id="admin-setup-form">
+        <div class="field"><label>Create admin passcode (min 4 characters)</label><input type="password" name="pass" required minlength="4"></div>
+        <div class="field"><label>Repeat passcode</label><input type="password" name="pass2" required minlength="4"></div>
+        <div id="admin-setup-err"></div>
+        <button class="btn" type="submit">Create Admin Passcode</button>
+      </form>
+      <div class="notice warn"><strong>Static-site limit:</strong> the admin panel on this page can only see payments made <em>in this browser</em>, plus payment request codes pasted in below. Buyers on other devices send you their request code + screenshot on WhatsApp; you paste the code here to register the request, verify the money in your EasyPaisa account, then approve.</div>
+    </div>`;
+    $("#admin-setup-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      if(fd.get("pass") !== fd.get("pass2")){ $("#admin-setup-err").innerHTML = `<div class="notice err">Passcodes do not match.</div>`; return; }
+      const r = adminSetup(fd.get("pass"));
+      if(!r.ok){ $("#admin-setup-err").innerHTML = `<div class="notice err">${esc(r.msg)}</div>`; return; }
+      viewAdmin();
+    });
+    showView("admin"); return;
+  }
+  if(!isAdmin()){
+    box.innerHTML = `
+    <div class="card" style="max-width:520px;margin:0 auto">
+      <h1>Admin Login</h1>
+      <p>Enter the admin passcode to open the payment approval dashboard.</p>
+      <form id="admin-login-form">
+        <div class="field"><label>Admin passcode</label><input type="password" name="pass" required></div>
+        <div id="admin-login-err"></div>
+        <button class="btn" type="submit">Log in as Admin</button>
+      </form>
+    </div>`;
+    $("#admin-login-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const r = adminLogin(new FormData(e.target).get("pass"));
+      if(!r.ok){ $("#admin-login-err").innerHTML = `<div class="notice err">${esc(r.msg)}</div>`; return; }
+      viewAdmin();
+    });
+    showView("admin"); return;
+  }
+  const rows = adminAllPayments();
+  const approved = rows.filter(r => r.pay.status==="approved");
+  const pending = rows.filter(r => r.pay.status==="pending");
+  const rejected = rows.filter(r => r.pay.status==="rejected");
+  const revenue = approved.reduce((s,r)=>s+(parseInt(r.pay.amount,10)||0),0);
+  box.innerHTML = `
+  <h1>Admin Dashboard — Payment Approvals</h1>
+  <div class="btn-row" style="margin-bottom:14px"><button class="btn ghost" id="admin-logout">Log out of Admin</button></div>
+  <div class="grid3">
+    <div class="card"><h3>Approved revenue</h3><div style="font-size:1.8rem;font-weight:900">PKR ${revenue}</div><small>${approved.length} approved payment(s)</small></div>
+    <div class="card"><h3>Pending</h3><div style="font-size:1.8rem;font-weight:900">${pending.length}</div><small>awaiting your decision</small></div>
+    <div class="card"><h3>Rejected</h3><div style="font-size:1.8rem;font-weight:900">${rejected.length}</div><small>payment(s) rejected</small></div>
+  </div>
+  <div class="card">
+    <h2>Import a buyer's payment request</h2>
+    <p><small>Buyers send you a request code on WhatsApp (with their screenshot). Paste the code here to register the request, then approve or reject it below.</small></p>
+    <div class="field-row">
+      <div class="field" style="flex:3"><input id="import-code" placeholder="Paste payment request code here…"></div>
+      <div class="field"><button class="btn" id="import-btn" type="button">Import Request</button></div>
+    </div>
+    <div id="import-msg"></div>
+  </div>
+  <div class="card">
+    <h2>Payment requests (${rows.length})</h2>
+    <div class="field" style="max-width:320px"><input id="admin-search" placeholder="Search by TxID, sender, name, ref…"></div>
+    <div style="overflow-x:auto"><table class="tbl" id="admin-table">
+      <thead><tr><th>Ref / Date</th><th>Buyer / Project</th><th>Package</th><th>Amount</th><th>TxID / Sender</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>${rows.map((r,i)=>`
+        <tr data-row="${i}">
+          <td><code>${esc(r.pay.refId||"—")}</code><br><small>${esc(r.pay.date||"")}</small></td>
+          <td>${esc(r.user?r.user.name:(r.pay.buyer||"—"))}<br><small>${esc(r.user?r.user.email:(r.pay.buyerEmail||""))}</small><br><small>${esc(r.pay.projectTitle||(r.project?r.project.title:""))}</small></td>
+          <td>${esc(r.pay.package||"—")}</td>
+          <td>PKR ${esc(r.pay.amount||"—")}</td>
+          <td><code>${esc(r.pay.txid||"—")}</code><br><small>${esc(r.pay.sender||"—")}</small></td>
+          <td><span class="badge ${r.pay.status==="approved"?"green":r.pay.status==="rejected"?"red":"amber"}">${esc((r.pay.status||"").toUpperCase())}</span></td>
+          <td>
+            ${r.pay.screenshot?`<button class="btn small ghost" data-shot="${i}">🖼 Screenshot</button>`:"<small>No screenshot in browser</small>"}
+            ${r.pay.status==="pending"?`
+              <button class="btn small" data-approve="${i}">✓ Approve</button>
+              <button class="btn small danger" data-reject="${i}">✕ Reject</button>`:""}
+            ${r.pay.status==="approved"?`<br><small>Approval code:<br><code>${esc(approvalCodeFor(r.pay))}</code></small>`:""}
+          </td>
+        </tr>`).join("") || `<tr><td colspan="7">No payment requests yet.</td></tr>`}</tbody>
+    </table></div>
+    <div class="notice warn"><strong>Manual verification only:</strong> check the money in your EasyPaisa account (<strong>${EASYPAISA_NUMBER}</strong>) and the screenshot the buyer sent on WhatsApp <em>before</em> approving. Never approve from a screenshot or TxID alone. After approval, send the buyer the approval code shown above (e.g. via WhatsApp) — they enter it on their payment page to unlock downloads. <br><strong>Static-site limit:</strong> approval codes are derived from the payment request (not a server secret). A determined user could compute one — this panel is a manual-trust system. Real server enforcement needs a backend (Firebase free tier).</div>
+  </div>`;
+  $("#admin-logout").addEventListener("click", () => { adminLogout(); location.hash = "#/"; });
+  $("#import-btn").addEventListener("click", () => {
+    const obj = decodePaymentRequest($("#import-code").value);
+    if(!obj){ $("#import-msg").innerHTML = `<div class="notice err">That code could not be read. Ask the buyer to copy the full request code again.</div>`; return; }
+    const reqs = store.adminRequests();
+    if(reqs.some(r => r.refId===obj.refId)){ $("#import-msg").innerHTML = `<div class="notice info">This request (${esc(obj.refId)}) is already imported.</div>`; return; }
+    obj.status = "pending"; obj.submittedAt = new Date().toISOString();
+    reqs.push(obj); store.saveAdminRequests(reqs);
+    $("#import-msg").innerHTML = `<div class="notice ok">Request imported: ${esc(obj.refId)} — ${esc(obj.buyer||"")} (${esc(obj.package||"")}, PKR ${esc(obj.amount||"")}).</div>`;
+    setTimeout(viewAdmin, 900);
+  });
+  $("#admin-search").addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    $$("#admin-table tbody tr").forEach(tr => {
+      tr.style.display = tr.textContent.toLowerCase().includes(q) ? "" : "none";
+    });
+  });
+  box.addEventListener("click", e => {
+    const shot = e.target.closest("[data-shot]");
+    if(shot){
+      const r = rows[parseInt(shot.dataset.shot,10)];
+      if(r && r.pay.screenshot) openModal(`<h3>Payment screenshot — ${esc(r.pay.refId||"")}</h3><img src="${r.pay.screenshot}" alt="Payment screenshot" style="max-width:100%;border-radius:8px"><div class="btn-row"><button class="btn ghost" onclick="document.getElementById('modal').classList.remove('open')">Close</button></div>`);
+      return;
+    }
+    const ap = e.target.closest("[data-approve]");
+    const rj = e.target.closest("[data-reject]");
+    if(!ap && !rj) return;
+    const r = rows[parseInt((ap||rj).dataset[ap?"approve":"reject"],10)];
+    const decision = ap ? "approved" : "rejected";
+    const note = decision==="rejected" ? (prompt("Reason for rejection (shown to the buyer):", "Payment not found in EasyPaisa") || "Payment not verified") : "";
+    if(ap && !confirm("Approve this payment?\n\nOnly approve after you have confirmed PKR " + r.pay.amount + " arrived in your EasyPaisa account (" + EASYPAISA_NUMBER + ").")) return;
+    r.pay.status = decision;
+    r.pay.decidedAt = new Date().toISOString();
+    if(note) r.pay.note = note;
+    if(r.project){ saveProject(r.project); }
+    else {
+      const reqs = store.adminRequests();
+      const i = reqs.findIndex(x => x.refId===r.pay.refId);
+      if(i>=0){ reqs[i] = r.pay; store.saveAdminRequests(reqs); }
+    }
+    if(ap){
+      const code = approvalCodeFor(r.pay);
+      alert("Payment APPROVED.\n\nSend this approval code to the buyer (e.g. via WhatsApp):\n\n" + code + "\n\nThe buyer enters it on their payment page to unlock downloads.");
+    }
+    viewAdmin();
+  });
+  showView("admin");
+}
+
+/* ---------- router ---------- */
+function route(){
+  renderNavAuth();
+  const h = location.hash || "#/";
+  const parts = h.replace(/^#\/?/, "").split("/");
+  const page = parts[0] || "";
+  if(page==="" ){ viewHome(); }
+  else if(page==="login"){ viewAuth("login"); }
+  else if(page==="register"){ viewAuth("register"); }
+  else if(page==="dashboard"){ viewDashboard(); }
+  else if(page==="form"){ viewForm(parts[1]||null); }
+  else if(page==="designs"){ viewDesigns(parts[1]||""); }
+  else if(page==="design"){ viewDesign(parts[1]||"", parseInt(parts[2],10)||1); }
+  else if(page==="pay"){ viewPay(parts[1]||""); }
+  else if(page==="admin"){ viewAdmin(); }
+  else { viewHome(); }
+}
+window.addEventListener("hashchange", route);
+document.addEventListener("DOMContentLoaded", route);
+if(document.readyState !== "loading") route();
+</script>
+</body>
+</html>
