@@ -98,6 +98,12 @@ legend{font-weight:900;padding:0 8px;color:var(--navy)}
 .counter strong{color:var(--amber);font-size:1.2rem}
 /* ---------- CV page (design render) ---------- */
 .cv-page{width:794px;min-height:1123px;background:#fff;color:#222;margin:0 auto;position:relative;font-size:14px;line-height:1.45;overflow:hidden}
+/* Canva-style inline editing: editable text inside a CV design (detail view / full preview only).
+   Gallery thumbnails stay inert (.cv-thumb .cv-page has pointer-events:none). */
+.cv-page .cv-ed{border-radius:3px}
+.cv-page .cv-ed[contenteditable="true"]{outline:1px dashed #FFC300;outline-offset:2px;cursor:text}
+.cv-page .cv-ed[contenteditable="true"]:hover{outline:1px solid #FFC300;background:rgba(255,195,0,.08)}
+.cv-page .cv-ed[contenteditable="true"]:focus{outline:2px solid #FFC300;background:rgba(255,195,0,.12)}
 .cv-page *{box-sizing:border-box}
 .cv-page h1,.cv-page h2,.cv-page h3,.cv-page h4{margin:0}
 .cv-page p{margin:0 0 6px}
@@ -656,6 +662,56 @@ function designMeta(n){
   const cat = Math.floor((n-1)/10), v = (n-1)%10;
   return { n, num:String(n).padStart(3,"0"), category:CATEGORIES[cat], variant:VARIANTS[v], layout:cat };
 }
+/* ----- Canva-style inline editing: data binding -----
+   ed(path, value) wraps a rendered value in a span carrying its data path
+   (e.g. "fullName", "experience.0.details", "skills.2"). The spans are inert
+   everywhere EXCEPT the single-design view and the full preview modal, where
+   they become contenteditable. An edit writes back to the project data model
+   (the single source of truth), saves to localStorage, and re-renders — so
+   one edit updates ALL 200 designs at once. */
+function ed(path, value){
+  return `<span class="cv-ed" data-edit="${path}">${esc(value==null?"":String(value))}</span>`;
+}
+/* map a list field to editable {path, value} items, e.g. edList(d.skills,"skills") */
+function edList(arr, key){
+  return (arr||[]).map((v,i)=>({ path:key+"."+i, value:v }));
+}
+/* "About Me" layouts show summary if present, else objective — edit whichever is shown */
+function edSummaryObjective(d){
+  if(!d.summary && !d.objective) return "";
+  const path = d.summary ? "summary" : "objective";
+  return `<p>${ed(path, d.summary||d.objective)}</p>`;
+}
+function getCVField(data, path){
+  const parts = path.split(".");
+  if(parts.length===1) return data[parts[0]];
+  const arr = data[parts[0]];
+  if(!Array.isArray(arr)) return undefined;
+  const item = arr[parseInt(parts[1],10)];
+  if(item==null) return undefined;
+  return parts.length===2 ? item : item[parts[2]];
+}
+function setCVField(data, path, value){
+  const parts = path.split(".");
+  if(parts.length===1){ data[parts[0]] = value; return true; }
+  const arr = data[parts[0]];
+  if(!Array.isArray(arr)) return false;
+  const i = parseInt(parts[1],10);
+  if(!arr[i]) return false;
+  if(parts.length===2){ arr[i] = value; return true; }
+  arr[i][parts[2]] = value; return true;
+}
+/* text of an editable element; innerText keeps line breaks in real browsers,
+   jsdom lacks a rendered-text model — fall back to textContent there */
+function editableText(el){
+  const t = (typeof el.innerText === "string" && el.innerText !== "") ? el.innerText : el.textContent;
+  return (t||"").replace(/\u00a0/g, " ");
+}
+function isMultiLinePath(path){
+  return path==="objective" || path==="summary" || /\.details$/.test(path);
+}
+/* list-item paths (skills.0, projects.2, …) — clearing one deletes that item */
+const LIST_ITEM_PATH = /^(skills|computerSkills|languages|certifications|awards|projects|references)\.\d+$/;
 /* ----- shared render helpers ----- */
 function photoHTML(d, shape, size){
   if(!d.photo || shape==="none") return "";
@@ -664,11 +720,14 @@ function photoHTML(d, shape, size){
 }
 function contactSpans(d){
   const bits = [];
-  if(d.phone) bits.push("☎ "+esc(d.phone));
-  if(d.whatsapp) bits.push("WhatsApp: "+esc(d.whatsapp));
-  if(d.email) bits.push("✉ "+esc(d.email));
-  const addr = [d.address, d.city, d.country].filter(Boolean).join(", ");
-  if(addr) bits.push("⌂ "+esc(addr));
+  if(d.phone) bits.push("☎ "+ed("phone", d.phone));
+  if(d.whatsapp) bits.push("WhatsApp: "+ed("whatsapp", d.whatsapp));
+  if(d.email) bits.push("✉ "+ed("email", d.email));
+  const addrBits = [];
+  if(d.address) addrBits.push(ed("address", d.address));
+  if(d.city) addrBits.push(ed("city", d.city));
+  if(d.country) addrBits.push(ed("country", d.country));
+  if(addrBits.length) bits.push("⌂ "+addrBits.join(", "));
   return bits.map(b=>`<span>${b}</span>`).join("");
 }
 function secH(title, v, numbered){
@@ -678,66 +737,85 @@ function secH(title, v, numbered){
   return `<h2 style="${style}">${numbered||""}${esc(title)}</h2>`;
 }
 function expList(d, mode){
-  const items = (d.experience||[]).filter(x=>x.position||x.company);
+  const items = (d.experience||[]).map((x,i)=>({x,i})).filter(o=>o.x.position||o.x.company);
   if(!items.length) return "";
   if(mode==="table"){
     return `<table class="cv-table"><tr><th>Position</th><th>Organisation</th><th>Duration</th><th>Responsibilities</th></tr>${
-      items.map(x=>`<tr><td><strong>${esc(x.position)}</strong></td><td>${esc(x.company)}</td><td>${esc(x.duration)}</td><td>${esc(x.details)}</td></tr>`).join("")}</table>`;
+      items.map(o=>{ const x=o.x, p="experience."+o.i;
+        return `<tr><td><strong>${ed(p+".position", x.position)}</strong></td><td>${ed(p+".company", x.company)}</td><td>${ed(p+".duration", x.duration)}</td><td>${ed(p+".details", x.details)}</td></tr>`; }).join("")}</table>`;
   }
   if(mode==="timeline"){
-    return `<div class="cv-timeline">${items.map(x=>`<div class="cv-exp">
-      <div class="cv-exp-head"><span>${esc(x.position)} — ${esc(x.company)}</span><span>${esc(x.duration)}</span></div>
-      ${x.details?`<p>${esc(x.details)}</p>`:""}</div>`).join("")}</div>`;
+    return `<div class="cv-timeline">${items.map(o=>{ const x=o.x, p="experience."+o.i;
+      return `<div class="cv-exp">
+      <div class="cv-exp-head"><span>${ed(p+".position", x.position)} — ${ed(p+".company", x.company)}</span><span>${ed(p+".duration", x.duration)}</span></div>
+      ${x.details?`<p>${ed(p+".details", x.details)}</p>`:""}</div>`; }).join("")}</div>`;
   }
-  return items.map(x=>`<div class="cv-exp">
-    <div class="cv-exp-head"><span>${esc(x.position)} — ${esc(x.company)}</span><span>${esc(x.duration)}</span></div>
-    ${x.details?`<p>${esc(x.details)}</p>`:""}</div>`).join("");
+  return items.map(o=>{ const x=o.x, p="experience."+o.i;
+    return `<div class="cv-exp">
+    <div class="cv-exp-head"><span>${ed(p+".position", x.position)} — ${ed(p+".company", x.company)}</span><span>${ed(p+".duration", x.duration)}</span></div>
+    ${x.details?`<p>${ed(p+".details", x.details)}</p>`:""}</div>`; }).join("");
 }
 function eduList(d, mode){
-  const items = (d.education||[]).filter(x=>x.degree||x.institution);
+  const items = (d.education||[]).map((x,i)=>({x,i})).filter(o=>o.x.degree||o.x.institution);
   if(!items.length) return "";
   if(mode==="table"){
     return `<table class="cv-table"><tr><th>Degree</th><th>Institution</th><th>Year</th><th>Marks / CGPA</th><th>Other</th></tr>${
-      items.map(x=>`<tr><td><strong>${esc(x.degree)}</strong></td><td>${esc(x.institution)}</td><td>${esc(x.year)}</td><td>${esc(x.marks)}</td><td>${esc(x.extra)}</td></tr>`).join("")}</table>`;
+      items.map(o=>{ const x=o.x, p="education."+o.i;
+        return `<tr><td><strong>${ed(p+".degree", x.degree)}</strong></td><td>${ed(p+".institution", x.institution)}</td><td>${ed(p+".year", x.year)}</td><td>${ed(p+".marks", x.marks)}</td><td>${ed(p+".extra", x.extra)}</td></tr>`; }).join("")}</table>`;
   }
-  return items.map(x=>`<div class="cv-exp">
-    <div class="cv-exp-head"><span>${esc(x.degree)}</span><span>${esc(x.year)}</span></div>
-    <div class="cv-exp-sub">${esc(x.institution)}${x.marks?` • ${esc(x.marks)}`:""}${x.extra?` • ${esc(x.extra)}`:""}</div></div>`).join("");
+  return items.map(o=>{ const x=o.x, p="education."+o.i;
+    const sub = [];
+    if(x.institution) sub.push(ed(p+".institution", x.institution));
+    if(x.marks) sub.push(ed(p+".marks", x.marks));
+    if(x.extra) sub.push(ed(p+".extra", x.extra));
+    return `<div class="cv-exp">
+    <div class="cv-exp-head"><span>${ed(p+".degree", x.degree)}</span><span>${ed(p+".year", x.year)}</span></div>
+    <div class="cv-exp-sub">${sub.join(" • ")}</div></div>`; }).join("");
 }
 function skillChips(d, keys){
-  const all = [];
-  (keys||["skills","computerSkills","languages"]).forEach(k => (d[k]||[]).forEach(s=>all.push(s)));
-  if(!all.length) return "";
-  return `<div class="cv-chips">${all.map(s=>`<span class="cv-chip">${esc(s)}</span>`).join("")}</div>`;
+  const chips = [];
+  (keys||["skills","computerSkills","languages"]).forEach(k => (d[k]||[]).forEach((s,i)=>chips.push({ path:k+"."+i, value:s })));
+  if(!chips.length) return "";
+  return `<div class="cv-chips">${chips.map(c=>`<span class="cv-chip">${ed(c.path, c.value)}</span>`).join("")}</div>`;
 }
 function skillBars(d){
-  const all = [...(d.skills||[]), ...(d.computerSkills||[])];
+  const all = [];
+  ["skills","computerSkills"].forEach(k => (d[k]||[]).forEach((s,i)=>all.push({ path:k+"."+i, value:s })));
   if(!all.length) return "";
-  return all.map((s,i)=>`<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${esc(s)}</span><span>${90 - (i%5)*8}%</span></div>
+  return all.map((c,i)=>`<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${ed(c.path, c.value)}</span><span>${90 - (i%5)*8}%</span></div>
     <div class="cv-bar"><i style="width:${90-(i%5)*8}%;background:var(--acc)"></i></div></div>`).join("");
 }
 function simpleList(arr){
   if(!arr || !arr.length) return "";
-  return `<ul class="cv-list">${arr.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  return `<ul class="cv-list">${arr.map(x=>{
+    if(x && typeof x === "object" && x.path) return `<li>${ed(x.path, x.value)}</li>`;
+    return `<li>${esc(x)}</li>`;
+  }).join("")}</ul>`;
 }
 function sectionIf(title, inner, v, numbered){
   if(!inner) return "";
   return `<div class="cv-sec">${secH(title, v, numbered)}${inner}</div>`;
 }
 function personalBlock(d){
+  /* Values are pre-escaped here (or ed() spans); the row renderer below
+     inserts r[1] raw. Father's Name / DOB / Gender / Nationality stay
+     form-only: DOB is a formatted date, not a plain text value. */
   const rows = [];
-  if(d.fatherName) rows.push(["Father's Name", d.fatherName]);
-  if(d.dob) rows.push(["Date of Birth", fmtDate(d.dob)]);
-  if(d.gender) rows.push(["Gender", d.gender]);
-  if(d.nationality) rows.push(["Nationality", d.nationality]);
-  if(d.city || d.country) rows.push(["Domicile / Residence", [d.city, d.country].filter(Boolean).join(", ")]);
+  if(d.fatherName) rows.push(["Father's Name", esc(d.fatherName)]);
+  if(d.dob) rows.push(["Date of Birth", esc(fmtDate(d.dob))]);
+  if(d.gender) rows.push(["Gender", esc(d.gender)]);
+  if(d.nationality) rows.push(["Nationality", esc(d.nationality)]);
+  const dom = [];
+  if(d.city) dom.push(ed("city", d.city));
+  if(d.country) dom.push(ed("country", d.country));
+  if(dom.length) rows.push(["Domicile / Residence", dom.join(", ")]);
   if(!rows.length) return "";
-  return `<table class="cv-table">${rows.map(r=>`<tr><th style="width:38%">${esc(r[0])}</th><td>${esc(r[1])}</td></tr>`).join("")}</table>`;
+  return `<table class="cv-table">${rows.map(r=>`<tr><th style="width:38%">${esc(r[0])}</th><td>${r[1]}</td></tr>`).join("")}</table>`;
 }
 function headerBlock(d, v, opts){
   opts = opts||{};
-  const name = `<div class="cv-name">${esc(d.fullName||"Your Name")}</div>`;
-  const title = d.title ? `<div class="cv-title">${esc(d.title)}</div>` : "";
+  const name = `<div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>`;
+  const title = d.title ? `<div class="cv-title">${ed("title", d.title)}</div>` : "";
   const contact = `<div class="cv-contact">${contactSpans(d)}</div>`;
   const photo = photoHTML(d, v.photo, opts.photoSize||110);
   if(opts.center) return `<div style="text-align:center;padding:18px 30px 10px">${photo}${name}${title}${contact}</div>`;
@@ -747,7 +825,7 @@ function headerBlock(d, v, opts){
 function sigHTML(d){
   if(!d.signature) return "";
   return `<div style="margin-top:22px;display:flex;justify-content:space-between;align-items:flex-end">
-    <div><div style="font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px">${esc(d.signature)}</div>
+    <div><div style="font-family:'Brush Script MT','Segoe Script',cursive;font-size:26px">${ed("signature", d.signature)}</div>
     <div style="border-top:1px solid #999;width:180px;padding-top:3px;font-size:12px">Signature</div></div>
     <div style="font-size:12px;color:#666">Date: ${fmtDate(todayISO())}</div></div>`;
 }
@@ -756,17 +834,17 @@ function sigHTML(d){
 const LAYOUTS = [
 /* 1 Modern — band header, two-column body */
 (d,v)=>{ const body = `<div style="display:flex;gap:22px;padding:6px 30px 26px">
-  <div style="flex:1.9">${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  <div style="flex:1.9">${sectionIf("Career Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Work Experience", expList(d), v)}
   ${sectionIf("Education", eduList(d), v)}
-  ${sectionIf("Projects", simpleList(d.projects), v)}</div>
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v)}</div>
   <div style="flex:1;border-left:2px solid var(--acc);padding-left:18px">
-  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
   ${sectionIf("Skills", skillChips(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Awards", simpleList(d.awards), v)}
-  ${sectionIf("References", simpleList(d.references), v)}</div></div>`;
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Awards", simpleList(edList(d.awards,"awards")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}</div></div>`;
   return headerBlock(d,v)+body+`<div style="padding:0 30px">${sigHTML(d)}</div>`; },
 /* 2 Professional — navy left sidebar */
 (d,v)=>{ const side = `<div style="width:250px;background:var(--acc);color:#fff;padding:22px 18px;flex-shrink:0">
@@ -775,100 +853,100 @@ const LAYOUTS = [
   <h3 style="color:#fff;border-bottom:2px solid rgba(255,255,255,.5);padding-bottom:4px;margin:16px 0 8px;font-size:13px;letter-spacing:2px">SKILLS</h3>
   <div style="display:flex;flex-wrap:wrap;gap:6px">${[...(d.skills||[]),...(d.computerSkills||[])].map(s=>`<span style="border:1px solid rgba(255,255,255,.7);border-radius:99px;padding:2px 9px;font-size:12px">${esc(s)}</span>`).join("")}</div>
   <h3 style="color:#fff;border-bottom:2px solid rgba(255,255,255,.5);padding-bottom:4px;margin:16px 0 8px;font-size:13px;letter-spacing:2px">LANGUAGES</h3>
-  ${simpleList(d.languages)}
+  ${simpleList(edList(d.languages,"languages"))}
   <h3 style="color:#fff;border-bottom:2px solid rgba(255,255,255,.5);padding-bottom:4px;margin:16px 0 8px;font-size:13px;letter-spacing:2px">CERTIFICATIONS</h3>
-  ${simpleList(d.certifications)}</div>`;
+  ${simpleList(edList(d.certifications,"certifications"))}</div>`;
   const main = `<div style="flex:1;padding:24px 26px">
-  <div class="cv-name" style="color:var(--acc)">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
-  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  <div class="cv-name" style="color:var(--acc)">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${ed("title", d.title)}</div>`:""}
+  ${sectionIf("Professional Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
   ${sectionIf("Work Experience", expList(d,"timeline"), v)}
   ${sectionIf("Education", eduList(d), v)}
-  ${sectionIf("Projects", simpleList(d.projects), v)}
-  ${sectionIf("Awards", simpleList(d.awards), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v)}
+  ${sectionIf("Awards", simpleList(edList(d.awards,"awards")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`;
   return `<div style="display:flex;min-height:1123px">${side}${main}</div>`; },
 /* 3 Corporate — right grey sidebar, name left */
 (d,v)=>{ const main = `<div style="flex:1;padding:24px 26px">
-  <div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title" style="color:var(--acc)">${esc(d.title)}</div>`:""}
+  <div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="color:var(--acc)">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin:8px 0 16px">${contactSpans(d)}</div>
-  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Work Experience", expList(d,"table"), v)}
   ${sectionIf("Education", eduList(d,"table"), v)}
-  ${sectionIf("Projects", simpleList(d.projects), v)}</div>`;
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v)}</div>`;
   const side = `<div style="width:240px;background:#f1f5f9;padding:22px 18px;flex-shrink:0">
   <div style="text-align:center;margin-bottom:12px">${photoHTML(d, v.photo, 110)}</div>
   ${sectionIf("Skills", skillChips(d), v)}
-  ${sectionIf("Computer Skills", simpleList(d.computerSkills), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Awards", simpleList(d.awards), v)}
-  ${sectionIf("References", simpleList(d.references), v)}</div>`;
+  ${sectionIf("Computer Skills", simpleList(edList(d.computerSkills,"computerSkills")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Awards", simpleList(edList(d.awards,"awards")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}</div>`;
   return `<div style="display:flex;min-height:1123px">${main}${side}</div>`; },
 /* 4 Simple — centred, minimal, no photo */
 (d,v)=>{ return `<div style="padding:26px 44px">
-  <div style="text-align:center"><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div style="text-align:center"><div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div>
   <hr style="border:none;border-top:1px solid #999;margin:16px 0"></div>
-  ${sectionIf("Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
-  ${sectionIf("Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
+  ${sectionIf("Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
   ${sectionIf("Experience", expList(d), v)}
   ${sectionIf("Education", eduList(d), v)}
   ${sectionIf("Skills", skillChips(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Projects", simpleList(d.projects), v)}
-  ${sectionIf("Awards", simpleList(d.awards), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v)}
+  ${sectionIf("Awards", simpleList(edList(d.awards,"awards")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 5 ATS-Friendly — plain black/white, no photo, no colour */
 (d,v)=>{ const v2 = Object.assign({}, v, { accent:"#111111", photo:"none", header:"plain" });
   return `<div style="padding:26px 40px;color:#111">
-  <div class="cv-name" style="font-size:26px">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div class="cv-name" style="font-size:26px">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="color:#111">${contactSpans(d)}</div>
-  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v2)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v2)}
   ${sectionIf("Work Experience", expList(d), v2)}
   ${sectionIf("Education", eduList(d), v2)}
   ${sectionIf("Skills", `<p>${esc([...(d.skills||[]),...(d.computerSkills||[])].join(" • "))}</p>`, v2)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v2)}
-  ${sectionIf("Languages", simpleList(d.languages), v2)}
-  ${sectionIf("Projects", simpleList(d.projects), v2)}
-  ${sectionIf("References", simpleList(d.references), v2)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v2)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v2)}
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v2)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v2)}
   ${sigHTML(d)}</div>`; },
 /* 6 Executive — serif, wide margins, double rule */
 (d,v)=>{ return `<div style="padding:34px 56px">
   <div style="text-align:center">
-  <div class="cv-name" style="font-size:32px;letter-spacing:1px">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title" style="letter-spacing:3px;text-transform:uppercase;font-size:13px">${esc(d.title)}</div>`:""}
+  <div class="cv-name" style="font-size:32px;letter-spacing:1px">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="letter-spacing:3px;text-transform:uppercase;font-size:13px">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin-top:8px">${contactSpans(d)}</div></div>
   <hr style="border:none;border-top:3px double #999;margin:18px 0">
-  ${sectionIf("Executive Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
-  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Executive Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Professional Experience", expList(d,"timeline"), v)}
   ${sectionIf("Education & Qualifications", eduList(d), v)}
   ${sectionIf("Core Competencies", skillChips(d), v)}
-  ${sectionIf("Certifications & Awards", simpleList([...(d.certifications||[]),...(d.awards||[])]), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications & Awards", simpleList([...edList(d.certifications,"certifications"),...edList(d.awards,"awards")]), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 7 Creative — big name, colour blocks */
 (d,v)=>{ return `<div style="padding:0">
   <div style="background:var(--acc);color:#fff;padding:26px 30px;display:flex;justify-content:space-between;gap:14px;align-items:center">
-  <div><div class="cv-name" style="font-size:36px">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div style="font-size:17px;opacity:.92">${esc(d.title)}</div>`:""}</div>${photoHTML(d, v.photo, 100)}</div>
+  <div><div class="cv-name" style="font-size:36px">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div style="font-size:17px;opacity:.92">${ed("title", d.title)}</div>`:""}</div>${photoHTML(d, v.photo, 100)}</div>
   <div style="padding:20px 30px 26px">
   <div class="cv-contact" style="margin-bottom:14px">${contactSpans(d)}</div>
-  ${sectionIf("About Me", (d.summary||d.objective)?`<p>${esc(d.summary||d.objective)}</p>`:"", v)}
+  ${sectionIf("About Me", edSummaryObjective(d), v)}
   ${sectionIf("Experience", expList(d), v)}
   ${sectionIf("Education", eduList(d), v)}
   ${sectionIf("My Skills", skillChips(d), v)}
-  ${sectionIf("Projects", simpleList(d.projects), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div></div>`; },
 /* 8 Academic — numbered sections, education first */
 (d,v)=>{ let n=0; const num=()=>String(++n)+". ";
@@ -877,36 +955,36 @@ const LAYOUTS = [
   <hr style="border:none;border-top:2px solid var(--acc);margin:10px 0 16px">
   ${sectionIf("Education", eduList(d,"table"), v, num())}
   ${sectionIf("Research & Teaching Experience", expList(d), v, num())}
-  ${sectionIf("Publications, Projects & Certifications", simpleList([...(d.projects||[]),...(d.certifications||[])]), v, num())}
-  ${sectionIf("Academic Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v, num())}
+  ${sectionIf("Publications, Projects & Certifications", simpleList([...edList(d.projects,"projects"),...edList(d.certifications,"certifications")]), v, num())}
+  ${sectionIf("Academic Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v, num())}
   ${sectionIf("Skills & Languages", skillChips(d), v, num())}
-  ${sectionIf("Awards & Honours", simpleList(d.awards), v, num())}
-  ${sectionIf("References", simpleList(d.references), v, num())}
+  ${sectionIf("Awards & Honours", simpleList(edList(d.awards,"awards")), v, num())}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v, num())}
   ${sigHTML(d)}</div>`; },
 /* 9 Teacher — education first, subjects table */
 (d,v)=>{ return `<div style="padding:26px 36px">
   ${headerBlock(d,v)}
-  ${sectionIf("Teaching Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Teaching Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Education & Qualifications", eduList(d,"table"), v)}
   ${sectionIf("Teaching Experience", expList(d,"timeline"), v)}
   ${sectionIf("Subjects & Skills", `<table class="cv-table"><tr><th>Subject / Skill</th><th>Level</th></tr>${
     [...(d.skills||[]),...(d.computerSkills||[])].map((s,i)=>`<tr><td>${esc(s)}</td><td>${["Expert","Advanced","Intermediate","Advanced","Expert"][i%5]}</td></tr>`).join("")}</table>`, v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Awards", simpleList(d.awards), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Awards", simpleList(edList(d.awards,"awards")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 10 Engineering — projects first, skill bars */
 (d,v)=>{ return `<div style="padding:26px 36px">
   ${headerBlock(d,v)}
-  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
-  ${sectionIf("Engineering Projects", simpleList(d.projects), v)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
+  ${sectionIf("Engineering Projects", simpleList(edList(d.projects,"projects")), v)}
   ${sectionIf("Technical Skills", skillBars(d), v)}
   ${sectionIf("Work Experience", expList(d), v)}
   ${sectionIf("Education", eduList(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; }
 ];
 
@@ -914,75 +992,75 @@ LAYOUTS.push(
 /* 11 Medical — registration block */
 (d,v)=>{ return `<div style="padding:26px 36px">
   ${headerBlock(d,v)}
-  ${sectionIf("Registration & Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Registration & Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
   ${sectionIf("Clinical / Work Experience", expList(d,"table"), v)}
   ${sectionIf("Education & Qualifications", eduList(d,"table"), v)}
   ${sectionIf("Skills", skillChips(d), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Awards", simpleList(d.awards), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Awards", simpleList(edList(d.awards,"awards")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 12 IT Professional — tech stack first, bars */
 (d,v)=>{ return `<div style="padding:26px 36px">
   <div style="display:flex;justify-content:space-between;gap:16px;align-items:flex-start">
-  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title" style="color:var(--acc)">${esc(d.title)}</div>`:""}
+  <div><div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="color:var(--acc)">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>${photoHTML(d, v.photo, 96)}</div>
   ${sectionIf("Tech Stack", skillChips(d,["computerSkills","skills"]), v)}
-  ${sectionIf("Professional Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
-  ${sectionIf("Projects", simpleList(d.projects), v)}
+  ${sectionIf("Professional Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v)}
   ${sectionIf("Work Experience", expList(d), v)}
   ${sectionIf("Skill Proficiency", skillBars(d), v)}
   ${sectionIf("Education", eduList(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 13 Government Job — biodata table first */
 (d,v)=>{ return `<div style="padding:26px 36px">
-  <div style="text-align:center"><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}</div>
+  <div style="text-align:center"><div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${ed("title", d.title)}</div>`:""}</div>
   <div style="display:flex;justify-content:space-between;gap:14px;margin:14px 0">
   <div style="flex:1">${sectionIf("Personal Information", personalBlock(d), v)}</div>
   <div>${photoHTML(d, v.photo==="none"?"square":v.photo, 120)}</div></div>
   <div class="cv-contact" style="margin-bottom:12px">${contactSpans(d)}</div>
-  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Educational Qualifications", eduList(d,"table"), v)}
   ${sectionIf("Work Experience", expList(d,"table"), v)}
   ${sectionIf("Skills", skillChips(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 14 Banking — compact, small type */
 (d,v)=>{ return `<div style="padding:24px 34px;font-size:13px">
   ${headerBlock(d,v)}
-  ${sectionIf("Profile Summary", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
-  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Profile Summary", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Professional Experience", expList(d,"table"), v)}
   ${sectionIf("Education", eduList(d,"table"), v)}
   ${sectionIf("Skills & Computer Skills", skillChips(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 15 International — CURRICULUM VITAE header, languages prominent */
 (d,v)=>{ return `<div style="padding:26px 38px">
   <div style="text-align:center;border-bottom:3px solid var(--acc);padding-bottom:12px;margin-bottom:16px">
   <div style="letter-spacing:5px;font-size:13px;color:var(--acc);font-weight:800">CURRICULUM VITAE</div>
-  <div class="cv-name" style="margin-top:6px">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div class="cv-name" style="margin-top:6px">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>
   ${sectionIf("Personal Details", personalBlock(d), v)}
-  ${sectionIf("Profile", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
+  ${sectionIf("Profile", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
   ${sectionIf("Work Experience", expList(d), v)}
   ${sectionIf("Education", eduList(d), v)}
   ${sectionIf("Skills", skillChips(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Projects", simpleList(d.projects), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Projects", simpleList(edList(d.projects,"projects")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 16 European — Europass-like label/value rows */
 (d,v)=>{ const row = (label, inner) => inner ? `<div style="display:flex;gap:14px;margin-bottom:12px">
@@ -990,78 +1068,78 @@ LAYOUTS.push(
     <div style="flex:1">${inner}</div></div>` : "";
   return `<div style="padding:26px 38px">
   <div style="display:flex;justify-content:space-between;gap:14px;align-items:flex-start">
-  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div><div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>${photoHTML(d, v.photo, 100)}</div>
   <hr style="border:none;border-top:2px solid var(--acc);margin:16px 0">
-  ${row("Profile", d.summary?`<p>${esc(d.summary)}</p>`:"")}
+  ${row("Profile", d.summary?`<p>${ed("summary", d.summary)}</p>`:"")}
   ${row("Work Experience", expList(d))}
   ${row("Education", eduList(d))}
   ${row("Skills", skillChips(d))}
-  ${row("Languages", simpleList(d.languages))}
-  ${row("Certifications", simpleList(d.certifications))}
-  ${row("Projects", simpleList(d.projects))}
-  ${row("References", simpleList(d.references))}
+  ${row("Languages", simpleList(edList(d.languages,"languages")))}
+  ${row("Certifications", simpleList(edList(d.certifications,"certifications")))}
+  ${row("Projects", simpleList(edList(d.projects,"projects")))}
+  ${row("References", simpleList(edList(d.references,"references")))}
   ${sigHTML(d)}</div>`; },
 /* 17 Gulf — photo prominent, objective first */
 (d,v)=>{ return `<div style="padding:26px 36px">
   <div style="display:flex;gap:18px;align-items:center;background:var(--surface-2);border-radius:10px;padding:16px 20px">
   ${photoHTML(d, v.photo==="none"?"square":v.photo, 120)}
-  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title" style="color:var(--acc)">${esc(d.title)}</div>`:""}
+  <div><div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title" style="color:var(--acc)">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div></div>
-  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Personal Details", personalBlock(d), v)}
   ${sectionIf("Work Experience", expList(d), v)}
   ${sectionIf("Education", eduList(d), v)}
   ${sectionIf("Skills", skillChips(d), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 18 Canadian — clean centred, two-column skills */
 (d,v)=>{ return `<div style="padding:26px 42px">
-  <div style="text-align:center"><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div class="cv-title">${esc(d.title)}</div>`:""}
+  <div style="text-align:center"><div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div class="cv-title">${ed("title", d.title)}</div>`:""}
   <div class="cv-contact" style="margin-top:6px">${contactSpans(d)}</div></div>
   <hr style="border:none;border-top:1px solid #bbb;margin:16px 0">
-  ${sectionIf("Summary of Qualifications", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Summary of Qualifications", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
   ${sectionIf("Work Experience", expList(d,"timeline"), v)}
   ${sectionIf("Education", eduList(d), v)}
-  ${sectionIf("Skills", `<div style="columns:2;column-gap:26px">${simpleList([...(d.skills||[]),...(d.computerSkills||[])])}</div>`, v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Volunteer & Projects", simpleList(d.projects), v)}
-  ${sectionIf("References Available Upon Request", simpleList(d.references), v)}
+  ${sectionIf("Skills", `<div style="columns:2;column-gap:26px">${simpleList([...edList(d.skills,"skills"),...edList(d.computerSkills,"computerSkills")])}</div>`, v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Volunteer & Projects", simpleList(edList(d.projects,"projects")), v)}
+  ${sectionIf("References Available Upon Request", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; },
 /* 19 Australian — band header, key selection criteria */
 (d,v)=>{ return `<div style="padding:0">
   <div style="background:var(--acc);color:#fff;padding:22px 30px;display:flex;gap:16px;align-items:center">
   ${photoHTML(d, v.photo, 96)}
-  <div><div class="cv-name">${esc(d.fullName||"Your Name")}</div>
-  ${d.title?`<div style="font-size:15px;opacity:.92">${esc(d.title)}</div>`:""}</div></div>
+  <div><div class="cv-name">${ed("fullName", d.fullName||"Your Name")}</div>
+  ${d.title?`<div style="font-size:15px;opacity:.92">${ed("title", d.title)}</div>`:""}</div></div>
   <div style="padding:20px 30px 26px">
   <div class="cv-contact" style="margin-bottom:12px">${contactSpans(d)}</div>
-  ${sectionIf("Career Profile", d.summary?`<p>${esc(d.summary)}</p>`:"", v)}
+  ${sectionIf("Career Profile", d.summary?`<p>${ed("summary", d.summary)}</p>`:"", v)}
   ${sectionIf("Key Selection Criteria", skillChips(d), v)}
   ${sectionIf("Employment History", expList(d,"timeline"), v)}
   ${sectionIf("Education & Training", eduList(d), v)}
-  ${sectionIf("Certifications", simpleList(d.certifications), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("Referees", simpleList(d.references), v)}
+  ${sectionIf("Certifications", simpleList(edList(d.certifications,"certifications")), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("Referees", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div></div>`; },
 /* 20 Fresh Graduate — education first, big */
 (d,v)=>{ return `<div style="padding:26px 36px">
   ${headerBlock(d,v)}
-  ${sectionIf("Career Objective", d.objective?`<p>${esc(d.objective)}</p>`:"", v)}
+  ${sectionIf("Career Objective", d.objective?`<p>${ed("objective", d.objective)}</p>`:"", v)}
   ${sectionIf("Education", eduList(d,"table"), v)}
-  ${sectionIf("Academic Projects", simpleList(d.projects), v)}
+  ${sectionIf("Academic Projects", simpleList(edList(d.projects,"projects")), v)}
   ${sectionIf("Skills", skillChips(d), v)}
   ${sectionIf("Computer Skills", skillBars(d), v)}
   ${sectionIf("Internships / Experience", expList(d), v)}
-  ${sectionIf("Certifications & Awards", simpleList([...(d.certifications||[]),...(d.awards||[])]), v)}
-  ${sectionIf("Languages", simpleList(d.languages), v)}
-  ${sectionIf("References", simpleList(d.references), v)}
+  ${sectionIf("Certifications & Awards", simpleList([...edList(d.certifications,"certifications"),...edList(d.awards,"awards")]), v)}
+  ${sectionIf("Languages", simpleList(edList(d.languages,"languages")), v)}
+  ${sectionIf("References", simpleList(edList(d.references,"references")), v)}
   ${sigHTML(d)}</div>`; }
 );
 function renderCV(d, n){
@@ -1392,10 +1470,13 @@ function openDesignPreview(p, n){
       <h3 style="margin:0">${designLabel(n)}</h3>
       <button class="btn small ghost" onclick="document.getElementById('modal').classList.remove('open')">✕ Close</button>
     </div>
+    <div class="notice info" style="margin:0 0 10px">✏️ Is preview par kisi bhi text par click karke edit karein — tabdeeli <strong>200 designs mein khud</strong> lag jayegi.</div>
     <div style="max-height:62vh;overflow:auto;border:1px solid var(--line);border-radius:10px">
-      <div style="transform:scale(.72);transform-origin:top left;width:794px">${renderCV(d, n)}</div>
+      <div id="pv-cv" style="transform:scale(.72);transform-origin:top left;width:794px">${renderCV(d, n)}</div>
     </div>
     <div class="btn-row">
+      <button class="btn small" id="pv-edit-toggle" type="button">${inlineEditOn ? "✏️ Edit: ON" : "✏️ Edit: OFF"}</button>
+      <span id="pv-saved" class="badge green hidden">✓ Saved</span>
       <button class="btn small secondary" id="pv-pdf">⬇ Download PDF</button>
       <button class="btn small secondary" id="pv-docx">⬇ Download Word (DOCX)</button>
       <button class="btn small ghost" id="pv-print">🖨 Print</button>
@@ -1404,6 +1485,96 @@ function openDesignPreview(p, n){
   $("#pv-pdf").addEventListener("click", () => downloadPDF(p, n));
   $("#pv-docx").addEventListener("click", () => downloadDOCX(p, n));
   $("#pv-print").addEventListener("click", () => printDesign(p, n));
+  const pvBox = $("#pv-cv");
+  bindInlineEdit(pvBox, p, () => refreshPreviewModal(p, n));
+  activateInlineEdit(pvBox);
+  $("#pv-edit-toggle").addEventListener("click", () => {
+    inlineEditOn = !inlineEditOn;
+    activateInlineEdit(pvBox);
+    $("#pv-edit-toggle").textContent = inlineEditOn ? "✏️ Edit: ON" : "✏️ Edit: OFF";
+  });
+}
+
+/* ---------- Canva-style inline editing (edit once → all 200 update) ----------
+   The [data-edit] spans (see ed()) are made contenteditable inside the
+   single-design view and the full preview modal only. An edit writes straight
+   back to the project data model (the single source of truth), saves to
+   localStorage, and re-renders the design from the updated data. The gallery
+   re-renders from the same data whenever it is opened, so every one of the
+   200 designs shows the new text without pressing Generate again.
+   Selections, package, payment status and download history are untouched
+   (commit only writes project.data and the derived project.title). */
+let inlineEditOn = true;
+function activateInlineEdit(container){
+  if(!container) return;
+  $$("[data-edit]", container).forEach(el => {
+    el.contentEditable = inlineEditOn ? "true" : "false";
+    el.classList.toggle("cv-editable", inlineEditOn);
+    el.spellcheck = false;
+  });
+}
+function showInlineSaved(){
+  ["#dv-saved", "#pv-saved"].forEach(sel => {
+    const b = $(sel);
+    if(b){ b.classList.remove("hidden"); clearTimeout(b._t); b._t = setTimeout(()=>b.classList.add("hidden"), 2500); }
+  });
+}
+function commitInlineEdit(el, project, rerender){
+  const path = el.dataset.edit;
+  if(!path) return;
+  let text = editableText(el);
+  if(!isMultiLinePath(path)) text = text.replace(/\s*\n\s*/g, " ").trim();
+  else text = text.replace(/\n{3,}/g, "\n\n").trim();
+  const oldVal = getCVField(project.data, path);
+  const oldStr = oldVal==null ? "" : String(oldVal);
+  if(text === oldStr){ el.textContent = oldStr; return; }
+  if(text === "" && LIST_ITEM_PATH.test(path)){
+    /* clearing a list item (skill, language, …) removes that item */
+    const parts = path.split(".");
+    (project.data[parts[0]]||[]).splice(parseInt(parts[1],10), 1);
+  } else {
+    setCVField(project.data, path, text);
+  }
+  if(path==="fullName" || path==="title") project.title = (project.data.fullName||"My CV") + " — CV";
+  saveProject(project);
+  showInlineSaved();
+  if(typeof rerender === "function") rerender();
+}
+function bindInlineEdit(container, project, rerender){
+  if(!container || container._inlineBound) return;
+  container._inlineBound = true;
+  container.addEventListener("focusin", e => {
+    const el = e.target.closest("[data-edit]"); if(!el) return;
+    el.dataset.orig = editableText(el);
+  });
+  container.addEventListener("focusout", e => {
+    const el = e.target.closest("[data-edit]"); if(!el) return;
+    commitInlineEdit(el, project, rerender);
+  });
+  container.addEventListener("keydown", e => {
+    const el = e.target.closest("[data-edit]"); if(!el) return;
+    if(e.key === "Enter" && !isMultiLinePath(el.dataset.edit)){ e.preventDefault(); el.blur(); }
+    if(e.key === "Escape"){ el.textContent = el.dataset.orig || ""; el.blur(); }
+  });
+  container.addEventListener("paste", e => {
+    const el = e.target.closest("[data-edit]"); if(!el) return;
+    e.preventDefault();
+    const clip = (e.clipboardData || window.clipboardData);
+    const text = clip ? clip.getData("text/plain") : "";
+    const clean = isMultiLinePath(el.dataset.edit) ? text : text.replace(/\n/g, " ");
+    if(document.execCommand){ document.execCommand("insertText", false, clean); }
+    else { el.textContent += clean; }
+  });
+}
+function refreshDesignView(p, n){
+  const wrap = $("#dv-wrap"); if(!wrap) return;
+  wrap.innerHTML = renderCV(p.data, n);
+  activateInlineEdit(wrap);
+}
+function refreshPreviewModal(p, n){
+  const box = $("#pv-cv"); if(!box) return;
+  box.innerHTML = renderCV(p.data, n);
+  activateInlineEdit(box);
 }
 
 /* ---------- single design view (shareable route) ---------- */
@@ -1422,15 +1593,26 @@ function viewDesign(projectId, n){
   <p><strong>${esc(p.title)}</strong> • Project ID: <code>${esc(p.id)}</code></p>
   <div class="btn-row" style="margin-bottom:14px">
     <a class="btn small ghost" href="#/designs/${p.id}">← Back to all 200 designs</a>
+    <button class="btn small" id="dv-edit-toggle" type="button">${inlineEditOn ? "✏️ Edit: ON" : "✏️ Edit: OFF"}</button>
+    <span id="dv-saved" class="badge green hidden">✓ Saved — all 200 designs updated</span>
     <button class="btn small secondary" id="dv-pdf">⬇ PDF</button>
     <button class="btn small secondary" id="dv-docx">⬇ Word (DOCX)</button>
     <button class="btn small ghost" id="dv-print">🖨 Print</button>
   </div>
   ${chk.ok?"":`<div class="notice warn">${esc(chk.why)}</div>`}
+  <div class="notice info">✏️ <strong>Canva-style editing:</strong> is CV par kisi bhi text par click karke edit karein — naam, title, experience, skills, sab kuch. Jo bhi aap yahan edit karein ge, wo <strong>200 designs mein khud update ho jayega</strong> — dobara Generate dabane ki zaroorat nahi. Photo aur nayi entries form se badlein (<a href="#/form/${p.id}">✏️ Edit Info</a>). Kisi list item (skill, language…) ko khaali karne se wo item delete ho jata hai.</div>
   <div id="dv-wrap">${renderCV(p.data, n)}</div>`;
   $("#dv-pdf").addEventListener("click", () => downloadPDF(p, n));
   $("#dv-docx").addEventListener("click", () => downloadDOCX(p, n));
   $("#dv-print").addEventListener("click", () => printDesign(p, n));
+  const dvWrap = $("#dv-wrap");
+  bindInlineEdit(dvWrap, p, () => refreshDesignView(p, n));
+  activateInlineEdit(dvWrap);
+  $("#dv-edit-toggle").addEventListener("click", () => {
+    inlineEditOn = !inlineEditOn;
+    activateInlineEdit(dvWrap);
+    $("#dv-edit-toggle").textContent = inlineEditOn ? "✏️ Edit: ON" : "✏️ Edit: OFF";
+  });
   showView("design");
 }
 
