@@ -351,7 +351,8 @@ function encodePaymentRequest(pay, project, user){
 }
 function decodePaymentRequest(code){
   try {
-    const s = code.trim().replace(/-/g,"+").replace(/_/g,"/");
+    let s = code.trim().replace(/-/g,"+").replace(/_/g,"/");
+    while(s.length % 4) s += "="; /* encode strips padding — restore it or atob() throws */
     const obj = JSON.parse(decodeURIComponent(escape(atob(s))));
     if(obj && obj.v===1 && obj.refId && obj.projectId) return obj;
   } catch(e){}
