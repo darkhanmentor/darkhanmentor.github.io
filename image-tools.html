@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DK Image Tools — Resize, Compress, Background Change (Free)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif; background: #f2f4f8; color: #1a2233; }
+  header { background: #0b1e3a; color: #fff; padding: 18px 16px; text-align: center; }
+  header h1 { font-size: 24px; }
+  header h1 span { color: #f5a623; }
+  header p { font-size: 13px; opacity: .85; margin-top: 4px; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 14px 12px 40px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 16px; }
+  .tab { flex: 1; min-width: 120px; padding: 12px 8px; border: 2px solid #0b1e3a; background: #fff; color: #0b1e3a; font-weight: 700; font-size: 15px; border-radius: 10px; cursor: pointer; text-align: center; }
+  .tab.active { background: #0b1e3a; color: #f5a623; }
+  .card { background: #fff; border-radius: 14px; padding: 18px 16px; box-shadow: 0 2px 10px rgba(0,0,0,.08); margin-bottom: 16px; }
+  .card h2 { font-size: 19px; margin-bottom: 4px; }
+  .card .sub { font-size: 13px; color: #5a6478; margin-bottom: 14px; }
+  .drop { border: 2px dashed #9aa7bd; border-radius: 12px; padding: 26px 12px; text-align: center; color: #5a6478; cursor: pointer; background: #fafbff; }
+  .drop:hover { border-color: #f5a623; }
+  .drop b { color: #0b1e3a; }
+  input[type=file] { display: none; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 10px 0; }
+  .row label { font-size: 14px; font-weight: 600; min-width: 110px; }
+  .row input[type=number], .row input[type=text], .row select { flex: 1; min-width: 90px; padding: 10px; font-size: 15px; border: 1.5px solid #c4cede; border-radius: 8px; }
+  .row input[type=range] { flex: 1; min-width: 140px; }
+  .row input[type=color] { width: 54px; height: 40px; border: none; background: none; padding: 0; cursor: pointer; }
+  .val { font-weight: 700; color: #0b1e3a; min-width: 52px; text-align: right; }
+  .btn { display: inline-block; background: #f5a623; color: #0b1e3a; border: none; font-weight: 800; font-size: 16px; padding: 13px 22px; border-radius: 10px; cursor: pointer; margin-top: 8px; }
+  .btn.secondary { background: #0b1e3a; color: #fff; }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .btn.green { background: #1e9e5a; color: #fff; }
+  .preview { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  .preview figure { flex: 1; min-width: 150px; }
+  .preview img { max-width: 100%; border-radius: 10px; border: 1px solid #dde3ee; background: repeating-conic-gradient(#eee 0 25%, #fff 0 50%) 0 0/20px 20px; }
+  .preview figcaption { font-size: 13px; color: #5a6478; margin-top: 6px; text-align: center; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0; }
+  .sw { width: 44px; height: 44px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; }
+  .sw.sel { border-color: #0b1e3a; }
+  .list { margin-top: 12px; }
+  .item { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 8px 4px; border-bottom: 1px solid #eef1f6; }
+  .item .ok { color: #1e9e5a; font-weight: 700; }
+  .note { font-size: 12.5px; color: #5a6478; margin-top: 10px; line-height: 1.5; }
+  .hidden { display: none; }
+  .hint { background: #fff8e6; border: 1px solid #f5d67a; border-radius: 10px; padding: 10px 12px; font-size: 13px; margin: 10px 0; line-height: 1.5; }
+  footer { text-align: center; font-size: 12px; color: #8a94a8; padding: 18px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>DK <span>Image Tools</span></h1>
+  <p>Resize • Compress • Background Change • Bulk — Free, no sign-up, photos never leave your phone</p>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" data-tab="resize">Resize</div>
+    <div class="tab" data-tab="compress">Compress</div>
+    <div class="tab" data-tab="bg">Background</div>
+    <div class="tab" data-tab="bulk">Bulk (10–50)</div>
+  </div>
+
+  <!-- ============ RESIZE ============ -->
+  <div class="card" id="tab-resize">
+    <h2>Resize Image</h2>
+    <p class="sub">Photo ki width/height badlein — pixels ya percent mein. (Resize karein)</p>
+    <div class="drop" id="dropResize"><b>Photo select karein</b><br>ya yahan drag &amp; drop karein (JPG, PNG, WEBP)</div>
+    <input type="file" id="fileResize" accept="image/*">
+    <div id="resizeControls" class="hidden">
+      <div class="row"><label>Mode</label>
+        <select id="resizeMode"><option value="px">Pixels (exact size)</option><option value="pct">Percent (%)</option></select>
+      </div>
+      <div class="row" id="pxRow"><label>Width (px)</label><input type="number" id="rw" value="1200" min="1"><label style="min-width:20px">×</label><input type="number" id="rh" placeholder="auto" min="1"></div>
+      <div class="row hidden" id="pctRow"><label>Percent</label><input type="range" id="rpct" min="5" max="200" value="50"><span class="val" id="rpctVal">50%</span></div>
+      <div class="row"><label><input type="checkbox" id="keepRatio" checked> Aspect ratio</label></div>
+      <div class="row"><label>Format</label>
+        <select id="rformat"><option value="image/jpeg">JPEG</option><option value="image/png">PNG</option><option value="image/webp">WEBP</option></select>
+        <label>Quality</label><input type="range" id="rqual" min="10" max="100" value="85"><span class="val" id="rqualVal">85%</span>
+      </div>
+      <button class="btn" id="btnResize">Resize karein</button>
+      <button class="btn green hidden" id="btnResizeDl">Download</button>
+      <div class="preview" id="resizePreview"></div>
+      <p class="note">Tip: Blog/website photos ke liye 1200–1600 px width aur 75% quality behtareen hai. Passport ke liye 600×600 ya 35mm×45mm presets neeche Bulk tab mein nahi — yahan width/height khud likhein.</p>
+    </div>
+  </div>
+
+  <!-- ============ COMPRESS ============ -->
+  <div class="card hidden" id="tab-compress">
+    <h2>Compress Image (Size Kam Karein)</h2>
+    <p class="sub">Photo ka size KB mein kam karein — quality ya exact target size se. (Compress karein)</p>
+    <div class="drop" id="dropCompress"><b>Photo select karein</b><br>ya yahan drag &amp; drop karein</div>
+    <input type="file" id="fileCompress" accept="image/*">
+    <div id="compressControls" class="hidden">
+      <div class="row"><label>Target size</label>
+        <select id="ctarget">
+          <option value="0">Quality slider se (manual)</option>
+          <option value="20">20 KB</option><option value="50">50 KB</option><option value="100">100 KB</option>
+          <option value="150">150 KB</option><option value="200">200 KB</option><option value="300">300 KB</option>
+          <option value="500">500 KB</option><option value="1024">1 MB</option><option value="2048">2 MB</option>
+        </select>
+      </div>
+      <div class="row"><label>Quality</label><input type="range" id="cqual" min="5" max="100" value="75"><span class="val" id="cqualVal">75%</span></div>
+      <div class="row"><label>Format</label>
+        <select id="cformat"><option value="image/jpeg">JPEG (chhota size)</option><option value="image/webp">WEBP (aur chhota)</option><option value="image/png">PNG</option></select>
+      </div>
+      <button class="btn" id="btnCompress">Compress karein</button>
+      <button class="btn green hidden" id="btnCompressDl">Download</button>
+      <div class="preview" id="compressPreview"></div>
+      <p class="note">Target size chunein (jaise 100 KB — job forms ke liye) to tool khud best quality dhoond lega. JPEG/WEBP chhote files banate hain; PNG bade rehte hain.</p>
+    </div>
+  </div>
+
+  <!-- ============ BACKGROUND ============ -->
+  <div class="card hidden" id="tab-bg">
+    <h2>Background Change Karein</h2>
+    <p class="sub">Photo ka background hatayein aur naya rang lagayein — passport / ID photo ke liye. (Background badlein)</p>
+    <div class="hint">Tareeqa: Photo upload karein, phir <b>background wali jagah par click karein</b> — woh rang hat jayega. Tolerance slider se hatane ki taqat badlein. Phir neeche se naya background rang chunein (safed, laal, neela...). Saaf/plain background wali photos par behtareen kaam karta hai.</div>
+    <div class="drop" id="dropBg"><b>Photo select karein</b><br>ya yahan drag &amp; drop karein</div>
+    <input type="file" id="fileBg" accept="image/*">
+    <div id="bgControls" class="hidden">
+      <div class="row"><label>Tolerance</label><input type="range" id="bgtol" min="5" max="120" value="40"><span class="val" id="bgtolVal">40</span></div>
+      <div class="row"><label>Naya background</label>
+        <div class="swatches" id="bgSwatches">
+          <div class="sw sel" data-c="#ffffff" style="background:#fff;border-color:#ccc" title="White"></div>
+          <div class="sw" data-c="#d92b2b" style="background:#d92b2b" title="Red"></div>
+          <div class="sw" data-c="#1e5fd6" style="background:#1e5fd6" title="Blue"></div>
+          <div class="sw" data-c="#1e9e5a" style="background:#1e9e5a" title="Green"></div>
+          <div class="sw" data-c="#f5a623" style="background:#f5a623" title="Yellow"></div>
+          <div class="sw" data-c="#111827" style="background:#111827" title="Black"></div>
+          <div class="sw" data-c="transparent" style="background:repeating-conic-gradient(#ddd 0 25%,#fff 0 50%) 0 0/12px 12px" title="Transparent (PNG)"></div>
+        </div>
+        <input type="color" id="bgCustom" value="#ffffff" title="Custom colour">
+      </div>
+      <div class="row"><label>Soften edges</label><input type="checkbox" id="bgFeather" checked> <span style="font-size:13px">kinare naram karein</span></div>
+      <button class="btn" id="btnBgApply">Background lagayein</button>
+      <button class="btn secondary" id="btnBgUndo">Wapas (Undo)</button>
+      <button class="btn green hidden" id="btnBgDl">Download (PNG)</button>
+      <div class="preview" id="bgPreview"></div>
+      <p class="note">Click karne ke baad agar aadmi ka hissa bhi hat jaye to Tolerance kam karein aur dobara click karein. Behtareen result ke liye ek rang ka plain background wali photo use karein.</p>
+    </div>
+  </div>
+
+  <!-- ============ BULK ============ -->
+  <div class="card hidden" id="tab-bulk">
+    <h2>Bulk Resize + Compress (10–50 Photos)</h2>
+    <p class="sub">Aik saath 10, 20, 30, 40, 50 photos resize + compress karein — aik ZIP mein download. (Bulk mein karein)</p>
+    <div class="drop" id="dropBulk"><b>Photos select karein (multiple)</b><br>ya folder yahan drag &amp; drop karein — JPG, PNG, WEBP</div>
+    <input type="file" id="fileBulk" accept="image/*" multiple>
+    <div id="bulkControls" class="hidden">
+      <div class="row"><label>Width (px)</label><input type="number" id="bwidth" value="1200" min="1">
+        <label style="min-width:20px">ya</label><input type="number" id="bpct" value="" placeholder="% (jaise 50)" min="5" max="200">
+      </div>
+      <div class="row"><label>Quality</label><input type="range" id="bqual" min="10" max="100" value="80"><span class="val" id="bqualVal">80%</span>
+        <label>Format</label><select id="bformat"><option value="image/jpeg">JPEG</option><option value="image/webp">WEBP</option><option value="keep">Waisa hi (same)</option></select>
+      </div>
+      <button class="btn" id="btnBulk">Sab resize + compress karein</button>
+      <button class="btn green hidden" id="btnBulkDl">ZIP Download karein</button>
+      <div class="list" id="bulkList"></div>
+      <p class="note">Koi limit nahi — 50 se zyada bhi chal jayengi, sirf phone ki memory ka khayal rakhein. Photos aapke phone se kahin upload nahi hotin — sab kaam browser mein hota hai.</p>
+    </div>
+  </div>
+
+  <p class="note" style="text-align:center">100% free • No sign-up • No watermark • Aapki photos kabhi server par nahi jati — sab kuch aapke phone/browser mein hota hai.</p>
+</div>
+<footer>DK Image Tools — Darkhan Mentor</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const fmtKB = b => b >= 1048576 ? (b/1048576).toFixed(2)+' MB' : (b/1024).toFixed(1)+' KB';
+const fmtDim = (w,h) => w+' × '+h+' px';
+
+// ---- tabs ----
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  ['resize','compress','bg','bulk'].forEach(k => $('tab-'+k).classList.toggle('hidden', k !== t.dataset.tab));
+}));
+
+// ---- helpers ----
+function loadImage(file){ return new Promise((res, rej)=>{ const u = URL.createObjectURL(file); const im = new Image(); im.onload = ()=>res({im, url:u}); im.onerror = rej; im.src = u; }); }
+function drawToCanvas(im, w, h){ const c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(im, 0, 0, w, h); return c; }
+function downloadBlob(blob, name){ const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 5000); }
+function baseName(name){ return name.replace(/\.[^.]+$/, ''); }
+function outName(name, fmt){ const ext = fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg'; return baseName(name)+'-resized.'+ext; }
+function wireDrop(dropId, inputId, cb){
+  const d = $(dropId), inp = $(inputId);
+  d.addEventListener('click', ()=> inp.click());
+  d.addEventListener('dragover', e => { e.preventDefault(); d.style.borderColor = '#f5a623'; });
+  d.addEventListener('dragleave', ()=> d.style.borderColor = '');
+  d.addEventListener('drop', e => { e.preventDefault(); d.style.borderColor=''; if(e.dataTransfer.files.length) cb(e.dataTransfer.files); });
+  inp.addEventListener('change', ()=> { if(inp.files.length) cb(inp.files); });
+}
+function previewHTML(origUrl, origLabel, outUrl, outLabel){
+  return '<figure><img src="'+origUrl+'"><figcaption>Original<br>'+origLabel+'</figcaption></figure>'
+       + '<figure><img src="'+outUrl+'"><figcaption>New<br>'+outLabel+'</figcaption></figure>';
+}
+
+// ================= RESIZE =================
+let rImg=null, rFile=null, rOutBlob=null, rOutName='';
+wireDrop('dropResize','fileResize', async files => {
+  rFile = files[0]; const {im} = await loadImage(rFile); rImg = im;
+  $('resizeControls').classList.remove('hidden');
+  $('rh').placeholder = Math.round(im.height * 1200 / im.width);
+  $('resizePreview').innerHTML = previewHTML(URL.createObjectURL(rFile), fmtDim(im.width, im.height)+' • '+fmtKB(rFile.size), URL.createObjectURL(rFile), '—');
+  $('btnResizeDl').classList.add('hidden');
+});
+$('resizeMode').addEventListener('change', e => {
+  $('pxRow').classList.toggle('hidden', e.target.value !== 'px');
+  $('pctRow').classList.toggle('hidden', e.target.value !== 'pct');
+});
+$('rpct').addEventListener('input', e => $('rpctVal').textContent = e.target.value+'%');
+$('rqual').addEventListener('input', e => $('rqualVal').textContent = e.target.value+'%');
+$('rw').addEventListener('input', ()=>{ if($('keepRatio').checked && rImg){ $('rh').value = Math.round(rImg.height * (+$('rw').value||1) / rImg.width); }});
+$('btnResize').addEventListener('click', async ()=>{
+  if(!rImg) return;
+  let w, h;
+  if($('resizeMode').value === 'pct'){ const p = +$('rpct').value/100; w = Math.round(rImg.width*p); h = Math.round(rImg.height*p); }
+  else { w = +$('rw').value || rImg.width; h = $('keepRatio').checked ? Math.round(rImg.height * w / rImg.width) : (+$('rh').value || Math.round(rImg.height * w / rImg.width)); }
+  const c = drawToCanvas(rImg, w, h);
+  const fmt = $('rformat').value, q = +$('rqual').value/100;
+  rOutBlob = await new Promise(res => c.toBlob(res, fmt, q));
+  rOutName = outName(rFile.name, fmt);
+  $('resizePreview').innerHTML = previewHTML(URL.createObjectURL(rFile), fmtDim(rImg.width, rImg.height)+' • '+fmtKB(rFile.size), URL.createObjectURL(rOutBlob), fmtDim(w,h)+' • '+fmtKB(rOutBlob.size));
+  $('btnResizeDl').classList.remove('hidden');
+});
+$('btnResizeDl').addEventListener('click', ()=> downloadBlob(rOutBlob, rOutName));
+
+// ================= COMPRESS =================
+let cImg=null, cFile=null, cOutBlob=null, cOutName='';
+wireDrop('dropCompress','fileCompress', async files => {
+  cFile = files[0]; const {im} = await loadImage(cFile); cImg = im;
+  $('compressControls').classList.remove('hidden');
+  $('compressPreview').innerHTML = previewHTML(URL.createObjectURL(cFile), fmtDim(im.width, im.height)+' • '+fmtKB(cFile.size), URL.createObjectURL(cFile), '—');
+  $('btnCompressDl').classList.add('hidden');
+});
+$('cqual').addEventListener('input', e => $('cqualVal').textContent = e.target.value+'%');
+async function toBlobQ(canvas, fmt, q){ return new Promise(res => canvas.toBlob(res, fmt, q)); }
+$('btnCompress').addEventListener('click', async ()=>{
+  if(!cImg) return;
+  const fmt = $('cformat').value;
+  const targetKB = +$('ctarget').value;
+  const c = drawToCanvas(cImg, cImg.width, cImg.height);
+  let blob, usedQ;
+  if(targetKB > 0){
+    // binary search quality to hit target size
+    let lo = 0.05, hi = 0.95, best = null, bestQ = 0.75;
+    for(let i=0;i<7;i++){
+      const q = (lo+hi)/2;
+      const b = await toBlobQ(c, fmt, q);
+      if(b.size <= targetKB*1024){ best = b; bestQ = q; lo = q; } else { hi = q; }
+    }
+    blob = best || await toBlobQ(c, fmt, 0.05); usedQ = Math.round(bestQ*100);
+  } else {
+    usedQ = +$('cqual').value; blob = await toBlobQ(c, fmt, usedQ/100);
+  }
+  cOutBlob = blob; cOutName = outName(cFile.name, fmt);
+  $('compressPreview').innerHTML = previewHTML(URL.createObjectURL(cFile), fmtDim(cImg.width,cImg.height)+' • '+fmtKB(cFile.size), URL.createObjectURL(blob), fmtDim(cImg.width,cImg.height)+' • '+fmtKB(blob.size)+' • Quality '+usedQ+'%');
+  $('btnCompressDl').classList.remove('hidden');
+});
+$('btnCompressDl').addEventListener('click', ()=> downloadBlob(cOutBlob, cOutName));
+
+// ================= BACKGROUND =================
+let bImg=null, bFile=null, bOrigData=null, bWork=null, bPicked=null, bBg='#ffffff';
+wireDrop('dropBg','fileBg', async files => {
+  bFile = files[0]; const {im} = await loadImage(bFile); bImg = im;
+  $('bgControls').classList.remove('hidden');
+  const c = drawToCanvas(im, im.width, im.height);
+  bWork = c; bOrigData = c.getContext('2d').getImageData(0,0,c.width,c.height);
+  showBg(c);
+  $('btnBgDl').classList.add('hidden');
+});
+function showBg(canvas){
+  $('bgPreview').innerHTML = '<figure style="flex:1"><img id="bgImgEl" src="'+canvas.toDataURL('image/png')+'"><figcaption>Preview — background par click karein</figcaption></figure>';
+  const el = $('bgImgEl');
+  el.style.cursor = 'crosshair';
+  el.addEventListener('click', ev => {
+    const r = el.getBoundingClientRect();
+    const x = Math.round((ev.clientX - r.left) / r.width * canvas.width);
+    const y = Math.round((ev.clientY - r.top) / r.height * canvas.height);
+    removeBgAt(x, y);
+  });
+}
+function hexToRgb(h){ h = h.replace('#',''); return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)]; }
+function removeBgAt(x, y){
+  const ctx = bWork.getContext('2d');
+  const img = ctx.getImageData(0,0,bWork.width,bWork.height);
+  const d = img.data, W = bWork.width, H = bWork.height;
+  const i0 = (y*W + x)*4;
+  const tr = d[i0], tg = d[i0+1], tb = d[i0+2];
+  const tol = +$('bgtol').value;
+  // flood fill from clicked point over similar colours
+  const seen = new Uint8Array(W*H);
+  const stack = [[x,y]];
+  const close = (i)=> Math.abs(d[i]-tr) + Math.abs(d[i+1]-tg) + Math.abs(d[i+2]-tb) <= tol*3;
+  while(stack.length){
+    const [cx, cy] = stack.pop();
+    if(cx<0||cy<0||cx>=W||cy>=H) continue;
+    const idx = cy*W+cx; if(seen[idx]) continue; seen[idx]=1;
+    const i = idx*4;
+    if(!close(i)) continue;
+    d[i+3] = 0; // transparent
+    stack.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1]);
+  }
+  // soften edges: blur alpha slightly by averaging neighbours
+  if($('bgFeather').checked){
+    const copy = new Uint8ClampedArray(d);
+    for(let yy=1; yy<H-1; yy++) for(let xx=1; xx<W-1; xx++){
+      const i=(yy*W+xx)*4;
+      if(d[i+3]===0) continue;
+      let edge = false;
+      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]) if(copy[((yy+dy)*W+xx+dx)*4+3]===0){ edge=true; break; }
+      if(edge) d[i+3] = 140;
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  showBg(bWork);
+}
+$('bgtol').addEventListener('input', e => $('bgtolVal').textContent = e.target.value);
+document.querySelectorAll('#bgSwatches .sw').forEach(s => s.addEventListener('click', ()=>{
+  document.querySelectorAll('#bgSwatches .sw').forEach(x => x.classList.remove('sel'));
+  s.classList.add('sel'); bBg = s.dataset.c;
+}));
+$('bgCustom').addEventListener('input', e => { bBg = e.target.value; document.querySelectorAll('#bgSwatches .sw').forEach(x => x.classList.remove('sel')); });
+$('btnBgUndo').addEventListener('click', ()=>{
+  if(!bWork) return;
+  bWork.getContext('2d').putImageData(bOrigData, 0, 0);
+  showBg(bWork); $('btnBgDl').classList.add('hidden');
+});
+$('btnBgApply').addEventListener('click', ()=>{
+  if(!bWork) return;
+  const out = document.createElement('canvas'); out.width = bWork.width; out.height = bWork.height;
+  const octx = out.getContext('2d');
+  if(bBg !== 'transparent'){ octx.fillStyle = bBg; octx.fillRect(0,0,out.width,out.height); }
+  octx.drawImage(bWork, 0, 0);
+  const url = out.toDataURL('image/png');
+  $('bgPreview').innerHTML = '<figure><img src="'+url+'"><figcaption>Final — '+ (bBg==='transparent' ? 'Transparent background' : 'Background: '+bBg) +'</figcaption></figure>';
+  $('btnBgDl').classList.remove('hidden');
+  $('btnBgDl').onclick = ()=> out.toBlob(b => downloadBlob(b, baseName(bFile.name)+'-bg.png'), 'image/png');
+});
+
+// ================= BULK =================
+let bulkFiles = [], bulkBlobs = [];
+wireDrop('dropBulk','fileBulk', files => {
+  bulkFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+  $('bulkControls').classList.remove('hidden');
+  $('bulkList').innerHTML = bulkFiles.map(f => '<div class="item"><span>'+f.name+'</span><span>'+fmtKB(f.size)+'</span></div>').join('');
+  $('btnBulkDl').classList.add('hidden');
+});
+$('bqual').addEventListener('input', e => $('bqualVal').textContent = e.target.value+'%');
+$('btnBulk').addEventListener('click', async ()=>{
+  if(!bulkFiles.length) return;
+  bulkBlobs = [];
+  $('bulkList').innerHTML = '';
+  const pct = +$('bpct').value;
+  const wTarget = +$('bwidth').value;
+  const q = +$('bqual').value/100;
+  const fmtSel = $('bformat').value;
+  for(const f of bulkFiles){
+    try{
+      const {im} = await loadImage(f);
+      let w, h;
+      if(pct){ w = Math.round(im.width*pct/100); h = Math.round(im.height*pct/100); }
+      else { w = wTarget; h = Math.round(im.height * wTarget / im.width); }
+      const c = drawToCanvas(im, w, h);
+      const fmt = fmtSel === 'keep' ? (f.type === 'image/png' ? 'image/png' : f.type === 'image/webp' ? 'image/webp' : 'image/jpeg') : fmtSel;
+      const blob = await new Promise(res => c.toBlob(res, fmt, q));
+      const ext = fmt==='image/png'?'png':fmt==='image/webp'?'webp':'jpg';
+      bulkBlobs.push({ name: baseName(f.name)+'-resized.'+ext, blob });
+      $('bulkList').innerHTML += '<div class="item"><span>'+f.name+'</span><span>'+fmtKB(f.size)+' → <span class="ok">'+fmtKB(blob.size)+'</span></span></div>';
+    }catch(e){
+      $('bulkList').innerHTML += '<div class="item"><span>'+f.name+'</span><span style="color:#c0392b">Failed</span></div>';
+    }
+  }
+  if(bulkBlobs.length) $('btnBulkDl').classList.remove('hidden');
+});
+$('btnBulkDl').addEventListener('click', async ()=>{
+  if(typeof JSZip === 'undefined'){ alert('ZIP library load nahi hui — internet check karein aur dobara koshish karein.'); return; }
+  const zip = new JSZip();
+  bulkBlobs.forEach(b => zip.file(b.name, b.blob));
+  const content = await zip.generateAsync({type:'blob'});
+  downloadBlob(content, 'dk-images-resized.zip');
+});
+</script>
+</body>
+</html>
